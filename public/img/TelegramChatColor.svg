@@ -1,0 +1,73 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.0359 27.4249C11.0826 27.4249 11.2446 27.0762 10.9158 26.1969L8.1123 17.2591L29.692 4.85742" fill="#E0E0E0"/>
+<path d="M12.0361 27.4252C12.7718 27.4252 13.0969 27.0992 13.5075 26.7125L17.4311 23.0167L12.5369 20.1577" fill="#BDBDBD"/>
+<path d="M12.5362 20.1583L24.3952 28.6458C25.7485 29.3692 26.7252 28.9947 27.0623 27.4287L31.8895 5.39269C32.3838 3.47322 31.1342 2.60263 29.8396 3.172L1.49411 13.7599C-0.440733 14.5117 -0.429453 15.5574 1.14143 16.0233L8.41552 18.2227L25.2558 7.93072C26.0508 7.46371 26.7804 7.71479 26.1816 8.22965" fill="white"/>
+<template xmlns="" id="transover-popup-template">
+  <style>
+    .pos_translation {
+      padding-bottom: 3px;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    .rtl {
+      direction: rtl;
+    }
+
+    main {
+      color: #333;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: initial;
+
+      background: #fcf7d9;
+      text-align: left;
+      border-style: solid;
+      border-width: 1px;
+      border-color: #ccc;
+      box-shadow: rgba(0,0,0,0.2) 0px 2px 5px;
+      border-radius: 5px;
+      padding: 6px 8px 3px 8px;
+      position: fixed;
+      z-index: 2147483647;
+      top: -1500px;
+      left: 0;
+      box-sizing: content-box;
+      -webkit-font-smoothing: antialiased;
+      font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+
+      /* To fix the following issue:
+      1. Have translate on hover enabled (opposed to translate on click).
+      2. Wisit a website that has a dropdown menu that opens on hover.
+      3. Open the menu.
+      4. Hover over a word within that menu.
+      5. Incidentally move the cursor over the TransOver popup.
+      The hover menu gets closed.
+      */
+      pointer-events: none;
+    }
+
+    .pos_translation {
+      font-size: 1em;
+      line-height: 1.2em;
+    }
+
+    .red {
+      color: red;
+    }
+
+    .from_lang {
+      color: grey;
+      font-size: 0.8em;
+      line-height: 1.2em;
+      margin-top: 2px;
+      margin-bottom: 3px;
+    }
+  </style>
+
+  <main/>
+</template></svg>
