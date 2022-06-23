@@ -3,16 +3,16 @@ import web3 from "web3"
 import Swal from 'sweetalert2'
 
 // Components
-import {SidebarTemplate} from "helpers/Template"
-import {isMobile} from "helpers/calculations"
-import {TopBarWallet} from "components/molecules/TopBarWallet"
-import AccountStatus from "components/organisms/AccountStatus"
-import Miners from "components/organisms/Miners"
-import BuyMiners from "components/organisms/BuyMiners"
-import ProfitabilityStatistics from "components/organisms/ProfitabilityStatistics"
-import CoinSelectorModal from "components/molecules/CoinSelectorModal"
+import {SidebarTemplate} from "../../helpers/Template"
+import {isMobile} from "../../helpers/calculations"
+import {TopBarWallet} from "../../components/molecules/TopBarWallet"
+import AccountStatus from "../../components/organisms/AccountStatus"
+import Miners from "../../components/organisms/Miners"
+import BuyMiners from "../../components/organisms/BuyMiners"
+import ProfitabilityStatistics from "../../components/organisms/ProfitabilityStatistics"
+import CoinSelectorModal from "../../components/molecules/CoinSelectorModal"
 
-import {executeTransaction} from "helpers/send-transaction"
+import {executeTransaction} from "../../helpers/send-transaction"
 
 function UserCabinet() {
 

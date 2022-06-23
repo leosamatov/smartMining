@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 
 // Components
-import SingleLocation from "components/atoms/SingleLocation"
+import SingleLocation from "../atoms/SingleLocation"
 
 const LOCATIONS_DATA_LEFT = [
   "CANADA",

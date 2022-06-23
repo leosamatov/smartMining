@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from "react"
 
 // Helpers
-import Template, {WhiteBgContainer} from "helpers/Template"
-import Footer from "helpers/Footer"
+import Template, {WhiteBgContainer} from "../helpers/Template"
+import Footer from "../helpers/Footer"
 
 // Components
-import TopBar from "components/organisms/TopBar"
-import Steps from "components/molecules/Steps"
-import Mining from "components/molecules/Mining"
-import Calculator from "components/organisms/Calculator"
-import CloudMiningContracts from "components/organisms/CloudMiningContracts"
-import Team from "components/molecules/Team"
-import ConnectWallet from "components/molecules/ConnectWallet"
+import TopBar from "../components/organisms/TopBar"
+import Steps from "../components/molecules/Steps"
+import Mining from "../components/molecules/Mining"
+import Calculator from "../components/organisms/Calculator"
+import CloudMiningContracts from "../components/organisms/CloudMiningContracts"
+import Team from "../components/molecules/Team"
+import ConnectWallet from "../components/molecules/ConnectWallet"
 import WalletConnect from "@walletconnect/client"
 import QRCodeModal from "@walletconnect/qrcode-modal"
-import WalletModal from "components/molecules/WalletModal"
+import WalletModal from "../components/molecules/WalletModal"
 
 function Home () {
 

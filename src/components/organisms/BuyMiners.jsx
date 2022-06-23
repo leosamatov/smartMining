@@ -3,9 +3,8 @@ import PropTypes from "prop-types"
 import { Player } from "@lottiefiles/react-lottie-player"
 
 // Data
-import {Bonuses, CALCULATOR_DATA} from "config/constants"
-import {calculatePower, periodEarn} from "helpers/calculations"
-import {executeTransaction} from "helpers/send-transaction";
+import {Bonuses, CALCULATOR_DATA} from "../../config/constants"
+import {calculatePower, periodEarn} from "../../helpers/calculations"
 
 function BuyMiners({show, toggle, setIsCoinSelectorModalOpened, setValue}) {
 

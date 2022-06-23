@@ -1,7 +1,7 @@
 import React from "react"
 
 // Components
-import {SidebarTemplate} from "helpers/Template"
+import {SidebarTemplate} from "../helpers/Template"
 
 function History() {
 

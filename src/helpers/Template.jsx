@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom"
 import PropTypes from "prop-types"
 
 // Components
-import MobileMenu from "components/molecules/MobileMenu"
-import MainMenu from "components/molecules/MainMenu"
+import MobileMenu from "../components/molecules/MobileMenu"
+import MainMenu from "../components/molecules/MainMenu"
 
 function Template({children, background, classes}) {
   const { pathname, hash, key } = useLocation()

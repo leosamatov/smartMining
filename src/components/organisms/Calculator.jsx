@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from "react"
-import {CALCULATOR_DATA, Bonuses} from "config/constants"
-import {calculatePower, periodEarn} from "helpers/calculations"
+import {CALCULATOR_DATA, Bonuses} from "../../config/constants"
+import {calculatePower, periodEarn} from "../../helpers/calculations"
 
 function Calculator() {
 

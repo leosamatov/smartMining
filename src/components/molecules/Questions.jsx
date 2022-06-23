@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 
 // Components
-import SingleQuestion from "components/atoms/SingleQuestion"
+import SingleQuestion from "../atoms/SingleQuestion"
 
 function Questions({items}) {
 

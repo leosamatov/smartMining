@@ -1,8 +1,10 @@
 import React, {useEffect} from "react"
 
 // Chart
-import "https://unpkg.com/echarts/dist/echarts.min.js"
-import "https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"
+//import "https://unpkg.com/echarts/dist/echarts.min.js"
+//import "https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"
+import "@chartisan/echarts"
+import "echarts"
 
 function ProfitabilityStatistics() {
 

@@ -2,11 +2,11 @@
 import React from "react"
 
 // Helpers
-import Template, {WhiteBgContainer} from "helpers/Template"
-import Footer from "helpers/Footer"
+import Template, {WhiteBgContainer} from "../helpers/Template"
+import Footer from "../helpers/Footer"
 
 // Components
-import TopBar from "components/organisms/TopBar"
+import TopBar from "../components/organisms/TopBar"
 
 function Privacy() {
   return (

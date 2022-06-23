@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "ethers": "5.6.8",
     "@ethersproject/providers": "5.6.8",
     "@lottiefiles/react-lottie-player": "^3.4.7",
     "@testing-library/jest-dom": "^5.16.4",
@@ -16,6 +15,7 @@
     "bignumber.js": "9.0.1",
     "binance-api-node": "^0.11.36",
     "buffer": "^6.0.3",
+    "ethers": "5.6.8",
     "jquery": "^3.6.0",
     "next-tick": "^1.1.0",
     "prop-types": "^15.8.1",
@@ -27,10 +27,14 @@
     "web3": "^1.7.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@chartisan/echarts": "^2.2.3",
     "assert": "^2.0.0",
     "babel-jest": "^27.2.0",
+    "babel-loader": "^8.2.5",
     "babel-plugin-styled-components": "^1.13.2",
     "crypto-browserify": "^3.12.0",
+    "echarts": "^5.3.3",
     "eslint": "^7.32.0",
     "eslint-config-next": "11.1.2",
     "eslint-plugin-react": "^7.25.1",
@@ -41,12 +45,18 @@
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "tls": "^0.0.1",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "webpack": "5.73.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "browser": {
+    "crypto": false
   },
   "scripts": {
     "start-old": "react-scripts start",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "build-webpack": "webpack --mode production",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

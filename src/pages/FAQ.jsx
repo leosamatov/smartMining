@@ -1,12 +1,12 @@
 import React from "react"
 
 // Helpers
-import Template, {WhiteBgContainer} from "helpers/Template"
-import Footer from "helpers/Footer"
+import Template, {WhiteBgContainer} from "../helpers/Template"
+import Footer from "../helpers/Footer"
 
 // Components
-import TopBar from "components/organisms/TopBar"
-import Questions from "components/molecules/Questions"
+import TopBar from "../components/organisms/TopBar"
+import Questions from "../components/molecules/Questions"
 
 const FAQ_DATA = [
   {

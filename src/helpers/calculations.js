@@ -1,4 +1,4 @@
-import {usd_ghz} from "config/constants"
+import {usd_ghz} from "../config/constants"
 
 export const periodEarn = (_amount, plan, days, bonus = null) => {
   let amount = (_amount * plan?.profit / 100 * days)

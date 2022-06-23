@@ -4,17 +4,17 @@ import ReactDOM from "react-dom/client"
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 
 // Pages
-import Home from "pages/Home"
-import FAQ from "pages/FAQ"
-import Contact from "pages/Contact"
-import Referral from "pages/Referral"
-import History from "pages/History"
-import TermsAndCondition from "pages/TermsAndCondition"
-import Privacy from "pages/Privacy"
-import CloudMining from "pages/CloudMining"
-import CryptoMining from "pages/CryptoMining"
-import UserCabinet from "pages/user"
-import NotFound from "pages/NotFound"
+import Home from "./pages/Home"
+import FAQ from "./pages/FAQ"
+import Contact from "./pages/Contact"
+import Referral from "./pages/Referral"
+import History from "./pages/History"
+import TermsAndCondition from "./pages/TermsAndCondition"
+import Privacy from "./pages/Privacy"
+import CloudMining from "./pages/CloudMining"
+import CryptoMining from "./pages/CryptoMining"
+import UserCabinet from "./pages/user"
+import NotFound from "./pages/NotFound"
 import { Web3ReactProvider } from '@web3-react/core'
 import Web3 from 'web3'
 
