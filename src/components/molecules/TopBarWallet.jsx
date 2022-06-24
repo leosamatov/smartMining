@@ -44,7 +44,7 @@ export const TopBarWallet = () => {
     .then(async (accounts) => {
       let address = document.getElementById("address")
       address.innerText = accounts[0]
-      let balance = document.getElementById("balance")
+       document.getElementById("balance")
       balance.innerText = await provider.getBalance(accounts[0])
     })
   }, [])

@@ -52,6 +52,9 @@
   "browser": {
     "crypto": false
   },
+  "browser": {
+    "crypto": false
+  },
   "scripts": {
     "start-old": "react-scripts start",
     "start": "react-app-rewired start",
