@@ -1,4 +1,5 @@
 import React from "react"
+import { NavLink } from "react-router-dom"
 
 function Footer() {
 
@@ -36,7 +37,7 @@ function Footer() {
                 <a onClick={smoothScroll} href="#contracts" data-href="#contracts">Contracts</a>
               </li>
               <li>
-                <a href="/faq">FAQ</a>
+                <NavLink to="/faq">FAQ</NavLink>
               </li>
             </ul>
           </div>
