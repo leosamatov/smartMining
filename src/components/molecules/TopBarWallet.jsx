@@ -38,15 +38,22 @@ export const TopBarWallet = () => {
   }
 
   useEffect(() => {
-    const provider = new eth.providers.JsonRpcProvider(networkRPC[ethereum.chainId])
-    ethereum
-    .request({method: "eth_requestAccounts"})
-    .then(async (accounts) => {
-      let address = document.getElementById("address")
-      address.innerText = accounts[0]
-      let balance = document.getElementById("balance")
-      balance.innerText = await provider.getBalance(accounts[0])
+    const provider = new eth.providers.JsonRpcProvider(networkRPC[window.ethereum.chainId])
+    const currentAddress = window.ethereum.selectedAddress
+    let address = document.getElementById("address")
+    address.innerText = currentAddress
+    let balance = document.getElementById("balance")
+    provider.getBalance(currentAddress).then(value => {
+      balance.innerText = value
     })
+    //ethereum
+    //.request({method: "eth_requestAccounts"})
+    //.then(async (accounts) => {
+    //  let address = document.getElementById("address")
+    //  address.innerText = accounts[0]
+    //  let balance = document.getElementById("balance")
+    //  balance.innerText = await provider.getBalance(accounts[0])
+    //})
   }, [])
 
   return (
