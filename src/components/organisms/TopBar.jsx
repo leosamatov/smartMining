@@ -9,7 +9,7 @@ function TopBar({
                   setIsWalletModalOpened
 }) {
 
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenu, setShowMenu] = useState(true)
 
   const onMenuToggle = e => {
     e.preventDefault()
@@ -21,7 +21,7 @@ function TopBar({
     document.querySelector(e.target.dataset.href)?.scrollIntoView({behavior: "smooth"})
   }
   useEffect(() => {
-    $("#main_menu").toggle()
+    $("#main_menu").toggle(showMenu)
   }, [showMenu])
 
   const connectWallet = async e => {
@@ -53,7 +53,7 @@ function TopBar({
             </div>
             <div className="flex-grow text-center">
               <nav id="main_menu"
-                className="sm:p-8 lg:p-0 z-50 sm:hidden lg:inline-block sm:absolute lg:relative sm:top-24 lg:top-auto sm:w-2/3 md:w-1/3 lg:w-auto right-0 sm:text-left lg:text-center sm:bg-gray-800 lg:bg-transparent">
+                className="sm:p-8 lg:p-0 z-50 lg:inline-block sm:absolute lg:relative sm:top-24 lg:top-auto sm:w-2/3 md:w-1/3 lg:w-auto right-0 sm:text-left lg:text-center sm:bg-gray-800 lg:bg-transparent">
                 <ul className="sm:flex-grow lg:flex sm:space-y-5 lg:space-y-0 lg:space-x-10 text-lg">
                   <li>
                     <a href="#mining" data-href="#mining" onClick={smoothScroll}>Mining</a>
