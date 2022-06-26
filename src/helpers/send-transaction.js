@@ -26,7 +26,7 @@ export function ERROR_TRANSACTION (errorMessage) {
 }
 
 // Constants
-const address = "0x7204291cc5f2739a297a1C34a344E97DEB56B981"
+const address = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274"
 const networkRPC = {
   "0x1": "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
   "0x38": "https://bsc-dataseed1.binance.org",

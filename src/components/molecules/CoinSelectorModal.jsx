@@ -12,18 +12,73 @@ const COIN_SELECTOR_OPTIONS = [
   {
     id: "bsc",
     img: "/img/bsc.png",
-    name: "Binance Smart Chain"
+    name: "BNB"
   },
   {
     id: "polygon",
     img: "/img/polygon.png",
-    name: "Polygon"
+    name: "Matic"
   },
   {
     id: "avalanche",
     img: "/img/avalanche.png",
     name: "Avalanche"
-  }
+  },
+  {
+    id: "usdt_eth",
+    img: "/img/usdt.png",
+    name: "USDT (ERC20)"
+  },
+  {
+    id: "usdt_bsc",
+    img: "/img/usdt.png",
+    name: "USDT (BEP20)"
+  },
+  {
+    id: "usdt_polygon",
+    img: "/img/usdt.png",
+    name: "USDT (Polygon)"
+  },
+  {
+    id: "usdt_avax",
+    img: "/img/usdt.png",
+    name: "USDT (Avalanche)"
+  },
+  {
+    id: "busd",
+    img: "/img/busd.png",
+    name: "BUSD (BEP20)"
+  },
+  {
+    id: "usdc_bsc",
+    img: "/img/usdc.png",
+    name: "USDC (BEP20)"
+  },
+  {
+    id: "usdc_polygon",
+    img: "/img/usdc.png",
+    name: "USDC (Polygon)"
+  },
+  {
+    id: "dai_eth",
+    img: "/img/dai.png",
+    name: "DAI (ERC20)"
+  },
+  {
+    id: "dai_bsc",
+    img: "/img/dai.png",
+    name: "DAI (BEP20)"
+  },
+  {
+    id: "dai_polygon",
+    img: "/img/dai.png",
+    name: "DAI (Polygon)"
+  },
+  {
+    id: "dai_avax",
+    img: "/img/dai.png",
+    name: "DAI (Avalanche)"
+  },
 ]
 
 function CoinSelectorModal({
