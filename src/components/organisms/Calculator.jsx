@@ -21,9 +21,13 @@ function Calculator() {
   // Amount logic
   const [amount, setAmount] = useState(200);
   const onAmountChange = (e) => {
-    const value = Number(e.target.value);
-    if (value !== -1) {
-      setAmount(value);
+    const value = e.target.value;
+    if (!isNaN(value)) {
+      const maxValue = 100000;
+
+      if (value !== -1 && value <= maxValue) {
+        setAmount(Number(value));
+      }
     }
   };
   // Power logic
