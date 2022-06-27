@@ -208,7 +208,7 @@ function Calculator() {
                       <div className="pt-2 sm:w-full md:w-3/5">
                         <div className="text-right space-x-3">
                           <div className="inline-block">
-                            <a href="/" className="btn-orange">
+                            <a href="/user" className="btn-orange">
                               <span className="">Deposit</span>
                               <img
                                 className="inline-block"
