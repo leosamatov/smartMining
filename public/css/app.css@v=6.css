@@ -10412,7 +10412,9 @@ img, video {
 .h-16 {
     height: 4rem
 }
-
+.h-17 {
+    height: 10rem
+}
 .h-20 {
     height: 5rem
 }
@@ -11461,6 +11463,10 @@ img, video {
         height: 4rem
     }
 
+    .sm\:h-17 {
+        height: 10rem
+    }
+
     .sm\:h-28 {
         height: 7rem
     }
@@ -12052,7 +12058,9 @@ img, video {
     .lg\:h-16 {
         height: 4rem
     }
-
+    .lg\:h-17 {
+        height: 10rem
+    }
     .lg\:h-96 {
         height: 24rem
     }
@@ -12436,6 +12444,7 @@ a:focus, a:hover {
 }
 
 .miner-modal-input {
+    position: relative;
     height: 56px;
     background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, .07));
     border-radius: 6px
@@ -12475,7 +12484,8 @@ a:focus, a:hover {
 }
 
 .btn-action:disabled {
-    background-color: #ffc2af
+    background-color: #ffc2af;
+    pointer-events:none;
 }
 
 .miner-slider {

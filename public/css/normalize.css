@@ -117,7 +117,9 @@ video {
 .h-16 {
     height: 4rem
 }
-
+.h-17 {
+    height: 10rem
+}
 .text-sm {
     font-size: .875rem
 }
