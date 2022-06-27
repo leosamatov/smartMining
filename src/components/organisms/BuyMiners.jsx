@@ -21,15 +21,15 @@ function BuyMiners({ show, toggle, setIsCoinSelectorModalOpened, setValue }) {
   const [errorMessage, setErrorMessage] = useState(null);
   const onAmountChange = (e) => {
     const value = e.target.value;
-    const maxValue = 100000;
-    const minValue = 200;
-
-    if (value <= maxValue) {
-      setAmount(Number(value));
-      setErrorMessage(null);
-    }
-    if (!value || value < 200) {
-      setErrorMessage(`Invalid amount`);
+    if (!isNaN(value)) {
+      const maxValue = 100000;
+      if (value <= maxValue) {
+        setAmount(Number(value));
+        setErrorMessage(null);
+      }
+      if (!value || value < 200) {
+        setErrorMessage(`Invalid amount`);
+      }
     }
   };
   useEffect(() => {
