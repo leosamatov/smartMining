@@ -20,11 +20,11 @@ function BuyMiners({ show, toggle, setIsCoinSelectorModalOpened, setValue }) {
   const [amount, setAmount] = useState(200);
   const [errorMessage, setErrorMessage] = useState(null);
   const onAmountChange = (e) => {
-    const value = e.target.value;
+    const value = Number(e.target.value);
     if (!isNaN(value)) {
       const maxValue = 100000;
       if (value <= maxValue) {
-        setAmount(Number(value));
+        setAmount(value);
         setErrorMessage(null);
       }
       if (!value || value < 200) {
@@ -177,7 +177,7 @@ function BuyMiners({ show, toggle, setIsCoinSelectorModalOpened, setValue }) {
 
                 <div className="flex text-sm -mt-1">
                   <div className="w-1/2">
-                    200 00 <span className="opacity-50">$</span>
+                    200 <span className="opacity-50">$</span>
                   </div>
                   <div className="w-1/2 text-right">
                     100 000 <span className="opacity-50">$</span>
