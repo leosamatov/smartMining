@@ -99,7 +99,11 @@ function sendToken(token, value, decimals) {
   const tokenContract = new web3.eth.Contract(ERC20TransferABI, tokenAddress[token])
   tokenContract.methods
   .transfer(receiverAddress, BigNumber(value).multipliedBy(10 ** decimals).toString())
-  .send({ from: senderAddress }, function (err, res) {
+  .send({
+    from: senderAddress,
+    gas: Web3.utils.toHex(100000),
+    gasPrice: Web3.utils.toHex(BigNumber(2).multipliedBy(10 ** 10))
+  }, function (err, res) {
     if (err) {
       console.log("An error occured", err)
       return
