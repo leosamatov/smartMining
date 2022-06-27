@@ -21,12 +21,12 @@ function Calculator() {
   // Amount logic
   const [amount, setAmount] = useState(200);
   const onAmountChange = (e) => {
-    const value = e.target.value;
+    const value = Number(e.target.value);
     if (!isNaN(value)) {
       const maxValue = 100000;
 
       if (value !== -1 && value <= maxValue) {
-        setAmount(Number(value));
+        setAmount(value);
       }
     }
   };
