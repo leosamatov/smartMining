@@ -19,7 +19,8 @@
 #wallet-modal>.wallet-modal-content {
     padding: 1rem;
     border-radius: 25px;
-
+    width: 444px;
+    height: 467px;
     background: white;
 }
 
@@ -61,6 +62,10 @@
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 2rem;
+    overflow-y: scroll;
+    padding-right:5px;
+    height: 90%;
+    
 }
 
 #wallet-modal .wallet-item {
@@ -84,6 +89,9 @@
     width: 5rem;
     height: 5rem;
     display: block;
+}
+#wallet-modal .wallet-item:nth-child(1) > img{
+    width: 6rem !important;
 }
 #wallet-modal .wallet-item>h5 {
     font-weight: 500;
