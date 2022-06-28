@@ -102,12 +102,15 @@ function HashModal({ showModal, setShowModal }) {
 
 const BtcQrModal = ({
   adress = "bc1qmzxqma9txclalccr67uz9xclma52a8kmqf3tgn",
-  summa = "10",
-  open,
+  BitcoinModalOptions,
 }) => {
+  const { open, summa } = BitcoinModalOptions.BitcoinModalOptions;
+  const { setBitcoinModalOptions } = BitcoinModalOptions;
   const [isOpen, setOpen] = useState(open);
   const [showModal, setShowModal] = useState(false);
-
+  useEffect(() => {
+    setOpen(open);
+  }, [open]);
   return (
     isOpen && (
       <>
@@ -121,7 +124,15 @@ const BtcQrModal = ({
               <div>
                 <a
                   href="#"
-                  onClick={() => setOpen(!open)}
+                  onClick={() => {
+                    if (open) {
+                      setBitcoinModalOptions({
+                        open: false,
+                        summa: null,
+                      });
+                    }
+                    setOpen(!open);
+                  }}
                   style={{
                     top: "7px",
                   }}
