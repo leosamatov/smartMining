@@ -12,7 +12,9 @@
 .snap>div {
     scroll-snap-align: center;
 }
-
+#mob{
+    max-width: none !important;
+}
 #banner_2 {
     position: fixed;
     top: 0;

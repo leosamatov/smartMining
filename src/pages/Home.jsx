@@ -1,53 +1,55 @@
-import React, {useEffect, useState} from "react"
+import React, { useContext, useEffect, useState } from "react";
 
 // Helpers
-import Template, {WhiteBgContainer} from "../helpers/Template"
-import Footer from "../helpers/Footer"
+import Template, { WhiteBgContainer } from "../helpers/Template";
+import Footer from "../helpers/Footer";
 
 // Components
-import TopBar from "../components/organisms/TopBar"
-import Steps from "../components/molecules/Steps"
-import Mining from "../components/molecules/Mining"
-import Calculator from "../components/organisms/Calculator"
-import CloudMiningContracts from "../components/organisms/CloudMiningContracts"
-import Team from "../components/molecules/Team"
-import ConnectWallet from "../components/molecules/ConnectWallet"
-import WalletConnect from "@walletconnect/client"
-import QRCodeModal from "@walletconnect/qrcode-modal"
-import WalletModal from "../components/molecules/WalletModal"
+import TopBar from "../components/organisms/TopBar";
+import Steps from "../components/molecules/Steps";
+import Mining from "../components/molecules/Mining";
+import Calculator from "../components/organisms/Calculator";
+import CloudMiningContracts from "../components/organisms/CloudMiningContracts";
+import Team from "../components/molecules/Team";
+import ConnectWallet from "../components/molecules/ConnectWallet";
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+import WalletModal from "../components/molecules/WalletModal";
+import { UserContext } from "../UserContext";
 
-function Home () {
-
-  const [isWalletModalOpened, setIsWalletModalOpened] = useState(false)
-
+function Home() {
+  const [isWalletModalOpened, setIsWalletModalOpened] = useState(false);
+  // const cont = useContext(UserContext);
+  // console.log("cont", cont);
   useEffect(() => {
     // const connector = new WalletConnect({
     //   bridge: "https://bridge.walletconnect.org",  qrcodeModal: QRCodeModal,
     // })
     // connector.connect()
-  }, [])
+  }, []);
 
   return (
     <Template>
       <WhiteBgContainer>
-        <TopBar setIsWalletModalOpened={setIsWalletModalOpened}/>
+        <TopBar setIsWalletModalOpened={setIsWalletModalOpened} />
 
-        <Steps/>
-        <Mining/>
-        <Calculator/>
-        <CloudMiningContracts/>
+        <Steps />
+        <Mining />
+        <Calculator />
+        <CloudMiningContracts />
       </WhiteBgContainer>
 
-      <Team/>
-      <ConnectWallet/>
-      <Footer/>
+      <Team />
+      <ConnectWallet />
+      <Footer />
 
       {/* Modals */}
-      <WalletModal isWalletModalOpened={isWalletModalOpened} setIsWalletModalOpened={setIsWalletModalOpened}/>
-
+      <WalletModal
+        isWalletModalOpened={isWalletModalOpened}
+        setIsWalletModalOpened={setIsWalletModalOpened}
+      />
     </Template>
-    
-  )
+  );
 }
 
-export default Home
+export default Home;

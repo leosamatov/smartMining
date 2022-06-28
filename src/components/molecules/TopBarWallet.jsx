@@ -30,6 +30,8 @@ export const TopBarWallet = ({ accounts }) => {
   const [value, setValue] = useState(options[0]);
   const [show, setShow] = useState(false);
 
+  const [showMenu, setShowMenu] = useState(true);
+
   const toggleDropdown = () => setShow((prevState) => !prevState);
   const selectOption = (option) => {
     setValue(option);
