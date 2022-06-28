@@ -42,8 +42,8 @@ function MainMenu({ activeItem = "/referral" }) {
         </div>
         <ul className="space-y-5">
           <li>
-            <a
-              href="/user"
+            <NavLink
+              to="/user"
               className={`${
                 activeItem === "/user" ? "bg-gray-800 text-white" : ""
               } space-x-2 block leading-4 font-medium hover:no-underline px-3 py-2.5 rounded-lg`}
@@ -51,7 +51,7 @@ function MainMenu({ activeItem = "/referral" }) {
               <img src="img/Miner.svg" className="inline-block -mt-0.5" />
               <img src="img/Miner_h.svg" className="hidden -mt-0.5" />
               <span className=" hidden-minim">Dashboard</span>
-            </a>
+            </NavLink>
           </li>
           <li>
             <a
@@ -65,7 +65,7 @@ function MainMenu({ activeItem = "/referral" }) {
               <span className=" hidden-minim">History</span>
             </a>
           </li>
-          <li>
+          {/* <li>
             <a
               href="/referral"
               className={`${
@@ -76,7 +76,7 @@ function MainMenu({ activeItem = "/referral" }) {
               <img src="img/Ref_h.svg" className="inline-block -mt-0.5" />
               <span className=" hidden-minim">Referral</span>
             </a>
-          </li>
+          </li> */}
         </ul>
         <div className="border-t lg:hidden border-gray-200">
           <ul className="pt-4 space-y-3">

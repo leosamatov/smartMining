@@ -207,10 +207,10 @@ function TopBar({
                   most profitable mining areas!
                 </div>
                 <div className="pt-4">
-                  <a href="/user" onClick={startEarning} className="btn-orange">
+                  <NavLink to="/user" className="btn-orange">
                     <span className="">Start earning</span>
                     <img className="inline-block" src="img/go.svg" alt="" />
-                  </a>
+                  </NavLink>
                 </div>
               </div>
               <div className="h-100 lg:-mt-20 sm:max-h-96 lg:max-h-1 lg:text-right sm:text-center w-full lg:w-2/3 lg:pl-40 lg:pr-0 sm:px-20">

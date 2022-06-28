@@ -41,7 +41,7 @@ const App = () => {
           />
           <Route path="faq" element={<FAQ />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="referral" element={<Referral />} />
+          {/* <Route path="referral" element={<Referral />} /> */}
           <Route path="history" element={<History />} />
           <Route path="terms-cond" element={<TermsAndCondition />} />
           <Route path="privacy" element={<Privacy />} />
@@ -49,6 +49,8 @@ const App = () => {
           <Route path="crypto-mining" element={<CryptoMining />} />
 
           <Route path="user" element={<UserCabinet />} />
+          <Route path="/user" element={<UserCabinet />} />
+          <Route path="/user-buy" element={<UserCabinet buy={true} />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { CALCULATOR_DATA, Bonuses } from "../../config/constants";
 import { calculatePower, periodEarn } from "../../helpers/calculations";
 
@@ -212,14 +213,14 @@ function Calculator() {
                       <div className="pt-2 sm:w-full md:w-3/5">
                         <div className="text-right space-x-3">
                           <div className="inline-block">
-                            <a href="/user" className="btn-orange">
+                            <NavLink to="/user-buy" className="btn-orange">
                               <span className="">Deposit</span>
                               <img
                                 className="inline-block"
                                 src="img/go.svg"
                                 alt=""
                               />
-                            </a>
+                            </NavLink>
                           </div>
                         </div>
                       </div>
