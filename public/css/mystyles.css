@@ -100,7 +100,20 @@ input[type=number] {
     margin-right: 0.5rem;
     filter: grayscale(100%);
 }
-
+.errorPageContainer{
+    background: #242731;
+    color:white;
+    display: flex;
+    height:100vh;
+    font-size:16px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.errorPageContainer a{
+    color: #ff5824;
+    text-decoration: underline;
+}
 /* DROPDOWN */
 .dropbtn {
     display: block;
