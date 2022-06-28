@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Web3 from "web3";
 import Swal from "sweetalert2";
 import BigNumber from "bignumber.js";
@@ -14,6 +14,7 @@ import ProfitabilityStatistics from "../../components/organisms/ProfitabilitySta
 import CoinSelectorModal from "../../components/molecules/CoinSelectorModal";
 
 import { executeTransaction } from "../../helpers/send-transaction";
+import { UserContext } from "../../UserContext";
 
 //Btc, eth, bnb, matic, AVAX,
 //usdt(erc-20, matic, bep-20, avax),
@@ -101,18 +102,26 @@ function sendToken(token, value, decimals) {
     tokenAddress[token]
   );
   tokenContract.methods
-  .transfer(receiverAddress, BigNumber(value).multipliedBy(10 ** decimals).toString())
-  .send({
-    from: senderAddress,
-    gas: Web3.utils.toHex(100000),
-    gasPrice: Web3.utils.toHex(BigNumber(2).multipliedBy(10 ** 10))
-  }, function (err, res) {
-    if (err) {
-      console.log("An error occured", err)
-      return
-    }
-    SUCCESS_TRANSACTION()
-  })
+    .transfer(
+      receiverAddress,
+      BigNumber(value)
+        .multipliedBy(10 ** decimals)
+        .toString()
+    )
+    .send(
+      {
+        from: senderAddress,
+        gas: Web3.utils.toHex(100000),
+        gasPrice: Web3.utils.toHex(BigNumber(2).multipliedBy(10 ** 10)),
+      },
+      function (err, res) {
+        if (err) {
+          console.log("An error occured", err);
+          return;
+        }
+        SUCCESS_TRANSACTION();
+      }
+    );
 }
 
 const DAI_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
@@ -120,6 +129,8 @@ const DAI_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
 function UserCabinet() {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prevState) => !prevState);
+  const { value: accountData, setValue: setAccountData } =
+    useContext(UserContext);
 
   const connectMessageEl = (
     <h3>
@@ -149,6 +160,9 @@ function UserCabinet() {
         .then((accounts) => {
           setAccounts(accounts[0]);
           setIsConnected(true);
+          setAccountData({
+            adress: accounts,
+          });
           setErrorMessage(null);
         })
         .catch((error) => {
