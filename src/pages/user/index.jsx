@@ -121,10 +121,50 @@ function UserCabinet() {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prevState) => !prevState);
 
+  const connectMessageEl = (
+    <h3>
+      Please connect to <a href="https://metamask.io/download/">MetaMask</a>.
+    </h3>
+  );
+  const installMessageEl = (
+    <h3>
+      Please install <a href="https://metamask.io/download/">MetaMask</a>
+    </h3>
+  );
+
   const [isCoinSelectorModalOpened, setIsCoinSelectorModalOpened] =
     useState(false);
   const [value, setValue] = useState(0);
   const [coin, setCoin] = useState(null);
+  const ethereum = window.ethereum;
+
+  const [isConnected, setIsConnected] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [accounts, setAccounts] = useState(null);
+
+  const connect = () => {
+    if (window.ethereum) {
+      ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((accounts) => {
+          setAccounts(accounts[0]);
+          setIsConnected(true);
+          setErrorMessage(null);
+        })
+        .catch((error) => {
+          setErrorMessage(connectMessageEl);
+          setIsConnected(false);
+          console.log("error", error);
+        });
+    } else {
+      setErrorMessage(installMessageEl);
+      setIsConnected(false);
+    }
+  };
+
+  useEffect(() => {
+    connect();
+  }, []);
 
   useEffect(() => {
     // Coin selected
@@ -283,7 +323,7 @@ function UserCabinet() {
     }
   }, [coin]);
 
-  return (
+  return isConnected && accounts && !errorMessage ? (
     <SidebarTemplate activeItem="/user">
       <div className="sm:w-full">
         <nav className="border-b-2 border-gray-200 py-8 sm:hidden lg:block">
@@ -299,14 +339,14 @@ function UserCabinet() {
             </li>
             {!isMobile() ? (
               <li className="flex-grow text-right">
-                <TopBarWallet />
+                <TopBarWallet accounts={accounts} />
               </li>
             ) : null}
           </ul>
         </nav>
 
         <div className="content py-10 space-y-10">
-          {isMobile() ? <TopBarWallet /> : null}
+          {isMobile() ? <TopBarWallet accounts={accounts} /> : null}
 
           <AccountStatus toggle={toggleModal} />
 
@@ -329,6 +369,10 @@ function UserCabinet() {
         </div>
       </div>
     </SidebarTemplate>
+  ) : (
+    <div className="errorPageContainer">
+      <h3>{errorMessage}</h3>
+    </div>
   );
 }
 

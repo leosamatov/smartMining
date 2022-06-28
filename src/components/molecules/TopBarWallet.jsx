@@ -26,7 +26,7 @@ const options = [
   },
 ];
 
-export const TopBarWallet = () => {
+export const TopBarWallet = ({ accounts }) => {
   const [value, setValue] = useState(options[0]);
   const [show, setShow] = useState(false);
 
@@ -37,25 +37,14 @@ export const TopBarWallet = () => {
   };
 
   useEffect(() => {
-    const provider = new eth.providers.JsonRpcProvider(
-      networkRPC[ethereum.chainId]
-    );
-    ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then(async (accounts) => {
-        let address = document.getElementById("address");
-        address.innerText = accounts[0];
-        document.getElementById("balance");
-        balance.innerText = await provider.getBalance(accounts[0]);
-      });
-    //ethereum
-    //.request({method: "eth_requestAccounts"})
-    //.then(async (accounts) => {
-    //  let address = document.getElementById("address")
-    //  address.innerText = accounts[0]
-    //  let balance = document.getElementById("balance")
-    //  balance.innerText = await provider.getBalance(accounts[0])
-    //})
+    async function fetchData() {
+      const provider = new eth.providers.JsonRpcProvider(
+        networkRPC[ethereum.chainId]
+      );
+      let balance = document.getElementById("balance");
+      balance.innerText = await provider.getBalance(accounts);
+    }
+    fetchData();
   }, []);
 
   return (
@@ -81,7 +70,7 @@ export const TopBarWallet = () => {
         <span id="balance"></span>
         <span className="divider">|</span>
         <img src="img/Wallet.png" alt="" />
-        <span id="address"></span>
+        <span id="address">{accounts}</span>
       </div>
     </div>
   );
