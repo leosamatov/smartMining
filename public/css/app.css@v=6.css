@@ -10613,6 +10613,7 @@ img, video {
 }
 
 .mt-20 {
+    width:75.6%;
     margin-top: 5rem
 }
 
@@ -10891,6 +10892,9 @@ img, video {
 
 .pl-3 {
     padding-left: .75rem
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis; /* Добавляем многоточие */
 }
 
 .pt-4 {

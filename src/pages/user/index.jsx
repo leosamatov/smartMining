@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Web3 from "web3";
 import Swal from "sweetalert2";
 import BigNumber from "bignumber.js";
@@ -24,11 +24,61 @@ import { sendNativeCurrency, sendToken } from "../../helpers/send-transaction";
 function UserCabinet() {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prevState) => !prevState);
+  const { value: accountData, setValue: setAccountData } =
+    useContext(UserContext);
+
+  const connectMessageEl = (
+    <h3>
+      Please connect to <a href="https://metamask.io/download/">MetaMask</a>.
+    </h3>
+  );
+  const installMessageEl = (
+    <h3>
+      Please install <a href="https://metamask.io/download/">MetaMask</a>
+    </h3>
+  );
 
   const [isCoinSelectorModalOpened, setIsCoinSelectorModalOpened] =
     useState(false);
   const [value, setValue] = useState(0);
   const [coin, setCoin] = useState(null);
+  const ethereum = window.ethereum;
+
+  const [isConnected, setIsConnected] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [accounts, setAccounts] = useState(null);
+
+  const [BitcoinModalOptions, setBitcoinModalOptions] = useState({
+    isOpen: false,
+    summa: null,
+  });
+
+  const connect = () => {
+    if (window.ethereum) {
+      ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((accounts) => {
+          setAccounts(accounts[0]);
+          setIsConnected(true);
+          setAccountData({
+            adress: accounts,
+          });
+          setErrorMessage(null);
+        })
+        .catch((error) => {
+          setErrorMessage(connectMessageEl);
+          setIsConnected(false);
+          console.log("error", error);
+        });
+    } else {
+      setErrorMessage(installMessageEl);
+      setIsConnected(false);
+    }
+  };
+
+  useEffect(() => {
+    connect();
+  }, []);
 
   useEffect(() => {
     // Coin selected
@@ -174,6 +224,12 @@ function UserCabinet() {
             sendToken("usdc_polygon", value, 6);
           }
           break;
+        case "btc":
+          setBitcoinModalOptions({
+            open: true,
+            summa: 10000001,
+          });
+          break;
         case "busd":
           if (window.ethereum.chainId != Web3.utils.toHex(56)) {
             Swal.fire({
@@ -187,7 +243,7 @@ function UserCabinet() {
     }
   }, [coin]);
 
-  return (
+  return isConnected && accounts && !errorMessage ? (
     <SidebarTemplate activeItem="/user">
       <div className="sm:w-full">
         <nav className="border-b-2 border-gray-200 py-8 sm:hidden lg:block">
@@ -203,14 +259,14 @@ function UserCabinet() {
             </li>
             {!isMobile() ? (
               <li className="flex-grow text-right">
-                <TopBarWallet />
+                <TopBarWallet accounts={accounts} />
               </li>
             ) : null}
           </ul>
         </nav>
 
         <div className="content py-10 space-y-10">
-          {isMobile() ? <TopBarWallet /> : null}
+          {isMobile() ? <TopBarWallet accounts={accounts} /> : null}
 
           <AccountStatus toggle={toggleModal} />
 
@@ -224,15 +280,23 @@ function UserCabinet() {
             setValue={setValue}
           />
           <CoinSelectorModal
+            BitcoinModalOptions={{
+              BitcoinModalOptions,
+              setBitcoinModalOptions,
+            }}
             isCoinSelectorModalOpened={isCoinSelectorModalOpened}
             setIsCoinSelectorModalOpened={setIsCoinSelectorModalOpened}
             setCoin={setCoin}
           />
-
+          {/*  */}
           <ProfitabilityStatistics />
         </div>
       </div>
     </SidebarTemplate>
+  ) : (
+    <div className="errorPageContainer">
+      <h3>{errorMessage}</h3>
+    </div>
   );
 }
 

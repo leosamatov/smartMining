@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
 import { NavLink } from "react-router-dom";
+import { UserContext } from "../../UserContext";
 
 function TopBar({
   showJumbotron = true,
@@ -10,6 +11,7 @@ function TopBar({
   setIsWalletModalOpened,
 }) {
   const [showMenu, setShowMenu] = useState(true);
+  const { value, setValue } = useContext(UserContext);
 
   const onMenuToggle = (e) => {
     e.preventDefault();
@@ -26,10 +28,28 @@ function TopBar({
     $("#main_menu").toggle(showMenu);
   }, [showMenu]);
 
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((accounts) => {
+          setValue({
+            adress: accounts[0],
+          });
+        });
+    }
+  }, []);
+
   const connectWallet = async (e) => {
     e.preventDefault();
     setIsWalletModalOpened(true);
-    await window.ethereum.request({ method: "eth_requestAccounts" });
+    window.ethereum
+      .request({ method: "eth_requestAccounts" })
+      .then((accounts) => {
+        setValue({
+          adress: accounts[0],
+        });
+      });
   };
 
   const startEarning = async (e) => {
@@ -37,6 +57,67 @@ function TopBar({
     await window.ethereum.request({ method: "eth_requestAccounts" });
     window.open("user", "_self");
   };
+  const DesktopInfo = () => (
+    <div className="flex space-x-4 items-center">
+      <div className="auth mob-hide">
+        <a
+          href=""
+          onClick={connectWallet}
+          className={`btn-border ${
+            isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
+          }`}
+        >
+          {!value.adress ? (
+            <span className="pl-3">Connect wallet</span>
+          ) : (
+            <span className="pl-3">{value.adress}</span>
+          )}
+          <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
+            <img src="img/User.svg" alt="" />
+          </span>
+        </a>
+      </div>
+      <div onClick={onMenuToggle}>
+        <a
+          href=""
+          style={{ display: !showMenu ? "block" : "none" }}
+          className="open-menu btn-orange h-12 px-3 py-2.5 lg:hidden"
+        >
+          <img src="img/Menu.svg" />
+        </a>
+        <a
+          href=""
+          style={{ display: showMenu ? "block" : "none" }}
+          className="open-menu btn-orange h-12 px-3 py-2.5 lg:hidden"
+        >
+          <img src="img/Close.svg" />
+        </a>
+      </div>
+    </div>
+  );
+
+  const MobileInfo = () => (
+    <div className="md:hidden inline-block mt-20">
+      <div className="auth">
+        <a
+          href=""
+          onClick={connectWallet}
+          className={`btn-border ${
+            isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
+          }`}
+        >
+          {!value.adress ? (
+            <span className="pl-3">Connect wallet</span>
+          ) : (
+            <span className="pl-3">{value.adress}</span>
+          )}
+          <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
+            <img src="img/User.svg" id="mob" alt="" />
+          </span>
+        </a>
+      </div>
+    </div>
+  );
 
   return (
     <div
@@ -49,6 +130,7 @@ function TopBar({
         <img src="img/Ellipse-header.svg" className="absolute top-0 left-0" />
       )}
       <div className="relative">
+        <div className="border-b border-white opacity-20 w-full" />
         <div className="container mx-auto">
           <div className="header h-24 flex space-x-4 items-center relative">
             <div>
@@ -106,64 +188,12 @@ function TopBar({
                     </a>
                   </li>
                 </ul>
-                <div className="md:hidden inline-block mt-20">
-                  <div className="auth">
-                    <a
-                      href=""
-                      onClick={connectWallet}
-                      className={`btn-border ${
-                        isLight
-                          ? "bg-gray-100 border-gray-400 hover:text-gray-900"
-                          : ""
-                      }`}
-                    >
-                      <span className="pl-3">Connect wallet</span>
-                      <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
-                        <img src="img/User.svg" alt="" />
-                      </span>
-                    </a>
-                  </div>
-                </div>
+                <MobileInfo />
               </nav>
             </div>
-            <div className="flex space-x-4 items-center">
-              <div className="auth mob-hide">
-                <a
-                  href=""
-                  onClick={connectWallet}
-                  className={`btn-border ${
-                    isLight
-                      ? "bg-gray-100 border-gray-400 hover:text-gray-900"
-                      : ""
-                  }`}
-                >
-                  <span className="pl-3">Connect wallet</span>
-                  <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
-                    <img src="img/User.svg" alt="" />
-                  </span>
-                </a>
-              </div>
-              <div onClick={onMenuToggle}>
-                <a
-                  href=""
-                  style={{ display: !showMenu ? "block" : "none" }}
-                  className="open-menu btn-orange h-12 px-3 py-2.5 lg:hidden"
-                >
-                  <img src="img/Menu.svg" />
-                </a>
-                <a
-                  href=""
-                  style={{ display: showMenu ? "block" : "none" }}
-                  className="open-menu btn-orange h-12 px-3 py-2.5 lg:hidden"
-                >
-                  <img src="img/Close.svg" />
-                </a>
-              </div>
-            </div>
+            <DesktopInfo />
           </div>
         </div>
-        <div className="border-b border-white opacity-20 w-full" />
-
         {showJumbotron && (
           <div className="container relative">
             <div className="slider flex-wrap lg:flex pt-10 lg:pt-24 pb-48 sm:-mb-48 lg:mb-0">
@@ -172,16 +202,15 @@ function TopBar({
                   SMART CLOUD MINING PLATFORM
                 </div>
                 <div className="md:px-20 lg:px-0 text-lg">
-                  {" "}
                   The largest mining company in Australia, bringing its
                   customers from 168% per annum. You rent miners - we choose the
                   most profitable mining areas!
                 </div>
                 <div className="pt-4">
-                  <a href="/user" onClick={startEarning} className="btn-orange">
+                  <NavLink to="/user" className="btn-orange">
                     <span className="">Start earning</span>
                     <img className="inline-block" src="img/go.svg" alt="" />
-                  </a>
+                  </NavLink>
                 </div>
               </div>
               <div className="h-100 lg:-mt-20 sm:max-h-96 lg:max-h-1 lg:text-right sm:text-center w-full lg:w-2/3 lg:pl-40 lg:pr-0 sm:px-20">
