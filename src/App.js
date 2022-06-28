@@ -50,7 +50,7 @@ const App = () => {
 
           <Route path="user" element={<UserCabinet />} />
           <Route path="/user" element={<UserCabinet />} />
-          <Route path="/user-buy" element={<UserCabinet buy={true} />} />
+          <Route path="/user-buy" element={<UserCabinet buyMiners={true} />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>

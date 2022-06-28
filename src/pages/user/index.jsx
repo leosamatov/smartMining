@@ -126,8 +126,8 @@ function sendToken(token, value, decimals) {
 
 const DAI_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
 
-function UserCabinet({ buy = false }) {
-  const [showModal, setShowModal] = useState(buy);
+function UserCabinet({ buyMiners = false }) {
+  const [showModal, setShowModal] = useState(buyMiners);
   const toggleModal = () => setShowModal((prevState) => !prevState);
   const { value: accountData, setValue: setAccountData } =
     useContext(UserContext);
@@ -324,6 +324,16 @@ function UserCabinet({ buy = false }) {
             sendToken("usdc_polygon", value, 6);
           }
           break;
+        case "btc":
+          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
+            Swal.fire({
+              icon: "error",
+              text: "Connect to Bitcoin",
+            });
+          } else {
+            sendToken("btc", value, 6);
+          }
+          break;
         case "busd":
           if (window.ethereum.chainId != Web3.utils.toHex(56)) {
             Swal.fire({
@@ -378,7 +388,7 @@ function UserCabinet({ buy = false }) {
             setIsCoinSelectorModalOpened={setIsCoinSelectorModalOpened}
             setCoin={setCoin}
           />
-
+          {/*  */}
           <ProfitabilityStatistics />
         </div>
       </div>

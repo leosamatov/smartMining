@@ -1,0 +1,92 @@
+.bitcoin_buy_container{
+    position: fixed;
+    top: 10%;
+    display: flex;
+    align-items: center;
+    width: -moz-fit-content;
+    width: fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    z-index: 10;
+}
+.btc_block{
+    position:absolute;
+    top: 0;
+    width: 450px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    box-sizing: border-box;
+    z-index: 10;
+}
+.btc__header{
+    height: 50px;
+    width: 100%;
+    background: #FF5824;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+.btc_content{
+    background: #242731;
+    display: flex;
+    color: #FF5824;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+        gap: 30px;
+    width: 100%;
+}
+
+.qs-1 {
+    /* max-width: 50px; */
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    gap: 10px;
+}
+.qs-1 img{
+    max-width: 200px;
+}
+.qs-3 {
+    /* max-width: 50px; */
+    position: relative;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: fit-content;
+    font-size: 16px;
+    gap: 10px;
+}
+.qs-1 div {
+    padding: 10px;
+    /* box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.5); */
+}
+.qs-2 {
+    /* max-width: 50px; */
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+    height: fit-content;
+    font-size: 16px;
+    gap: 10px;
+}
+.btc_buttons{
+    background: #7AD475 !important;
+    box-shadow: none !important;
+    border-radius: 10px;
+    font-size: 16px;
+    border-color: #7AD475 !important;
+}
+.btc_buy_buttons{
+    background: #FF5824 !important;
+    border-color: #FF5824 !important;
+}
