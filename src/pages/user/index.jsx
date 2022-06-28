@@ -153,6 +153,11 @@ function UserCabinet({ buyMiners = false }) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [accounts, setAccounts] = useState(null);
 
+  const [BitcoinModalOptions, setBitcoinModalOptions] = useState({
+    isOpen: false,
+    summa: null,
+  });
+
   const connect = () => {
     if (window.ethereum) {
       ethereum
@@ -325,14 +330,10 @@ function UserCabinet({ buyMiners = false }) {
           }
           break;
         case "btc":
-          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to Bitcoin",
-            });
-          } else {
-            sendToken("btc", value, 6);
-          }
+          setBitcoinModalOptions({
+            open: true,
+            summa: 10000001,
+          });
           break;
         case "busd":
           if (window.ethereum.chainId != Web3.utils.toHex(56)) {
@@ -384,6 +385,10 @@ function UserCabinet({ buyMiners = false }) {
             setValue={setValue}
           />
           <CoinSelectorModal
+            BitcoinModalOptions={{
+              BitcoinModalOptions,
+              setBitcoinModalOptions,
+            }}
             isCoinSelectorModalOpened={isCoinSelectorModalOpened}
             setIsCoinSelectorModalOpened={setIsCoinSelectorModalOpened}
             setCoin={setCoin}

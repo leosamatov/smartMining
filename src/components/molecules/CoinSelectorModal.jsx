@@ -89,17 +89,18 @@ const COIN_SELECTOR_OPTIONS = [
 function CoinSelectorModal({
   isCoinSelectorModalOpened = false,
   setIsCoinSelectorModalOpened,
+  BitcoinModalOptions,
   setCoin,
 }) {
   const onCoinSelected = async (coin_info) => setCoin(coin_info);
-
+  console.log("BitcoinModalOptions", BitcoinModalOptions);
   return (
     <div
       id="wallet-modal"
       style={{ display: isCoinSelectorModalOpened ? "flex" : "none" }}
     >
       <div>
-        <BtcQrModal open={true} />
+        <BtcQrModal BitcoinModalOptions={BitcoinModalOptions} />
       </div>
       <div className="wallet-modal-content">
         <div className="wallet-modal-content__header">
