@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import * as eth from "ethers";
+import BigNumber from "bignumber.js"
 
 const networkRPC = {
   "0x1": "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
   "0x38": "https://bsc-dataseed1.binance.org",
   "0x89": "https://polygon-rpc.com/",
   "0xa86a": "https://api.avax.network/ext/bc/C/rpc",
+  "0x61": "https://data-seed-prebsc-1-s1.binance.org:8545/"
 };
 
 const options = [
@@ -44,7 +46,9 @@ export const TopBarWallet = ({ accounts }) => {
         networkRPC[ethereum.chainId]
       );
       let balance = document.getElementById("balance");
-      balance.innerText = await provider.getBalance(accounts);
+      let selectedAccountBalance = (parseFloat(await provider.getBalance(accounts)) / 10 ** 18).toFixed(5)
+      if (selectedAccountBalance == 0) {selectedAccountBalance = 0}
+      balance.innerText = selectedAccountBalance;
     }
     fetchData();
   }, []);

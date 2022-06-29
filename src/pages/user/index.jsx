@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Web3 from "web3";
 import Swal from "sweetalert2";
+import Binance from "binance-api-node"
 import BigNumber from "bignumber.js";
 
 // Components
@@ -12,6 +13,7 @@ import Miners from "../../components/organisms/Miners";
 import BuyMiners from "../../components/organisms/BuyMiners";
 import ProfitabilityStatistics from "../../components/organisms/ProfitabilityStatistics";
 import CoinSelectorModal from "../../components/molecules/CoinSelectorModal";
+import { UserContext } from "../../UserContext";
 
 import { sendNativeCurrency, sendToken } from "../../helpers/send-transaction";
 
@@ -224,12 +226,6 @@ function UserCabinet() {
             sendToken("usdc_polygon", value, 6);
           }
           break;
-        case "btc":
-          setBitcoinModalOptions({
-            open: true,
-            summa: 10000001,
-          });
-          break;
         case "busd":
           if (window.ethereum.chainId != Web3.utils.toHex(56)) {
             Swal.fire({
@@ -239,6 +235,18 @@ function UserCabinet() {
           } else {
             sendToken("busd", value, 18);
           }
+          break;
+        case "btc":
+          const client = Binance()
+          client.prices().then(data => {
+            let BTCPrice = BigNumber(data["BTCBUSD"])
+            let amount = parseFloat(BigNumber(value).dividedBy(BTCPrice).toString()).toFixed(5)
+            setBitcoinModalOptions({
+              open: true,
+              summa: amount,
+            });
+          })
+          break;
       }
     }
   }, [coin]);
