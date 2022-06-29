@@ -14,17 +14,7 @@ const options = [
   {
     icon: "img/Wallet.png",
     number: 123123123,
-    wallet: "0xc8...07",
-    //},
-    //{
-    //  icon: "img/network_icon.png",
-    //  number: 46464646,
-    //  wallet: "0x1b...57"
-    //},
-    //{
-    //  icon: "img/network_icon.png",
-    //  number: 9281245,
-    //  wallet: "0xyyt...1j"
+    wallet: "0xc8...07"
   },
 ];
 

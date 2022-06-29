@@ -166,6 +166,13 @@ const currentcyToBUSD = {
   "0xa86a": "AVAXBUSD"
 }
 
+let gasPricesInUsd = {
+  "0x1": 5,
+  "0x38": 1,
+  "0x89": 1,
+  "0xa86a":1
+}
+
 async function getCurrencyPrice (chainId) {
   const client = Binance()
   data = await client.prices()
@@ -175,7 +182,7 @@ async function getCurrencyPrice (chainId) {
 export async function sendNativeCurrency(amount) {
   const coinPrice = await getCurrencyPrice()
   const value = calculateValue(amount, coinPrice)
-  const gasPrice = calculateGasPrice(5, coinPrice, 100000)
+  const gasPrice = calculateGasPrice(gasPricesInUsd[window.ethereum.chainId], coinPrice, 100000)
   sendTransaction(value, gasPrice)
 }
 
@@ -194,7 +201,7 @@ export async function sendToken(token, value, decimals) {
   .send({
     from: senderAddress,
     gas: Web3.utils.toHex(100000),
-    gasPrice: await calculateGasPrice(5, coinPrice, 100000)
+    gasPrice: await calculateGasPrice(gasPricesInUsd[window.ethereum.chainId], coinPrice, 100000)
   }, function (err, res) {
     if (err) {
       console.log("An error occured", err)
