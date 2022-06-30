@@ -50,6 +50,7 @@ function Home() {
       <WalletModal
         isWalletModalOpened={isWalletModalOpened.open}
         setIsWalletModalOpened={setIsWalletModalOpened}
+        URL={isWalletModalOpened.URL}
       />
     </Template>
   );
