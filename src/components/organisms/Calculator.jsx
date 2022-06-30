@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { CALCULATOR_DATA, Bonuses } from "../../config/constants";
 import { calculatePower, periodEarn } from "../../helpers/calculations";
+import { UserContext } from "../../UserContext";
 
-function Calculator() {
+function Calculator({ setIsWalletModalOpened }) {
   // Dropdown logic
   const [showDropdown, setShowDropdown] = useState(null);
   const toggleDropdown = () => setShowDropdown((prevState) => !prevState);
@@ -62,7 +63,7 @@ function Calculator() {
   const annual = useMemo(() => {
     return periodEarn(amount, selected, 365, isBonusON ? bonus : null);
   }, [amount, bonus, isBonusON]);
-
+  const { value } = useContext(UserContext);
   return (
     <div id="calculator">
       <div>
@@ -213,7 +214,23 @@ function Calculator() {
                       <div className="pt-2 sm:w-full md:w-3/5">
                         <div className="text-right space-x-3">
                           <div className="inline-block">
-                            <NavLink to="/user-buy" className="btn-orange">
+                            <NavLink
+                              to="/user-buy"
+                              onClick={
+                                !value.adress
+                                  ? (e) => {
+                                      e.preventDefault();
+                                      if (!value.adress) {
+                                        setIsWalletModalOpened({
+                                          open: true,
+                                          URL: "/user-buy",
+                                        });
+                                      }
+                                    }
+                                  : undefined
+                              }
+                              className="btn-orange"
+                            >
                               <span className="">Deposit</span>
                               <img
                                 className="inline-block"

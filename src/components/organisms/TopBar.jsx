@@ -12,7 +12,6 @@ function TopBar({
 }) {
   const [showMenu, setShowMenu] = useState(true);
   const { value, setValue } = useContext(UserContext);
-
   const onMenuToggle = (e) => {
     e.preventDefault();
     setShowMenu((prevState) => !prevState);
@@ -42,7 +41,10 @@ function TopBar({
 
   const connectWallet = async (e) => {
     e.preventDefault();
-    setIsWalletModalOpened(true);
+    setIsWalletModalOpened({
+      open: true,
+      URL: null,
+    });
     window.ethereum
       .request({ method: "eth_requestAccounts" })
       .then((accounts) => {
@@ -207,7 +209,22 @@ function TopBar({
                   most profitable mining areas!
                 </div>
                 <div className="pt-4">
-                  <NavLink to="/user" className="btn-orange">
+                  <NavLink
+                    to="/user"
+                    className="btn-orange"
+                    onClick={
+                      !value.adress
+                        ? (e) => {
+                            e.preventDefault();
+
+                            setIsWalletModalOpened({
+                              open: true,
+                              URL: "/user",
+                            });
+                          }
+                        : undefined
+                    }
+                  >
                     <span className="">Start earning</span>
                     <img className="inline-block" src="img/go.svg" alt="" />
                   </NavLink>
