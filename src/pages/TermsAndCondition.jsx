@@ -873,7 +873,7 @@ function TermsAndCondition() {
             </div>
 
             <div className="text-center mt-5">
-              <a href="/referral">
+              <a href="/referral" onClick={(e) => e.preventDefault()}>
                 <img
                   className="m-auto sm:hidden lg:block"
                   src="img/Banner-Referal-big.svg"
