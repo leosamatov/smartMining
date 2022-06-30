@@ -18,7 +18,10 @@ import WalletModal from "../components/molecules/WalletModal";
 import { UserContext } from "../UserContext";
 
 function Home() {
-  const [isWalletModalOpened, setIsWalletModalOpened] = useState(false);
+  const [walletModalOptions, setWalletModalOptions] = useState({
+    open: false,
+    URL: null,
+  });
   // const cont = useContext(UserContext);
   // console.log("cont", cont);
   useEffect(() => {
@@ -31,22 +34,23 @@ function Home() {
   return (
     <Template>
       <WhiteBgContainer>
-        <TopBar setIsWalletModalOpened={setIsWalletModalOpened} />
+        <TopBar setWalletModalOptions={setWalletModalOptions} />
 
-        <Steps />
-        <Mining />
-        <Calculator />
-        <CloudMiningContracts />
+        <Steps setWalletModalOptions={setWalletModalOptions} />
+        <Mining setWalletModalOptions={setWalletModalOptions} />
+        <Calculator setWalletModalOptions={setWalletModalOptions} />
+        <CloudMiningContracts setWalletModalOptions={setWalletModalOptions} />
       </WhiteBgContainer>
 
-      <Team />
-      <ConnectWallet />
-      <Footer />
+      <Team setWalletModalOptions={setWalletModalOptions} />
+      <ConnectWallet setWalletModalOptions={setWalletModalOptions} />
+      <Footer setWalletModalOptions={setWalletModalOptions} />
 
       {/* Modals */}
       <WalletModal
-        isWalletModalOpened={isWalletModalOpened}
-        setIsWalletModalOpened={setIsWalletModalOpened}
+        walletModalOptions={walletModalOptions.open}
+        setWalletModalOptions={setWalletModalOptions}
+        URL={walletModalOptions.URL}
       />
     </Template>
   );

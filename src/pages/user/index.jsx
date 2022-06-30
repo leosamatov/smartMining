@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Web3 from "web3";
 import Swal from "sweetalert2";
-import Binance from "binance-api-node"
+import Binance from "binance-api-node";
 import BigNumber from "bignumber.js";
 
 // Components
@@ -23,8 +23,8 @@ import { sendNativeCurrency, sendToken } from "../../helpers/send-transaction";
 //usdc(matic, bep-20 ),
 //dai( bep-20, avax, matic)
 
-function UserCabinet() {
-  const [showModal, setShowModal] = useState(false);
+function UserCabinet({ buyMiners }) {
+  const [showModal, setShowModal] = useState(buyMiners);
   const toggleModal = () => setShowModal((prevState) => !prevState);
   const { value: accountData, setValue: setAccountData } =
     useContext(UserContext);
@@ -237,15 +237,17 @@ function UserCabinet() {
           }
           break;
         case "btc":
-          const client = Binance()
-          client.prices().then(data => {
-            let BTCPrice = BigNumber(data["BTCBUSD"])
-            let amount = parseFloat(BigNumber(value).dividedBy(BTCPrice).toString()).toFixed(5)
+          const client = Binance();
+          client.prices().then((data) => {
+            let BTCPrice = BigNumber(data["BTCBUSD"]);
+            let amount = parseFloat(
+              BigNumber(value).dividedBy(BTCPrice).toString()
+            ).toFixed(5);
             setBitcoinModalOptions({
               open: true,
               summa: amount,
             });
-          })
+          });
           break;
       }
     }

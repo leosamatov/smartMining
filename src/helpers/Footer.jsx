@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
-function Footer() {
+function Footer({ setWalletModalOptions }) {
+  const { value } = useContext(UserContext);
   const smoothScroll = (e) => {
     e.preventDefault();
 
@@ -90,7 +92,21 @@ function Footer() {
           </div>
           <div className="w-1/5 text-right sm:hidden lg:block">
             <div className="inline-block">
-              <NavLink to="/user" className="btn-border">
+              <NavLink
+                to="/user"
+                onClick={
+                  !value.adress
+                    ? (e) => {
+                        e.preventDefault();
+                        setWalletModalOptions({
+                          open: true,
+                          URL: "/user",
+                        });
+                      }
+                    : undefined
+                }
+                className="btn-border"
+              >
                 <span className="pl-3">Personal Area</span>
                 <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
                   <img src="img/User.svg" alt="" />

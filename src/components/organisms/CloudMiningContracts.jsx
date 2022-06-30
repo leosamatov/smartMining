@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import $ from "jquery";
 import { NavLink } from "react-router-dom";
+import { UserContext } from "../../UserContext";
 
-function CloudMiningContracts() {
+function CloudMiningContracts({ setWalletModalOptions }) {
   const slider = useRef(null);
   const [active, setActive] = useState(0);
 
@@ -19,7 +20,7 @@ function CloudMiningContracts() {
 
   const onSliderScroll = (e) =>
     setActive(Math.round(e.target.scrollLeft / (e.target.scrollWidth / 4)));
-
+  const { value } = useContext(UserContext);
   useEffect(() => {
     // Fix custom html elements classes
     $('#contracts lottie-player[src="/img/animation/plan_1.json"]').addClass(
@@ -101,6 +102,18 @@ function CloudMiningContracts() {
                   <div>
                     <NavLink
                       to="/user-buy"
+                      onClick={
+                        !value.adress
+                          ? (e) => {
+                              e.preventDefault();
+
+                              setWalletModalOptions({
+                                open: true,
+                                URL: "/user-buy",
+                              });
+                            }
+                          : undefined
+                      }
                       className="btn-border w-full text-center block leading-9"
                     >
                       Choose
@@ -136,6 +149,19 @@ function CloudMiningContracts() {
                   <div>
                     <NavLink
                       to="/user-buy"
+                      onClick={
+                        !value.adress
+                          ? (e) => {
+                              e.preventDefault();
+                              if (!value.adress) {
+                                setWalletModalOptions({
+                                  open: true,
+                                  URL: "/user-buy",
+                                });
+                              }
+                            }
+                          : undefined
+                      }
                       className="btn-border w-full text-center block leading-9"
                     >
                       Choose
@@ -173,6 +199,19 @@ function CloudMiningContracts() {
                   <div>
                     <NavLink
                       to="/user-buy"
+                      onClick={
+                        !value.adress
+                          ? (e) => {
+                              e.preventDefault();
+                              if (!value.adress) {
+                                setWalletModalOptions({
+                                  open: true,
+                                  URL: "/user-buy",
+                                });
+                              }
+                            }
+                          : undefined
+                      }
                       className="btn-border w-full text-center block leading-9"
                     >
                       Choose
@@ -208,6 +247,19 @@ function CloudMiningContracts() {
                   <div>
                     <NavLink
                       to="/user-buy"
+                      onClick={
+                        !value.adress
+                          ? (e) => {
+                              e.preventDefault();
+                              if (!value.adress) {
+                                setWalletModalOptions({
+                                  open: true,
+                                  URL: "/user-buy",
+                                });
+                              }
+                            }
+                          : undefined
+                      }
                       className="btn-border w-full text-center block leading-9"
                     >
                       Choose
@@ -252,6 +304,19 @@ function CloudMiningContracts() {
               <div>
                 <NavLink
                   to="/user-buy"
+                  onClick={
+                    !value.adress
+                      ? (e) => {
+                          e.preventDefault();
+                          if (!value.adress) {
+                            setWalletModalOptions({
+                              open: true,
+                              URL: "/user-buy",
+                            });
+                          }
+                        }
+                      : undefined
+                  }
                   className="btn-border w-full text-center block leading-9"
                 >
                   global.choose
@@ -286,6 +351,19 @@ function CloudMiningContracts() {
               <div>
                 <NavLink
                   to="/user-buy"
+                  onClick={
+                    !value.adress
+                      ? (e) => {
+                          e.preventDefault();
+                          if (!value.adress) {
+                            setWalletModalOptions({
+                              open: true,
+                              URL: "/user-buy",
+                            });
+                          }
+                        }
+                      : undefined
+                  }
                   className="btn-border w-full text-center block leading-9"
                 >
                   global.choose
@@ -320,6 +398,19 @@ function CloudMiningContracts() {
               <div>
                 <NavLink
                   to="/user-buy"
+                  onClick={
+                    !value.adress
+                      ? (e) => {
+                          e.preventDefault();
+                          if (!value.adress) {
+                            setWalletModalOptions({
+                              open: true,
+                              URL: "/user-buy",
+                            });
+                          }
+                        }
+                      : undefined
+                  }
                   className="btn-border w-full text-center block leading-9"
                 >
                   global.choose
@@ -356,6 +447,19 @@ function CloudMiningContracts() {
               <div>
                 <NavLink
                   to="/user-buy"
+                  onClick={
+                    !value.adress
+                      ? (e) => {
+                          e.preventDefault();
+                          if (!value.adress) {
+                            setWalletModalOptions({
+                              open: true,
+                              URL: "/user-buy",
+                            });
+                          }
+                        }
+                      : undefined
+                  }
                   className="btn-border w-full text-center block leading-9"
                 >
                   global.choose
