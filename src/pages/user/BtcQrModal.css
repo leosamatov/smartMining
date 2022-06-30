@@ -13,16 +13,22 @@
     position:absolute;
     top: 0;
     width: 450px;
+    overflow: hidden;
     height: 700px;
     display: flex;
+    border: 1px solid #ff5824;
+    box-sizing: border-box;
+    box-shadow: 0 8px 48px rgb(255 88 36 / 16%), 0 32px 80px rgb(255 88 36 / 8%);
+    border-radius: 12px;
     flex-direction: column;
-    background: white;
+    background: none;
     box-sizing: border-box;
     z-index: 10;
 }
 .btc__header{
     height: 50px;
     width: 100%;
+    border-top-radius: 12px;
     background: #FF5824;
     color: white;
     text-align: center;
@@ -87,6 +93,16 @@
     border-color: #7AD475 !important;
 }
 .btc_buy_buttons{
+    border-radius: 12px;
     background: #FF5824 !important;
     border-color: #FF5824 !important;
+}
+
+.btc_buy_buttons:hover{
+
+    background-color: #ff7043 !important;
+}
+.hashModalBodyContainer{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

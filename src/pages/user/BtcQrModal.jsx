@@ -48,33 +48,41 @@ function HashModal({ showModal, setShowModal }) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Body>
+      <Modal show={show} onHide={handleClose} onEnter={() => false}>
+        <Modal.Body
+          style={{
+            borderRadius: "12px",
+          }}
+        >
           {!success ? (
-            <>
+            <div>
               <Modal.Header closeButton>
                 <Modal.Title>Enter the transaction hash</Modal.Title>
               </Modal.Header>
-              <TextField
-                id="outlined-basic"
-                label="Enter the transaction hash"
-                variant="outlined"
-                style={{
-                  marginRight: "10px",
-                }}
-              />
-              <Button
-                variant="primary"
-                style={{
-                  backgroundColor: "#7AD475",
-                  borderColor: "#7AD475",
-                  padding: "15px",
-                }}
-                onClick={() => setSuccess(true)}
-              >
-                Send
-              </Button>
-            </>
+              <div className="hashModalBodyContainer">
+                <TextField
+                  required
+                  id="outlined-basic"
+                  color="warning"
+                  label="Enter the transaction hash"
+                  variant="outlined"
+                  style={{
+                    marginRight: "10px",
+                  }}
+                />
+                <Button
+                  variant="primary"
+                  style={{
+                    backgroundColor: "#ff7043",
+                    borderColor: "#ff7043",
+                    padding: "15px",
+                  }}
+                  onClick={() => setSuccess(true)}
+                >
+                  Send
+                </Button>
+              </div>
+            </div>
           ) : (
             <Alert
               variant={"success "}
