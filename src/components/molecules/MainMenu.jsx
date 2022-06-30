@@ -92,7 +92,7 @@ function MainMenu({ activeItem = "/referral" }) {
           </ul>
         </div>
         <div className="sm:hidden lg:block banner-ref hidden-minim">
-          <a href="/referral" className="-mt-4 block">
+          <a onClick={(e) => e.preventDefault()} className="-mt-4 block">
             <img width="200px" src="img/Banner-Referal.svg" />
           </a>
         </div>

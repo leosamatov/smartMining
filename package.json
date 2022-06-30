@@ -62,7 +62,7 @@
   },
   "scripts": {
     "start-old": "react-scripts start",
-    "start": "set PORT=4000 && react-app-rewired start",
+    "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "build-webpack": "webpack --mode production",
     "test": "react-scripts test",
