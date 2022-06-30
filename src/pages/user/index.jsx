@@ -31,7 +31,7 @@ function UserCabinet({ buyMiners }) {
 
   const connectMessageEl = (
     <h3>
-      Please connect to <a href="https://metamask.io/download/">MetaMask</a>.
+      Please connect to <a href="/">your Wallet</a>.
     </h3>
   );
   const installMessageEl = (
@@ -309,5 +309,4 @@ function UserCabinet({ buyMiners }) {
     </div>
   );
 }
-
 export default UserCabinet;

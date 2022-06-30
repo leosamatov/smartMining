@@ -41,17 +41,19 @@ function WalletModal({
   };
   useEffect(() => {
     if (walletModalOptions) {
-      window.ethereum
-        .request({ method: "eth_requestAccounts" })
-        .then((accounts) => {
-          setValue({
-            adress: accounts[0],
+      if (window.ethereum) {
+        window.ethereum
+          .request({ method: "eth_requestAccounts" })
+          .then((accounts) => {
+            setValue({
+              adress: accounts[0],
+            });
+            if (URL) {
+              window.location.pathname = URL;
+              // history.push(URL);
+            }
           });
-          if (URL) {
-            window.location.pathname = URL;
-            // history.push(URL);
-          }
-        });
+      }
     }
   }, [walletModalOptions]);
   return (

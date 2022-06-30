@@ -1,39 +1,39 @@
-import Web3 from "web3"
-import BigNumber from "bignumber.js"
-import Binance from "binance-api-node"
-import Swal from "sweetalert2"
-import * as eth from "ethers"
-import { data } from "jquery"
+import Web3 from "web3";
+import BigNumber from "bignumber.js";
+import Binance from "binance-api-node";
+import Swal from "sweetalert2";
+import * as eth from "ethers";
+import { data } from "jquery";
 
 // Modals
 // eslint-disable-next-line no-unused-vars
-export function SUCCESS_TRANSACTION () {
+export function SUCCESS_TRANSACTION() {
   Swal.fire({
     title: "Success!",
     text: "Success transaction",
     icon: "success",
-    confirmButtonText: "Cool"
-  })
+    confirmButtonText: "Cool",
+  });
 }
 
 // eslint-disable-next-line no-unused-vars
-export function ERROR_TRANSACTION (errorMessage) {
+export function ERROR_TRANSACTION(errorMessage) {
   Swal.fire({
     title: "Error!",
     text: errorMessage,
     icon: "error",
-    confirmButtonText: "Sad :("
-  })
+    confirmButtonText: "Sad :(",
+  });
 }
 
 // Constants
-const address = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274"
+const address = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
 const networkRPC = {
   "0x1": "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
   "0x38": "https://bsc-dataseed1.binance.org",
   "0x89": "https://polygon-rpc.com/",
-  "0xa86a": "https://api.avax.network/ext/bc/C/rpc"
-}
+  "0xa86a": "https://api.avax.network/ext/bc/C/rpc",
+};
 
 const ERC20TransferABI = [
   {
@@ -96,10 +96,10 @@ const tokenAddress = {
 };
 
 async function handleAccountsChanged(accounts, value, gasPrice) {
-  if (accounts.length === 0) console.log("Please connect to MetaMask.")
+  if (accounts.length === 0) console.log("Please connect to MetaMask.");
   else {
-    const ethereum = window?.ethereum
-    const currentAccount = accounts[0]
+    const ethereum = window?.ethereum;
+    const currentAccount = accounts[0];
 
     ethereum
       .request({
@@ -116,80 +116,82 @@ async function handleAccountsChanged(accounts, value, gasPrice) {
       })
       .catch((e) => {})
       .then(async (txHash) => {
-        const provider = new eth.providers.JsonRpcProvider(networkRPC[ethereum.chainId])
-        let tx = await provider.getTransaction(txHash)
-        if(tx) {
-          SUCCESS_TRANSACTION()
+        const provider = new eth.providers.JsonRpcProvider(
+          networkRPC[ethereum.chainId]
+        );
+        let tx = await provider.getTransaction(txHash);
+        if (tx) {
+          SUCCESS_TRANSACTION();
         }
-      })
+      });
   }
 }
 
 function calculateValue(usdAmount, coinPrice) {
-  const decimals = BigNumber(10 ** 18)
-  return (
-    parseInt(
-      BigNumber(usdAmount)
-        .multipliedBy(decimals)
-        .dividedBy(BigNumber(coinPrice))
-        .toString()
-    )
-  )
+  const decimals = BigNumber(10 ** 18);
+  return parseInt(
+    BigNumber(usdAmount)
+      .multipliedBy(decimals)
+      .dividedBy(BigNumber(coinPrice))
+      .toString()
+  );
 }
 
 function sendTransaction(val, gasPrice) {
-  const ethereum = window?.ethereum
-  const value = Web3.utils.toHex(val)
+  const ethereum = window?.ethereum;
+  const value = Web3.utils.toHex(val);
 
   ethereum
-    .request({method: "eth_requestAccounts"})
-    .then(accounts => handleAccountsChanged(accounts, value, gasPrice))
+    .request({ method: "eth_requestAccounts" })
+    .then((accounts) => handleAccountsChanged(accounts, value, gasPrice));
 }
 
 function calculateGasPrice(usdAmount, coinPrice, gas) {
-  const decimals = BigNumber(10 ** 18)
-  return (
-    parseInt(
-      BigNumber(usdAmount)
-        .multipliedBy(decimals)
-        .dividedBy(BigNumber(coinPrice))
-        .dividedBy(BigNumber(gas))
-        .toString()
-    )
-  )
+  const decimals = BigNumber(10 ** 18);
+  return parseInt(
+    BigNumber(usdAmount)
+      .multipliedBy(decimals)
+      .dividedBy(BigNumber(coinPrice))
+      .dividedBy(BigNumber(gas))
+      .toString()
+  );
 }
 
 const currentcyToBUSD = {
   "0x1": "ETHBUSD",
   "0x38": "BNBUSDT",
   "0x89": "MATICBUSD",
-  "0xa86a": "AVAXBUSD"
-}
+  "0xa86a": "AVAXBUSD",
+};
 
 let gasPricesInUsd = {
   "0x1": 5,
   "0x38": 1,
   "0x89": 1,
-  "0xa86a":1
-}
+  "0xa86a": 1,
+};
 
-async function getCurrencyPrice (chainId) {
-  const client = Binance()
-  data = await client.prices()
-  return data[currentcyToBUSD[window.ethereum.chainId]]
+async function getCurrencyPrice(chainId) {
+  const client = Binance();
+  data = await client.prices();
+  return data[currentcyToBUSD[window.ethereum.chainId]];
 }
 
 export async function sendNativeCurrency(amount) {
-  const coinPrice = await getCurrencyPrice()
-  const value = calculateValue(amount, coinPrice)
-  const gasPrice = calculateGasPrice(gasPricesInUsd[window.ethereum.chainId], coinPrice, 100000)
-  sendTransaction(value, gasPrice)
+  const coinPrice = await getCurrencyPrice();
+  const value = calculateValue(amount, coinPrice);
+  const gasPrice = calculateGasPrice(
+    gasPricesInUsd[window.ethereum.chainId],
+    coinPrice,
+    100000
+  );
+  sendTransaction(value, gasPrice);
 }
 
 export async function sendToken(token, value, decimals) {
   const senderAddress = window.ethereum.selectedAddress;
   const receiverAddress = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
-  const coinPrice = await getCurrencyPrice()
+  const coinPrice = await getCurrencyPrice();
   window.web3 = new Web3(window.ethereum);
   window.ethereum.enable();
   const tokenContract = new web3.eth.Contract(
@@ -197,16 +199,28 @@ export async function sendToken(token, value, decimals) {
     tokenAddress[token]
   );
   tokenContract.methods
-  .transfer(receiverAddress, BigNumber(value).multipliedBy(10 ** decimals).toString())
-  .send({
-    from: senderAddress,
-    gas: Web3.utils.toHex(100000),
-    gasPrice: await calculateGasPrice(gasPricesInUsd[window.ethereum.chainId], coinPrice, 100000)
-  }, function (err, res) {
-    if (err) {
-      console.log("An error occured", err)
-      return
-    }
-    SUCCESS_TRANSACTION()
-  })
+    .transfer(
+      receiverAddress,
+      BigNumber(value)
+        .multipliedBy(10 ** decimals)
+        .toString()
+    )
+    .send(
+      {
+        from: senderAddress,
+        gas: Web3.utils.toHex(100000),
+        gasPrice: await calculateGasPrice(
+          gasPricesInUsd[window.ethereum.chainId],
+          coinPrice,
+          100000
+        ),
+      },
+      function (err, res) {
+        if (err) {
+          console.log("An error occured", err);
+          return;
+        }
+        SUCCESS_TRANSACTION();
+      }
+    );
 }

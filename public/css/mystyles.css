@@ -10,6 +10,7 @@
 }
 .auth{
     width:70%;
+    min-width:150px;
 }
 .snap>div {
     scroll-snap-align: center;
