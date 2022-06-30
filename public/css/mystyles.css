@@ -8,7 +8,9 @@
 .snap::-webkit-scrollbar {
     display: none;
 }
-
+.auth{
+    width:70%;
+}
 .snap>div {
     scroll-snap-align: center;
 }

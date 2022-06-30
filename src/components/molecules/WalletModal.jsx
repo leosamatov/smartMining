@@ -48,7 +48,8 @@ function WalletModal({
             adress: accounts[0],
           });
           if (URL) {
-            history.push(URL);
+            window.location.pathname = URL;
+            // history.push(URL);
           }
         });
     }

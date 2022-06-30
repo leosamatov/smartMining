@@ -93,7 +93,6 @@ function CoinSelectorModal({
   setCoin,
 }) {
   const onCoinSelected = async (coin_info) => setCoin(coin_info);
-  console.log("BitcoinModalOptions", BitcoinModalOptions);
   return (
     <div
       id="wallet-modal"
