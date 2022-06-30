@@ -26,7 +26,7 @@ const App = () => {
   });
 
   const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
-
+  document.documentElement.style.overflow = "auto";
   return (
     <UserContext.Provider value={providerValue}>
       <Routes>

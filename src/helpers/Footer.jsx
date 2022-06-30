@@ -18,12 +18,12 @@ function Footer({ setWalletModalOptions }) {
         <div className="sm:flex-wrap md:flex sm:space-y-4 md:space-y-0 text-white">
           <div className="flex-column justify-between w-1/5 sm:hidden lg:flex">
             <div>
-              <a href="/" className="flex items-center">
+              <NavLink to="/" className="flex items-center">
                 <img className="mr-3" src="img/logo.svg" alt="Smart Mining" />
                 <div>
                   <img src="img/TRON.svg" alt="" />
                 </div>
-              </a>
+              </NavLink>
             </div>
             <div className="opacity-60 text-sm">
               2022. Smart Mining <br /> All rights reserved
@@ -64,18 +64,18 @@ function Footer({ setWalletModalOptions }) {
             <div className="font-bold text-lg">About Us</div>
             <ul className="opacity-60 space-y-2">
               <li>
-                <a href="/terms-cond">Terms and conditions</a>
+                <NavLink to="/terms-cond">Terms and conditions</NavLink>
               </li>
               <li>
-                <a href="/privacy">Privacy Policy</a>
+                <NavLink to="/privacy">Privacy Policy</NavLink>
               </li>
               {/* <li>
-                <a href="/referral">Referral Program</a>
+                <NavLink to="/referral">Referral Program</NavLink>
               </li> */}
               <li>
-                <a href="/certificates/Certificate.pdf" target="_blank">
+                <NavLink to="/certificates/Certificate.pdf" target="_blank">
                   Certificate
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -83,10 +83,12 @@ function Footer({ setWalletModalOptions }) {
             <div className="font-bold text-lg">Knowledge Base</div>
             <ul className="opacity-60 space-y-2">
               <li>
-                <a href="/cloud-mining">Cloud Mining</a>
+                <NavLink to="/cloud-mining">Cloud Mining</NavLink>
               </li>
               <li>
-                <a href="/crypto-mining">Cryptocurrency Mining Basics</a>
+                <NavLink to="/crypto-mining">
+                  Cryptocurrency Mining Basics
+                </NavLink>
               </li>
             </ul>
           </div>
