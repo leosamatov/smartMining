@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import { UserContext } from "../../UserContext";
+import { useNavigate } from "react-router-dom";
 
 const WALLETS_OPTIONS = [
   {
@@ -21,9 +22,9 @@ function WalletModal({
   walletModalOptions = false,
   setWalletModalOptions,
   URL,
-  history,
 }) {
   const { setValue } = useContext(UserContext);
+  const navigate = useNavigate();
   const onWalletSelected = async (wallet_info) => {
     // there code of wallet selection
     switch (wallet_info["id"]) {
@@ -49,8 +50,7 @@ function WalletModal({
               adress: accounts[0],
             });
             if (URL) {
-              window.location.pathname = URL;
-              // history.push(URL);
+              navigate(URL);
             }
           });
       }

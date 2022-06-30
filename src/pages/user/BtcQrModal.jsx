@@ -7,7 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import { TextField } from "@mui/material";
 import Alert from "react-bootstrap/Alert";
 
-function Copy({ copyText }) {
+function CopyButton({ copyText }) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   return (
@@ -162,7 +162,7 @@ const BtcQrModal = ({
                   <p>{summa}</p>
                 </div>
                 <div>
-                  <Copy copyText={summa} />
+                  <CopyButton copyText={summa} />
                 </div>
               </section>
               <section className="qs-3">
@@ -170,7 +170,7 @@ const BtcQrModal = ({
                   <p>{adress}</p>
                 </div>
                 <div>
-                  <Copy copyText={adress} />
+                  <CopyButton copyText={adress} />
                 </div>
               </section>
               <section className="qs-3">

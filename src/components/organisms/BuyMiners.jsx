@@ -12,6 +12,9 @@ function BuyMiners({ show, toggle, setIsCoinSelectorModalOpened, setValue }) {
   const [selected, setSelected] = useState({});
 
   // Bonuses logic
+  useEffect(() => {
+    document.documentElement.style.overflow = show ? "hidden" : null;
+  }, [show]);
   const [bonus, setBonus] = useState(0);
   const [isBonusON, setIsBonusON] = useState(false);
   const toggleBonus = () => setIsBonusON((prevState) => !prevState);

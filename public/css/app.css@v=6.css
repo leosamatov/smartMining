@@ -1829,7 +1829,7 @@ pre code {
     #buy_miner_modal {
         width: 95% !important;
         min-width:400px;
-        overflow:scroll;
+        overflow-y:scroll;
         height: 516px !important;
     }
     .w-1\/3 {
