@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 
-function ConnectWallet({ setIsWalletModalOpened }) {
+function ConnectWallet({ setWalletModalOptions }) {
   const { value } = useContext(UserContext);
   return (
     <div className="py-28 ">
@@ -62,7 +62,7 @@ function ConnectWallet({ setIsWalletModalOpened }) {
                         !value.adress
                           ? (e) => {
                               e.preventDefault();
-                              setIsWalletModalOpened({
+                              setWalletModalOptions({
                                 open: true,
                                 URL: "/user",
                               });

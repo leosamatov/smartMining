@@ -3,7 +3,7 @@ import $ from "jquery";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 
-function CloudMiningContracts({ setIsWalletModalOpened }) {
+function CloudMiningContracts({ setWalletModalOptions }) {
   const slider = useRef(null);
   const [active, setActive] = useState(0);
 
@@ -107,7 +107,7 @@ function CloudMiningContracts({ setIsWalletModalOpened }) {
                           ? (e) => {
                               e.preventDefault();
 
-                              setIsWalletModalOpened({
+                              setWalletModalOptions({
                                 open: true,
                                 URL: "/user-buy",
                               });
@@ -154,7 +154,7 @@ function CloudMiningContracts({ setIsWalletModalOpened }) {
                           ? (e) => {
                               e.preventDefault();
                               if (!value.adress) {
-                                setIsWalletModalOpened({
+                                setWalletModalOptions({
                                   open: true,
                                   URL: "/user-buy",
                                 });
@@ -204,7 +204,7 @@ function CloudMiningContracts({ setIsWalletModalOpened }) {
                           ? (e) => {
                               e.preventDefault();
                               if (!value.adress) {
-                                setIsWalletModalOpened({
+                                setWalletModalOptions({
                                   open: true,
                                   URL: "/user-buy",
                                 });
@@ -252,7 +252,7 @@ function CloudMiningContracts({ setIsWalletModalOpened }) {
                           ? (e) => {
                               e.preventDefault();
                               if (!value.adress) {
-                                setIsWalletModalOpened({
+                                setWalletModalOptions({
                                   open: true,
                                   URL: "/user-buy",
                                 });
@@ -309,7 +309,7 @@ function CloudMiningContracts({ setIsWalletModalOpened }) {
                       ? (e) => {
                           e.preventDefault();
                           if (!value.adress) {
-                            setIsWalletModalOpened({
+                            setWalletModalOptions({
                               open: true,
                               URL: "/user-buy",
                             });
@@ -356,7 +356,7 @@ function CloudMiningContracts({ setIsWalletModalOpened }) {
                       ? (e) => {
                           e.preventDefault();
                           if (!value.adress) {
-                            setIsWalletModalOpened({
+                            setWalletModalOptions({
                               open: true,
                               URL: "/user-buy",
                             });
@@ -403,7 +403,7 @@ function CloudMiningContracts({ setIsWalletModalOpened }) {
                       ? (e) => {
                           e.preventDefault();
                           if (!value.adress) {
-                            setIsWalletModalOpened({
+                            setWalletModalOptions({
                               open: true,
                               URL: "/user-buy",
                             });
@@ -452,7 +452,7 @@ function CloudMiningContracts({ setIsWalletModalOpened }) {
                       ? (e) => {
                           e.preventDefault();
                           if (!value.adress) {
-                            setIsWalletModalOpened({
+                            setWalletModalOptions({
                               open: true,
                               URL: "/user-buy",
                             });

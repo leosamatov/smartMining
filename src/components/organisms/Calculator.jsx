@@ -4,7 +4,7 @@ import { CALCULATOR_DATA, Bonuses } from "../../config/constants";
 import { calculatePower, periodEarn } from "../../helpers/calculations";
 import { UserContext } from "../../UserContext";
 
-function Calculator({ setIsWalletModalOpened }) {
+function Calculator({ setWalletModalOptions }) {
   // Dropdown logic
   const [showDropdown, setShowDropdown] = useState(null);
   const toggleDropdown = () => setShowDropdown((prevState) => !prevState);
@@ -221,7 +221,7 @@ function Calculator({ setIsWalletModalOpened }) {
                                   ? (e) => {
                                       e.preventDefault();
                                       if (!value.adress) {
-                                        setIsWalletModalOpened({
+                                        setWalletModalOptions({
                                           open: true,
                                           URL: "/user-buy",
                                         });

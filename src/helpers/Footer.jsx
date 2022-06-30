@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
-function Footer({ setIsWalletModalOpened }) {
+function Footer({ setWalletModalOptions }) {
   const { value } = useContext(UserContext);
   const smoothScroll = (e) => {
     e.preventDefault();
@@ -98,7 +98,7 @@ function Footer({ setIsWalletModalOpened }) {
                   !value.adress
                     ? (e) => {
                         e.preventDefault();
-                        setIsWalletModalOpened({
+                        setWalletModalOptions({
                           open: true,
                           URL: "/user",
                         });

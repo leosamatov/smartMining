@@ -8,7 +8,7 @@ function TopBar({
   showJumbotron = true,
   isLight = false,
   isTransparent = false,
-  setIsWalletModalOpened,
+  setWalletModalOptions,
 }) {
   const [showMenu, setShowMenu] = useState(true);
   const { value, setValue } = useContext(UserContext);
@@ -41,7 +41,7 @@ function TopBar({
 
   const connectWallet = async (e) => {
     e.preventDefault();
-    setIsWalletModalOpened({
+    setWalletModalOptions({
       open: true,
       URL: null,
     });
@@ -217,7 +217,7 @@ function TopBar({
                         ? (e) => {
                             e.preventDefault();
 
-                            setIsWalletModalOpened({
+                            setWalletModalOptions({
                               open: true,
                               URL: "/user",
                             });
@@ -253,7 +253,7 @@ TopBar.propTypes = {
   showJumbotron: PropTypes.bool,
   isLight: PropTypes.bool,
   isTransparent: PropTypes.bool,
-  setIsWalletModalOpened: PropTypes.func,
+  setWalletModalOptions: PropTypes.func,
 };
 
 export default TopBar;

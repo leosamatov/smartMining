@@ -4,8 +4,6 @@ import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import { UserContext } from "../../UserContext";
 
-import { useHistory } from "react-router-dom";
-
 const WALLETS_OPTIONS = [
   {
     id: "metamask",
@@ -20,9 +18,10 @@ const WALLETS_OPTIONS = [
 ];
 
 function WalletModal({
-  isWalletModalOpened = false,
-  setIsWalletModalOpened,
-  URL = "/user",
+  walletModalOptions = false,
+  setWalletModalOptions,
+  URL,
+  history,
 }) {
   const { setValue } = useContext(UserContext);
   const onWalletSelected = async (wallet_info) => {
@@ -41,26 +40,28 @@ function WalletModal({
     }
   };
   useEffect(() => {
-    if (isWalletModalOpened) {
+    if (walletModalOptions) {
       window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then((accounts) => {
           setValue({
             adress: accounts[0],
           });
-          window.location.pathname = URL;
+          if (URL) {
+            history.push(URL);
+          }
         });
     }
-  }, [isWalletModalOpened]);
+  }, [walletModalOptions]);
   return (
     <div
       id="wallet-modal"
-      style={{ display: isWalletModalOpened ? "flex" : "none" }}
+      style={{ display: walletModalOptions ? "flex" : "none" }}
     >
       <div className="wallet-modal-content">
         <div className="wallet-modal-content__header">
           <h5>Connect wallet</h5>
-          <div onClick={() => setIsWalletModalOpened(false)}>&times;</div>
+          <div onClick={() => setWalletModalOptions(false)}>&times;</div>
         </div>
         <div className="wallet-modal-content__body">
           {WALLETS_OPTIONS.map((wallet, key) => (
@@ -80,8 +81,8 @@ function WalletModal({
 }
 
 WalletModal.propTypes = {
-  isWalletModalOpened: PropTypes.bool,
-  setIsWalletModalOpened: PropTypes.func,
+  walletModalOptions: PropTypes.bool,
+  setWalletModalOptions: PropTypes.func,
 };
 
 export default WalletModal;

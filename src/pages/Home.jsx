@@ -18,7 +18,7 @@ import WalletModal from "../components/molecules/WalletModal";
 import { UserContext } from "../UserContext";
 
 function Home() {
-  const [isWalletModalOpened, setIsWalletModalOpened] = useState({
+  const [walletModalOptions, setWalletModalOptions] = useState({
     open: false,
     URL: null,
   });
@@ -34,23 +34,23 @@ function Home() {
   return (
     <Template>
       <WhiteBgContainer>
-        <TopBar setIsWalletModalOpened={setIsWalletModalOpened} />
+        <TopBar setWalletModalOptions={setWalletModalOptions} />
 
-        <Steps setIsWalletModalOpened={setIsWalletModalOpened} />
-        <Mining setIsWalletModalOpened={setIsWalletModalOpened} />
-        <Calculator setIsWalletModalOpened={setIsWalletModalOpened} />
-        <CloudMiningContracts setIsWalletModalOpened={setIsWalletModalOpened} />
+        <Steps setWalletModalOptions={setWalletModalOptions} />
+        <Mining setWalletModalOptions={setWalletModalOptions} />
+        <Calculator setWalletModalOptions={setWalletModalOptions} />
+        <CloudMiningContracts setWalletModalOptions={setWalletModalOptions} />
       </WhiteBgContainer>
 
-      <Team setIsWalletModalOpened={setIsWalletModalOpened} />
-      <ConnectWallet setIsWalletModalOpened={setIsWalletModalOpened} />
-      <Footer setIsWalletModalOpened={setIsWalletModalOpened} />
+      <Team setWalletModalOptions={setWalletModalOptions} />
+      <ConnectWallet setWalletModalOptions={setWalletModalOptions} />
+      <Footer setWalletModalOptions={setWalletModalOptions} />
 
       {/* Modals */}
       <WalletModal
-        isWalletModalOpened={isWalletModalOpened.open}
-        setIsWalletModalOpened={setIsWalletModalOpened}
-        URL={isWalletModalOpened.URL}
+        walletModalOptions={walletModalOptions.open}
+        setWalletModalOptions={setWalletModalOptions}
+        URL={walletModalOptions.URL}
       />
     </Template>
   );
