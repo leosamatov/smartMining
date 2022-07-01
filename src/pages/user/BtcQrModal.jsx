@@ -48,7 +48,12 @@ function HashModal({ showModal, setShowModal }) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} onEnter={() => false}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        onBackdropClick={() => setShow(true)}
+        onEnter={() => false}
+      >
         <Modal.Body
           style={{
             borderRadius: "12px",
@@ -88,8 +93,6 @@ function HashModal({ showModal, setShowModal }) {
               variant={"success "}
               style={{
                 zIndex: "20",
-                position: "absolute",
-                top: "20px",
               }}
             >
               <Alert.Heading>Success Transaction!</Alert.Heading>

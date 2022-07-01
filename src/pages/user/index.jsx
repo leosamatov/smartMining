@@ -253,7 +253,7 @@ function UserCabinet({ buyMiners }) {
     }
   }, [coin]);
 
-  return isConnected && accounts && !errorMessage ? (
+  return (
     <SidebarTemplate activeItem="/user">
       <div className="sm:w-full">
         <nav className="border-b-2 border-gray-200 py-8 sm:hidden lg:block">
@@ -303,10 +303,6 @@ function UserCabinet({ buyMiners }) {
         </div>
       </div>
     </SidebarTemplate>
-  ) : (
-    <div className="errorPageContainer">
-      <h3>{errorMessage}</h3>
-    </div>
   );
 }
 export default UserCabinet;
