@@ -35,11 +35,14 @@ function CopyButton({ copyText }) {
 function HashModal({ showModal, setShowModal }) {
   const [show, setShow] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [value, setValue] = useState("");
+  const [error, setError] = useState(false);
 
   const handleClose = () => {
     setShow(false);
     setShowModal(false);
     setSuccess(false);
+    setValue(null);
   };
 
   useEffect(() => {
@@ -49,10 +52,10 @@ function HashModal({ showModal, setShowModal }) {
   return (
     <>
       <Modal
+        backdrop="static"
         show={show}
         onHide={handleClose}
         onBackdropClick={() => setShow(true)}
-        onEnter={() => false}
       >
         <Modal.Body
           style={{
@@ -67,12 +70,20 @@ function HashModal({ showModal, setShowModal }) {
               <div className="hashModalBodyContainer">
                 <TextField
                   required
+                  error={error}
                   id="outlined-basic"
                   color="warning"
                   label="Enter the transaction hash"
                   variant="outlined"
+                  helperText={error ? "Incorrect entry." : null}
+                  value={value}
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                    setError(false);
+                  }}
                   style={{
                     marginRight: "10px",
+                    borderColor: value ? null : "red",
                   }}
                 />
                 <Button
@@ -82,7 +93,15 @@ function HashModal({ showModal, setShowModal }) {
                     borderColor: "#ff7043",
                     padding: "15px",
                   }}
-                  onClick={() => setSuccess(true)}
+                  onClick={() => {
+                    if (value) {
+                      setSuccess(true);
+                      setError(false);
+                      setValue(null);
+                    } else {
+                      setError(true);
+                    }
+                  }}
                 >
                   Send
                 </Button>

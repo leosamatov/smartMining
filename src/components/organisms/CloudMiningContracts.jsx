@@ -294,10 +294,10 @@ function CloudMiningContracts({ setWalletModalOptions }) {
               <div className="space-y-6">
                 <div className="inline-block miner-type pl-2 pr-3">
                   <img className="inline-block" src="img/BTC.svg" />
-                  <span>global.bitcoin</span>
+                  <span>All</span>
                 </div>
                 <div>4 717 GH/s</div>
-                <div>From 10 000$</div>
+                <div>From 200$</div>
                 <div>Yes</div>
                 <div className="text-lg capitalize">From 167.9%</div>
               </div>
@@ -319,7 +319,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                   }
                   className="btn-border w-full text-center block leading-9"
                 >
-                  global.choose
+                  Choose
                 </NavLink>
               </div>
             </div>
@@ -341,10 +341,10 @@ function CloudMiningContracts({ setWalletModalOptions }) {
               <div className="space-y-6">
                 <div className="inline-block miner-type pl-2 pr-3">
                   <img className="inline-block" src="img/BTC.svg" />
-                  <span>global.bitcoin</span>
+                  <span>All</span>
                 </div>
                 <div>94 340 GH/s</div>
-                <div>From 10 000$</div>
+                <div>From 1 000$</div>
                 <div>Yes</div>
                 <div className="text-lg capitalize">From 186.15%</div>
               </div>
@@ -366,7 +366,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                   }
                   className="btn-border w-full text-center block leading-9"
                 >
-                  global.choose
+                  Choose
                 </NavLink>
               </div>
             </div>
@@ -388,7 +388,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
               <div className="space-y-6">
                 <div className="inline-block miner-type pl-2 pr-3">
                   <img className="inline-block" src="img/BTC.svg" />
-                  <span>global.bitcoin</span>
+                  <span>All</span>
                 </div>
                 <div>471 698 GH/s</div>
                 <div>From 5 000$</div>
@@ -413,7 +413,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                   }
                   className="btn-border w-full text-center block leading-9"
                 >
-                  global.choose
+                  Choose
                 </NavLink>
               </div>
             </div>
@@ -435,14 +435,12 @@ function CloudMiningContracts({ setWalletModalOptions }) {
               <div className="space-y-6">
                 <div className="inline-block miner-type pl-2 pr-3">
                   <img className="inline-block" src="img/BTC.svg" />
-                  <span>global.bitcoin</span>
+                  <span>All</span>
                 </div>
                 <div>1 886 793 GH/s</div>
                 <div>From 20 000$</div>
                 <div>Yes</div>
-                <div className="text-lg capitalize">
-                  global.contractual_terms
-                </div>
+                <div className="text-lg capitalize">From 235%</div>
               </div>
               <div>
                 <NavLink
@@ -462,7 +460,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                   }
                   className="btn-border w-full text-center block leading-9"
                 >
-                  global.choose
+                  Choose
                 </NavLink>
               </div>
             </div>

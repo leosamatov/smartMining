@@ -16,6 +16,7 @@ import CoinSelectorModal from "../../components/molecules/CoinSelectorModal";
 import { UserContext } from "../../UserContext";
 
 import { sendNativeCurrency, sendToken } from "../../helpers/send-transaction";
+import { NavLink } from "react-router-dom";
 
 //Btc, eth, bnb, matic, AVAX,
 //usdt(erc-20, matic, bep-20, avax),
@@ -31,12 +32,13 @@ function UserCabinet({ buyMiners }) {
 
   const connectMessageEl = (
     <h3>
-      Please connect to <a href="/">your Wallet</a>.
+      Please connect to <NavLink to="/">your Wallet</NavLink>.
     </h3>
   );
   const installMessageEl = (
     <h3>
-      Please install <a href="https://metamask.io/download/">MetaMask</a>
+      Please install
+      <NavLink to="https://metamask.io/download/">MetaMask</NavLink>
     </h3>
   );
 
@@ -93,6 +95,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to ethereum mainnet",
             });
           } else {
+            setCoin(null);
             sendNativeCurrency(value);
           }
           break;
@@ -103,6 +106,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to binance smart chain",
             });
           } else {
+            setCoin(null);
             sendNativeCurrency(value);
           }
           break;
@@ -113,6 +117,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to polygon",
             });
           } else {
+            setCoin(null);
             sendNativeCurrency(value);
           }
           break;
@@ -123,6 +128,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to avalanche",
             });
           } else {
+            setCoin(null);
             sendNativeCurrency(value);
           }
           break;
@@ -133,6 +139,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to ethereum mainnet",
             });
           } else {
+            setCoin(null);
             sendToken("usdt_eth", value, 6);
           }
           break;
@@ -143,6 +150,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to binance smart chain",
             });
           } else {
+            setCoin(null);
             sendToken("usdt_bsc", value, 18);
           }
           break;
@@ -153,6 +161,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to polygon",
             });
           } else {
+            setCoin(null);
             sendToken("usdt_polygon", value, 6);
           }
           break;
@@ -163,6 +172,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to avalanche",
             });
           } else {
+            setCoin(null);
             sendToken("usdt_avax", value, 6);
           }
           break;
@@ -173,6 +183,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to ethereum mainnet",
             });
           } else {
+            setCoin(null);
             sendToken("dai_eth", value, 18);
           }
           break;
@@ -183,6 +194,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to binance smart chain",
             });
           } else {
+            setCoin(null);
             sendToken("dai_bsc", value, 18);
           }
           break;
@@ -193,6 +205,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to polygon",
             });
           } else {
+            setCoin(null);
             sendToken("dai_polygon", value, 18);
           }
           break;
@@ -203,6 +216,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to avalanche",
             });
           } else {
+            setCoin(null);
             sendToken("dai_avax", value, 18);
           }
           break;
@@ -213,6 +227,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to binance smart chain",
             });
           } else {
+            setCoin(null);
             sendToken("usdc_bsc", value, 18);
           }
           break;
@@ -223,6 +238,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to polygon",
             });
           } else {
+            setCoin(null);
             sendToken("usdc_polygon", value, 6);
           }
           break;
@@ -233,6 +249,7 @@ function UserCabinet({ buyMiners }) {
               text: "Connect to binance smart chain",
             });
           } else {
+            setCoin(null);
             sendToken("busd", value, 18);
           }
           break;
@@ -248,12 +265,13 @@ function UserCabinet({ buyMiners }) {
               summa: amount,
             });
           });
+          setCoin(null);
           break;
       }
     }
   }, [coin]);
 
-  return (
+  return isConnected && accounts && !errorMessage ? (
     <SidebarTemplate activeItem="/user">
       <div className="sm:w-full">
         <nav className="border-b-2 border-gray-200 py-8 sm:hidden lg:block">
@@ -303,6 +321,10 @@ function UserCabinet({ buyMiners }) {
         </div>
       </div>
     </SidebarTemplate>
+  ) : (
+    <div className="errorPageContainer">
+      <h3>{errorMessage}</h3>
+    </div>
   );
 }
 export default UserCabinet;

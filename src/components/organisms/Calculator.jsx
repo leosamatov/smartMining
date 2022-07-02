@@ -163,7 +163,7 @@ function Calculator({ setWalletModalOptions }) {
                             <input
                               className="bg-transparent w-full"
                               placeholder="5000"
-                              type="number"
+                              type="text"
                               value={amount}
                               onChange={onAmountChange}
                             />
