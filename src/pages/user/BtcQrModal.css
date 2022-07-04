@@ -64,6 +64,7 @@
     /* max-width: 50px; */
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     justify-content:center;
     align-items: center;
     height: fit-content;

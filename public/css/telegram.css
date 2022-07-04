@@ -58,3 +58,10 @@
         margin-right: 30px !important;
     }
 }
+@media (max-width: 767.98px) {
+    .telegramWidget_5724{
+        margin-bottom: 35px !important;
+        width:52px !important;
+        height:52px !important;
+    }  
+}

@@ -1792,18 +1792,9 @@ pre code {
     color: #fff;
     background-color: hsla(0, 0%, 100%, .075)
 }
-@media (max-width: 575.98px) {
-    .table-responsive-sm {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch
-    }
 
-    .table-responsive-sm > .table-bordered {
-        border: 0
-    }
-}
+
+
 @media (max-width: 767.98px) {
     .btn-action{
         width:140px !important;
@@ -1820,21 +1811,24 @@ pre code {
         gap:7px !important;
     }
     .btc_block{
-        height: fit-content !important;
-    }
-    .telegramWidget_5724{
-        width:52px !important;
-        height:52px !important;
+        height: 74vh !important;
+        min-height: 500px;
     }
     #buy_miner_modal {
         width: 95% !important;
         min-width:400px;
         overflow-y:scroll;
-        height: 516px !important;
+        height: 74vh !important;
+    }
+    .btn-formobile{
+        padding: 6px 0px !important;
     }
     .w-1\/3 {
         width: 34% !important;
-        padding: 6px 15px !important;
+    }
+    .miner-modal-result div{
+        /* padding: 0 !important; */
+        padding: 5px 5px !important
     }
     .table-responsive-md {
         display: block;
@@ -1847,17 +1841,65 @@ pre code {
         border: 0
     }
 }
-@media (max-width: 370px) {
+@media (max-width: 575.98px) {
+    .table-responsive-sm {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch
+    }
+    .pt-4{
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+    }
+    .miner-modal-result {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: start;
+    }
+    .miner-modal-result div { 
+        margin-left: 0 !important;
+        padding: 2px 5px !important;
+    }
+    .act-btn-formobile{
+        padding-left: 0 !important;
+    }
+    .pb-3{
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 10px !important;
+        padding-left: 0 !important;
+    }
+    .w-1\/3 {
+    width: 43% !important;
+    }
+    .table-responsive-sm > .table-bordered {
+        border: 0
+    }
+}
+@media (min-width: 320px) and (max-width: 425px) {
     .btc_block{
-        width:360px !important;
+        width:100vw !important;
         overflow:hidden !important;
     }
 
     #buy_miner_modal {
-        min-width:320px;
+        min-width:320px !important;
     }
-    .w-1\/3 {
-        width: 30% !important;
+    .pb-3{
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+        
+    .miner-modal-result{
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: start;
+    }
+    .miner-modal-result div{
+        min-width: 120px !important;
+        margin:0 !important;
+        padding: 2px 6px !important;
     }
     .text-2xl{
         font-size:1rem !important;
