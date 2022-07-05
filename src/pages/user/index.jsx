@@ -26,6 +26,7 @@ import { pixelPageView } from "../../helpers/pixel";
 //dai( bep-20, avax, matic)
 
 function UserCabinet({ buyMiners }) {
+  const { id } = useParams();
   const [showModal, setShowModal] = useState(buyMiners);
   const toggleModal = (e) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ function UserCabinet({ buyMiners }) {
 
   const connectMessageEl = (
     <h3>
-      Please connect to <NavLink to="/">your Wallet</NavLink>.
+      Please connect to <NavLink to={id ? `/${id}` : `/`}>your Wallet</NavLink>.
     </h3>
   );
   const installMessageEl = (
@@ -60,7 +61,6 @@ function UserCabinet({ buyMiners }) {
     isOpen: false,
     summa: null,
   });
-  const { id } = useParams();
   const connect = () => {
     if (window.ethereum) {
       ethereum

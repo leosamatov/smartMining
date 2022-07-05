@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 function MainMenu({ activeItem = "/referral" }) {
+  const { id } = useParams();
   const [open, setOpen] = useState(true);
-
   const toggleOpen = (e) => {
     e.preventDefault();
     setOpen((prevState) => !prevState);
@@ -35,7 +35,7 @@ function MainMenu({ activeItem = "/referral" }) {
       >
         <div className="sm:hidden lg:block profile text-center space-y-4">
           <div>
-            <NavLink to="/">
+            <NavLink to={id ? `/${id}` : `/`}>
               <img src="img/logo.svg" className="mx-auto" />
             </NavLink>
           </div>
@@ -43,7 +43,7 @@ function MainMenu({ activeItem = "/referral" }) {
         <ul className="space-y-5">
           <li>
             <NavLink
-              to="/user"
+              to={id ? `/user/${id}` : `/user`}
               className={`${
                 activeItem === "/user" ? "bg-gray-800 text-white" : ""
               } space-x-2 block leading-4 font-medium hover:no-underline px-3 py-2.5 rounded-lg`}

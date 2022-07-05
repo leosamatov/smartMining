@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 
 function TopBar({
@@ -10,6 +10,7 @@ function TopBar({
   isTransparent = false,
   setWalletModalOptions,
 }) {
+  const { id } = useParams();
   const [showMenu, setShowMenu] = useState(true);
   const { value, setValue } = useContext(UserContext);
   const onMenuToggle = (e) => {
@@ -137,7 +138,7 @@ function TopBar({
           <div className="container mx-auto">
             <div className="header h-24 flex space-x-4 items-center relative">
               <div>
-                <NavLink to="/" className="flex items-center">
+                <NavLink to={id ? `/${id}` : `/`} className="flex items-center">
                   <img className="mr-3" src="img/logo.svg" alt="SMART" />
                   <div>
                     <img
@@ -212,7 +213,7 @@ function TopBar({
                   </div>
                   <div className="pt-4">
                     <NavLink
-                      to="/user"
+                      to={id ? `/user/${id}` : `/user`}
                       className="btn-orange"
                       onClick={
                         !value.adress
@@ -221,7 +222,7 @@ function TopBar({
 
                               setWalletModalOptions({
                                 open: true,
-                                URL: "/user",
+                                URL: id ? `/user/${id}` : `/user`,
                               });
                             }
                           : undefined
