@@ -63,9 +63,9 @@ function TopBar({
   const DesktopInfo = () => (
     <div className="flex space-x-4 items-center">
       <div className="auth mob-hide">
-        <a
-          href=""
-          onClick={connectWallet}
+        <NavLink
+          to={id ? `/user/${id}` : `/user`}
+          onClick={!value.adress ? connectWallet : undefined}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
@@ -78,7 +78,7 @@ function TopBar({
           <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
             <img src="img/User.svg" alt="" />
           </span>
-        </a>
+        </NavLink>
       </div>
       <div onClick={onMenuToggle}>
         <a

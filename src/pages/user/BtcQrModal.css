@@ -109,8 +109,8 @@
     text-align:left;
     justify-content: left;
 }
-@media (max-width: 346px) {
+@media (max-width: 360px) {
     .hashModalBodyContainer > button{
-       margin-top:10px;
+       margin-top:10px !important;
     }
 }
