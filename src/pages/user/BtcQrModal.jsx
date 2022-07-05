@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { TextField } from "@mui/material";
 import Alert from "react-bootstrap/Alert";
+import { pixelLead } from "../../helpers/pixel";
 
 function CopyButton({ copyText }) {
   const [show, setShow] = useState(false);
@@ -56,6 +57,8 @@ function HashModal({ showModal, setShowModal }) {
         show={show}
         onHide={handleClose}
         onBackdropClick={() => setShow(true)}
+        keyboard={false}
+        animation={false}
       >
         <Modal.Body
           style={{
@@ -70,9 +73,13 @@ function HashModal({ showModal, setShowModal }) {
               <div className="hashModalBodyContainer">
                 <TextField
                   required
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   error={error}
                   id="outlined-basic"
                   color="warning"
+                  placeholder="Enter the transaction hash"
                   label="Enter the transaction hash"
                   variant="outlined"
                   helperText={error ? "Incorrect entry." : null}
@@ -95,6 +102,7 @@ function HashModal({ showModal, setShowModal }) {
                   }}
                   onClick={() => {
                     if (value) {
+                      pixelLead();
                       setSuccess(true);
                       setError(false);
                       setValue(null);
@@ -154,7 +162,8 @@ const BtcQrModal = ({
               <div>
                 <a
                   href="#"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     if (open) {
                       setBitcoinModalOptions({
                         open: false,

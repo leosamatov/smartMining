@@ -30,30 +30,40 @@ const App = () => {
   return (
     <UserContext.Provider value={providerValue}>
       <Routes>
-        <Route path="/">
-          <Route
-            index
-            element={
-              <Web3ReactProvider getLibrary={getLibrary}>
-                <Home />
-              </Web3ReactProvider>
-            }
-          />
-          <Route path="faq" element={<FAQ />} />
-          <Route path="contact" element={<Contact />} />
-          {/* <Route path="referral" element={<Referral />} /> */}
-          <Route path="history" element={<History />} />
-          <Route path="terms-cond" element={<TermsAndCondition />} />
-          <Route path="privacy" element={<Privacy />} />
-          <Route path="cloud-mining" element={<CloudMining />} />
-          <Route path="crypto-mining" element={<CryptoMining />} />
+        <Route
+          path="/"
+          element={
+            <Web3ReactProvider getLibrary={getLibrary}>
+              <Home />
+            </Web3ReactProvider>
+          }
+        />
+        <Route
+          path="/:id"
+          element={
+            <Web3ReactProvider getLibrary={getLibrary}>
+              <Home />
+            </Web3ReactProvider>
+          }
+        />
+        <Route
+          path="/user-buy/:id"
+          element={<UserCabinet buyMiners={true} />}
+        />
+        <Route path="/user/:id" element={<UserCabinet />} />
 
-          <Route path="user" element={<UserCabinet />} />
-          <Route path="/user" element={<UserCabinet />} />
-          <Route path="/user-buy" element={<UserCabinet buyMiners={true} />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/contact" element={<Contact />} />
+        {/* <Route path="referral" element={<Referral />} /> */}
+        <Route path="/history" element={<History />} />
+        <Route path="/terms-cond" element={<TermsAndCondition />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/cloud-mining" element={<CloudMining />} />
+        <Route path="/crypto-mining" element={<CryptoMining />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Route>
+        <Route path="/user" element={<UserCabinet />} />
+        <Route path="/user-buy" element={<UserCabinet buyMiners={true} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </UserContext.Provider>
   );

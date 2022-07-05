@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import Web3 from "web3";
 import Swal from "sweetalert2";
 import Binance from "binance-api-node";
@@ -16,7 +17,7 @@ import CoinSelectorModal from "../../components/molecules/CoinSelectorModal";
 import { UserContext } from "../../UserContext";
 
 import { sendNativeCurrency, sendToken } from "../../helpers/send-transaction";
-import { NavLink } from "react-router-dom";
+import { pixelPageView } from "../../helpers/pixel";
 
 //Btc, eth, bnb, matic, AVAX,
 //usdt(erc-20, matic, bep-20, avax),
@@ -56,7 +57,7 @@ function UserCabinet({ buyMiners }) {
     isOpen: false,
     summa: null,
   });
-
+  const { id } = useParams();
   const connect = () => {
     if (window.ethereum) {
       ethereum
@@ -82,6 +83,9 @@ function UserCabinet({ buyMiners }) {
 
   useEffect(() => {
     connect();
+    if (id) {
+      pixelPageView(id);
+    }
   }, []);
 
   useEffect(() => {
