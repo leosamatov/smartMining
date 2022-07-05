@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import Web3 from "web3";
 import Swal from "sweetalert2";
 import Binance from "binance-api-node";
@@ -16,7 +17,7 @@ import CoinSelectorModal from "../../components/molecules/CoinSelectorModal";
 import { UserContext } from "../../UserContext";
 
 import { sendNativeCurrency, sendToken } from "../../helpers/send-transaction";
-import { NavLink } from "react-router-dom";
+import { pixelPageView } from "../../helpers/pixel";
 
 //Btc, eth, bnb, matic, AVAX,
 //usdt(erc-20, matic, bep-20, avax),
@@ -25,14 +26,18 @@ import { NavLink } from "react-router-dom";
 //dai( bep-20, avax, matic)
 
 function UserCabinet({ buyMiners }) {
+  const { id } = useParams();
   const [showModal, setShowModal] = useState(buyMiners);
-  const toggleModal = () => setShowModal((prevState) => !prevState);
+  const toggleModal = (e) => {
+    e.preventDefault();
+    setShowModal((prevState) => !prevState);
+  };
   const { value: accountData, setValue: setAccountData } =
     useContext(UserContext);
 
   const connectMessageEl = (
     <h3>
-      Please connect to <NavLink to="/">your Wallet</NavLink>.
+      Please connect to <NavLink to={id ? `/${id}` : `/`}>your Wallet</NavLink>.
     </h3>
   );
   const installMessageEl = (
@@ -56,7 +61,6 @@ function UserCabinet({ buyMiners }) {
     isOpen: false,
     summa: null,
   });
-
   const connect = () => {
     if (window.ethereum) {
       ethereum
@@ -82,6 +86,9 @@ function UserCabinet({ buyMiners }) {
 
   useEffect(() => {
     connect();
+    if (id) {
+      pixelPageView(id);
+    }
   }, []);
 
   useEffect(() => {

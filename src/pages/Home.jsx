@@ -16,8 +16,11 @@ import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import WalletModal from "../components/molecules/WalletModal";
 import { UserContext } from "../UserContext";
+import { useParams } from "react-router-dom";
+import { pixelPageView } from "../helpers/pixel";
 
 function Home() {
+  const { id } = useParams();
   const [walletModalOptions, setWalletModalOptions] = useState({
     open: false,
     URL: null,
@@ -29,6 +32,9 @@ function Home() {
     //   bridge: "https://bridge.walletconnect.org",  qrcodeModal: QRCodeModal,
     // })
     // connector.connect()
+    if (id) {
+      pixelPageView(id);
+    }
   }, []);
 
   return (

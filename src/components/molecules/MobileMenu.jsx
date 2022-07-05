@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import $ from "jquery";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 function MobileMenu() {
   const [showMenu, setShowMenu] = useState(false);
-
+  const { id } = useParams();
   const toggleMenu = (e) => {
     e.preventDefault();
     setShowMenu((prevState) => !prevState);
@@ -35,7 +35,10 @@ function MobileMenu() {
             )}
           </div>
           <div className="flex items-center space-x-6">
-            <NavLink to="/" className="flex items-center space-x-3">
+            <NavLink
+              to={id ? `/${id}` : `/`}
+              className="flex items-center space-x-3"
+            >
               <img src="img/logo.svg" className="h-10" />
             </NavLink>
           </div>

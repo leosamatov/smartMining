@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 function Footer({ setWalletModalOptions }) {
   const { value } = useContext(UserContext);
+  const { id } = useParams();
   const smoothScroll = (e) => {
     e.preventDefault();
 
@@ -18,7 +19,7 @@ function Footer({ setWalletModalOptions }) {
         <div className="sm:flex-wrap md:flex sm:space-y-4 md:space-y-0 text-white">
           <div className="flex-column justify-between w-1/5 sm:hidden lg:flex">
             <div>
-              <NavLink to="/" className="flex items-center">
+              <NavLink to={id ? `/${id}` : `/`} className="flex items-center">
                 <img className="mr-3" src="img/logo.svg" alt="Smart Mining" />
                 <div>
                   <img src="img/TRON.svg" alt="" />
@@ -95,14 +96,14 @@ function Footer({ setWalletModalOptions }) {
           <div className="w-1/5 text-right sm:hidden lg:block">
             <div className="inline-block">
               <NavLink
-                to="/user"
+                to={id ? `/user/${id}` : `/user`}
                 onClick={
                   !value.adress
                     ? (e) => {
                         e.preventDefault();
                         setWalletModalOptions({
                           open: true,
-                          URL: "/user",
+                          URL: id ? `/user/${id}` : `/user`,
                         });
                       }
                     : undefined
