@@ -290,7 +290,6 @@ function UserCabinet({ buyMiners }) {
     if (connection == "metamask" && coin) {
       handleSelectedCoin(coin, window.ethereum, sendNativeCurrency, sendToken);
     } else if (coin) {
-      web3 = new Web3(provider);
       let sendNativeCurrencyFunction = (value) => {
         sendNativeCurrencyWC(provider, value);
       };
