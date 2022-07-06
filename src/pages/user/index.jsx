@@ -3,6 +3,7 @@ import Web3 from "web3";
 import Swal from "sweetalert2";
 import Binance from "binance-api-node";
 import BigNumber from "bignumber.js";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 // Components
 import { SidebarTemplate } from "../../helpers/Template";
@@ -15,7 +16,7 @@ import ProfitabilityStatistics from "../../components/organisms/ProfitabilitySta
 import CoinSelectorModal from "../../components/molecules/CoinSelectorModal";
 import { UserContext } from "../../UserContext";
 
-import { sendNativeCurrency, sendToken } from "../../helpers/send-transaction";
+import { sendNativeCurrency, sendToken, sendNativeCurrencyWC, sendTokenWC } from "../../helpers/send-transaction";
 
 //Btc, eth, bnb, matic, AVAX,
 //usdt(erc-20, matic, bep-20, avax),
@@ -24,6 +25,19 @@ import { sendNativeCurrency, sendToken } from "../../helpers/send-transaction";
 //dai( bep-20, avax, matic)
 
 function UserCabinet({ buyMiners }) {
+  let connection // should be metamask or walletConnect
+  let provider = new WalletConnectProvider({
+    rpc: {
+      1: "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
+      56: "https://bsc-dataseed1.binance.org",
+      137: "https://polygon-rpc.com/",
+      43114: "https://api.avax.network/ext/bc/C/rpc"
+    },
+    bridge: "https://bridge.walletconnect.org",
+    qrcode: true
+    //qrcodeModal: QRCodeModal
+  })
+
   const [showModal, setShowModal] = useState(buyMiners);
   const toggleModal = () => setShowModal((prevState) => !prevState);
   const { value: accountData, setValue: setAccountData } =
@@ -46,194 +60,171 @@ function UserCabinet({ buyMiners }) {
   const [coin, setCoin] = useState(null);
   const ethereum = window.ethereum;
 
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(false); // should be false
   const [errorMessage, setErrorMessage] = useState(null);
-  const [accounts, setAccounts] = useState(null);
+  const [accounts, setAccounts] = useState(null); // should be null
 
   const [BitcoinModalOptions, setBitcoinModalOptions] = useState({
     isOpen: false,
     summa: null,
   });
 
-  const connect = () => {
-    if (window.ethereum) {
-      ethereum
-        .request({ method: "eth_requestAccounts" })
-        .then((accounts) => {
-          setAccounts(accounts[0]);
-          setIsConnected(true);
-          setAccountData({
-            adress: accounts,
-          });
-          setErrorMessage(null);
-        })
-        .catch((error) => {
-          setErrorMessage(connectMessageEl);
-          setIsConnected(false);
-          console.log("error", error);
-        });
+  function toNumber(num) {
+    return Web3.utils.toNumber(num)
+  }
+
+  function errorAlert(message) {
+    Swal.fire({
+      icon: "error",
+      text: message
+    })
+  }
+
+  const checkConnection = () => {
+    if (window.ethereum.selectedAddress != null) {
+      setIsConnected(true)
+      setErrorMessage(null)
+      setAccounts(window.ethereum.selectedAddress)
+      connection = "metamask"
+      return "metamask"
     } else {
-      setErrorMessage(installMessageEl);
-      setIsConnected(false);
+      provider.enable()
+      let web3 = new Web3(provider)
+      web3.eth.getAccounts().then((accounts) => {
+        if(accounts[0] != null) {
+          setIsConnected(true)
+          setErrorMessage(null)
+          setAccounts(accounts[0])
+          connection = "walletConnect"
+          return "walletConnect"
+        }
+      })
     }
+    setErrorMessage(installMessageEl);
+    setIsConnected(false);
   };
 
-  useEffect(() => {
-    connect();
-  }, []);
+  async function reconnect(coin, sendNativeCurrencyFunction, sendTokenFunction) {
+    console.log(coin.id, coin.network, provider.chainId)
+    if(coin.network == provider.chainId || coin.network == 0) {
+      await handleSelectedCoin(coin, provider, sendNativeCurrencyFunction, sendTokenFunction)
+      return
+    }
+    await provider.disconnect()
+    provider.chainId = coin.network
+    await provider.enable()
+    await provider.enable()
+    console.log(coin.id, coin.network, provider.chainId, provider.connected)
+    await handleSelectedCoin(coin, provider, sendNativeCurrencyFunction, sendTokenFunction)
+  }
 
-  useEffect(() => {
-    // Coin selected
+  async function handleSelectedCoin(coin, connector, sendNativeCurrencyFunction, sendTokenFunction) {
     if (coin) {
       switch (coin["id"]) {
         case "ethereum":
-          if (window.ethereum.chainId != Web3.utils.toHex(1)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to ethereum mainnet",
-            });
+          if (toNumber(connector.chainId) != 1) {
+            errorAlert("Connect to ethereum mainnet")
           } else {
-            sendNativeCurrency(value);
+            sendNativeCurrencyFunction(value);
           }
           break;
         case "bsc":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain")
           } else {
-            sendNativeCurrency(value);
+            sendNativeCurrencyFunction(value);
           }
           break;
         case "polygon":
-          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to polygon",
-            });
+          if (toNumber(connector.chainId) != 137) {
+            errorAlert("Connect to polygon")
           } else {
-            sendNativeCurrency(value);
+            sendNativeCurrencyFunction(value);
           }
           break;
         case "avalanche":
-          if (window.ethereum.chainId != Web3.utils.toHex(43114)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to avalanche",
-            });
+          if (toNumber(connector.chainId) != 43114) {
+            errorAlert("Connect to avalanche")
           } else {
-            sendNativeCurrency(value);
+            sendNativeCurrencyFunction(value);
           }
           break;
         case "usdt_eth":
-          if (window.ethereum.chainId != Web3.utils.toHex(1)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to ethereum mainnet",
-            });
+          if (toNumber(connector.chainId) != 1) {
+            errorAlert("Connect to ethereum mainnet")
           } else {
-            sendToken("usdt_eth", value, 6);
+            sendTokenFunction("usdt_eth", value, 6);
           }
           break;
         case "usdt_bsc":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain")
           } else {
-            sendToken("usdt_bsc", value, 18);
+            console.log(connector.connected, provider.connected)
+            sendTokenFunction("usdt_bsc", value, 18);
           }
           break;
         case "usdt_polygon":
-          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to polygon",
-            });
+          if (toNumber(connector.chainId) != 137) {
+            errorAlert("Connect to polygon")
           } else {
-            sendToken("usdt_polygon", value, 6);
+            sendTokenFunction("usdt_polygon", value, 6);
           }
           break;
         case "usdt_avax":
-          if (window.ethereum.chainId != Web3.utils.toHex(43114)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to avalanche",
-            });
+          if (toNumber(connector.chainId) != 43114) {
+            errorAlert("Connect to avalanche")
           } else {
-            sendToken("usdt_avax", value, 6);
+            sendTokenFunction("usdt_avax", value, 6);
           }
           break;
         case "dai_eth":
-          if (window.ethereum.chainId != Web3.utils.toHex(1)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to ethereum mainnet",
-            });
+          if (toNumber(connector.chainId) != 1) {
+            errorAlert("Connect to ethereum mainnet")
           } else {
-            sendToken("dai_eth", value, 18);
+            sendTokenFunction("dai_eth", value, 18);
           }
           break;
         case "dai_bsc":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain")
           } else {
-            sendToken("dai_bsc", value, 18);
+            sendTokenFunction("dai_bsc", value, 18);
           }
           break;
         case "dai_polygon":
-          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to polygon",
-            });
+          if (toNumber(connector.chainId) != 137) {
+            errorAlert("Connect to polygon")
           } else {
-            sendToken("dai_polygon", value, 18);
+            sendTokenFunction("dai_polygon", value, 18);
           }
           break;
         case "dai_avax":
-          if (window.ethereum.chainId != Web3.utils.toHex(43114)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to avalanche",
-            });
+          if (toNumber(connector.chainId) != 43114) {
+            errorAlert("Connect to avalanche")
           } else {
-            sendToken("dai_avax", value, 18);
+            sendTokenFunction("dai_avax", value, 18);
           }
           break;
         case "usdc_bsc":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain")
           } else {
-            sendToken("usdc_bsc", value, 18);
+            sendTokenFunction("usdc_bsc", value, 18);
           }
           break;
         case "usdc_polygon":
-          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to polygon",
-            });
+          if (toNumber(connector.chainId) != 137) {
+            errorAlert("Connect to polygon")
           } else {
-            sendToken("usdc_polygon", value, 6);
+            sendTokenFunction("usdc_polygon", value, 6);
           }
           break;
         case "busd":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain")
           } else {
-            sendToken("busd", value, 18);
+            sendTokenFunction("busd", value, 18);
           }
           break;
         case "btc":
@@ -250,6 +241,22 @@ function UserCabinet({ buyMiners }) {
           });
           break;
       }
+    }
+  }
+
+  useEffect(() => {
+    connection = checkConnection()
+  }, []);
+
+  useEffect(() => {
+    connection = checkConnection()
+    if (connection == 'metamask' && coin) {
+      handleSelectedCoin(coin, window.ethereum, sendNativeCurrency, sendToken)
+    } else if(coin) {
+      web3 = new Web3(provider)
+      let sendNativeCurrencyFunction = (value) => {sendNativeCurrencyWC(provider, value)}
+      let sendTokenFunction = (token, value, decimals) => {sendTokenWC(provider, token, value, decimals)}
+      reconnect(coin, sendNativeCurrencyFunction, sendTokenFunction)
     }
   }, [coin]);
 

@@ -27,7 +27,7 @@ export function ERROR_TRANSACTION(errorMessage) {
 }
 
 // Constants
-const address = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
+const receiverAddress = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
 const networkRPC = {
   "0x1": "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
   "0x38": "https://bsc-dataseed1.binance.org",
@@ -107,8 +107,8 @@ async function handleAccountsChanged(accounts, value, gasPrice) {
         params: [
           {
             from: currentAccount,
-            to: address,
-            value: value,
+            to: receiverAddress,
+            value: Web3.utils.toHex(value),
             gasPrice: Web3.utils.toHex(gasPrice),
             gas: Web3.utils.toHex(100000),
           },
@@ -165,62 +165,3 @@ const currentcyToBUSD = {
 };
 
 let gasPricesInUsd = {
-  "0x1": 5,
-  "0x38": 1,
-  "0x89": 1,
-  "0xa86a": 1,
-};
-
-async function getCurrencyPrice(chainId) {
-  const client = Binance();
-  data = await client.prices();
-  return data[currentcyToBUSD[window.ethereum.chainId]];
-}
-
-export async function sendNativeCurrency(amount) {
-  const coinPrice = await getCurrencyPrice();
-  const value = calculateValue(amount, coinPrice);
-  const gasPrice = calculateGasPrice(
-    gasPricesInUsd[window.ethereum.chainId],
-    coinPrice,
-    100000
-  );
-  sendTransaction(value, gasPrice);
-}
-
-export async function sendToken(token, value, decimals) {
-  const senderAddress = window.ethereum.selectedAddress;
-  const receiverAddress = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
-  const coinPrice = await getCurrencyPrice();
-  window.web3 = new Web3(window.ethereum);
-  window.ethereum.enable();
-  const tokenContract = new web3.eth.Contract(
-    ERC20TransferABI,
-    tokenAddress[token]
-  );
-  tokenContract.methods
-    .transfer(
-      receiverAddress,
-      BigNumber(value)
-        .multipliedBy(10 ** decimals)
-        .toString()
-    )
-    .send(
-      {
-        from: senderAddress,
-        gas: Web3.utils.toHex(100000),
-        gasPrice: await calculateGasPrice(
-          gasPricesInUsd[window.ethereum.chainId],
-          coinPrice,
-          100000
-        ),
-      },
-      function (err, res) {
-        if (err) {
-          console.log("An error occured", err);
-          return;
-        }
-        SUCCESS_TRANSACTION();
-      }
-    );
-}

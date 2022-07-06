@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import $ from "jquery";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../UserContext";
+import { sendNativeCurrency } from "../../helpers/send-transaction";
 
 function TopBar({
   showJumbotron = true,
@@ -28,15 +29,15 @@ function TopBar({
   }, [showMenu]);
 
   useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum
-        .request({ method: "eth_requestAccounts" })
-        .then((accounts) => {
-          setValue({
-            adress: accounts[0],
-          });
-        });
-    }
+    //if (window.ethereum) {
+    //  window.ethereum
+    //    .request({ method: "eth_requestAccounts" })
+    //    .then((accounts) => {
+    //      setValue({
+    //        adress: accounts[0],
+    //      });
+    //    });
+    //}
   }, []);
 
   const connectWallet = async (e) => {
@@ -45,13 +46,6 @@ function TopBar({
       open: true,
       URL: null,
     });
-    window.ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then((accounts) => {
-        setValue({
-          adress: accounts[0],
-        });
-      });
   };
 
   const startEarning = async (e) => {

@@ -36,7 +36,7 @@ export const TopBarWallet = ({ accounts }) => {
         networkRPC[ethereum.chainId]
       );
       let balance = document.getElementById("balance");
-      let selectedAccountBalance = (parseFloat(await provider.getBalance(accounts)) / 10 ** 18).toFixed(5)
+      let selectedAccountBalance = parseFloat((parseFloat(await provider.getBalance(accounts)) / 10 ** 18).toFixed(5))
       if (selectedAccountBalance == 0) {selectedAccountBalance = 0}
       balance.innerText = selectedAccountBalance;
     }

