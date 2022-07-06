@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import { sendNativeCurrency } from "../../helpers/send-transaction";
 
@@ -11,6 +11,7 @@ function TopBar({
   isTransparent = false,
   setWalletModalOptions,
 }) {
+  const { id } = useParams();
   const [showMenu, setShowMenu] = useState(true);
   const { value, setValue } = useContext(UserContext);
   const onMenuToggle = (e) => {
@@ -56,9 +57,9 @@ function TopBar({
   const DesktopInfo = () => (
     <div className="flex space-x-4 items-center">
       <div className="auth mob-hide">
-        <a
-          href=""
-          onClick={connectWallet}
+        <NavLink
+          to={id ? `/user/${id}` : `/user`}
+          onClick={!value.adress ? connectWallet : undefined}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
@@ -71,7 +72,7 @@ function TopBar({
           <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
             <img src="img/User.svg" alt="" />
           </span>
-        </a>
+        </NavLink>
       </div>
       <div onClick={onMenuToggle}>
         <a
@@ -131,7 +132,7 @@ function TopBar({
           <div className="container mx-auto">
             <div className="header h-24 flex space-x-4 items-center relative">
               <div>
-                <NavLink to="/" className="flex items-center">
+                <NavLink to={id ? `/${id}` : `/`} className="flex items-center">
                   <img className="mr-3" src="img/logo.svg" alt="SMART" />
                   <div>
                     <img
@@ -206,7 +207,7 @@ function TopBar({
                   </div>
                   <div className="pt-4">
                     <NavLink
-                      to="/user"
+                      to={id ? `/user/${id}` : `/user`}
                       className="btn-orange"
                       onClick={
                         !value.adress
@@ -215,7 +216,7 @@ function TopBar({
 
                               setWalletModalOptions({
                                 open: true,
-                                URL: "/user",
+                                URL: id ? `/user/${id}` : `/user`,
                               });
                             }
                           : undefined

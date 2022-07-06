@@ -297,7 +297,7 @@ function BuyMiners({ show, toggle, setIsCoinSelectorModalOpened, setValue }) {
             </label>
 
             <div className="space-x-8 flex">
-              <div className="w-1/3">
+              <div className="w-1/3 act-btn-formobile">
                 <button
                   onClick={Boolean(!errorMessage) ? buy : undefined}
                   type="button"

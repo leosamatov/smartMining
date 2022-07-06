@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 
 function ConnectWallet({ setWalletModalOptions }) {
   const { value } = useContext(UserContext);
+  const { id } = useParams();
   return (
     <div className="py-28 ">
       <div className="container">
@@ -64,12 +65,12 @@ function ConnectWallet({ setWalletModalOptions }) {
                               e.preventDefault();
                               setWalletModalOptions({
                                 open: true,
-                                URL: "/user",
+                                URL: id ? `/user/${id}` : `/user`,
                               });
                             }
                           : undefined
                       }
-                      to="/user"
+                      to={id ? `/user/${id}` : `/user`}
                       type=""
                       className="btn-orange sm:w-full md:w-2/5 lg:w-full "
                     >

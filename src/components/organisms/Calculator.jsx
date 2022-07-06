@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { CALCULATOR_DATA, Bonuses } from "../../config/constants";
 import { calculatePower, periodEarn } from "../../helpers/calculations";
 import { UserContext } from "../../UserContext";
 
 function Calculator({ setWalletModalOptions }) {
   // Dropdown logic
+  const { id } = useParams();
   const [showDropdown, setShowDropdown] = useState(null);
   const toggleDropdown = () => setShowDropdown((prevState) => !prevState);
 
@@ -163,7 +164,7 @@ function Calculator({ setWalletModalOptions }) {
                             <input
                               className="bg-transparent w-full"
                               placeholder="5000"
-                              type="number"
+                              type="text"
                               value={amount}
                               onChange={onAmountChange}
                             />
@@ -215,7 +216,7 @@ function Calculator({ setWalletModalOptions }) {
                         <div className="text-right space-x-3">
                           <div className="inline-block">
                             <NavLink
-                              to="/user-buy"
+                              to={id ? `/user-buy/${id}` : `/user-buy`}
                               onClick={
                                 !value.adress
                                   ? (e) => {
@@ -223,7 +224,9 @@ function Calculator({ setWalletModalOptions }) {
                                       if (!value.adress) {
                                         setWalletModalOptions({
                                           open: true,
-                                          URL: "/user-buy",
+                                          URL: id
+                                            ? `/user-buy/${id}`
+                                            : `/user-buy`,
                                         });
                                       }
                                     }

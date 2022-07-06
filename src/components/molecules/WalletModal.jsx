@@ -45,8 +45,9 @@ function WalletModal({
   })
   const connectWC = async() => {
     await provider.enable()
-    web3 = new Web3(provider)
+    let web3 = new Web3(provider)
     window.w3 = web3
+    web3.eth.getAccounts().then((accounts) => {setValue({adress: accounts[0]})})
   }
   const { setValue } = useContext(UserContext);
   const navigate = useNavigate();
@@ -55,17 +56,15 @@ function WalletModal({
     switch (wallet_info["id"]) {
       case "metamask":
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        //setAddress(window.ethereum.selectedAddress)
+        setValue({adress: window.ethereum.selectedAddress})
         break;
       case "walletConnect":
-        connectWC().then(
-          //web3.eth,getAccounts().then((accounts) => {setAddress(accounts[0])})
-        )
+        connectWC()
         break;
     }
   };
   useEffect(() => {
-    setValue("0x0")
+    //
   }, [walletModalOptions]);
   return (
     <div

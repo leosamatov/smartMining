@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import Web3 from "web3";
 import Swal from "sweetalert2";
 import Binance from "binance-api-node";
@@ -39,18 +40,22 @@ function UserCabinet({ buyMiners }) {
   })
 
   const [showModal, setShowModal] = useState(buyMiners);
-  const toggleModal = () => setShowModal((prevState) => !prevState);
+  const toggleModal = (e) => {
+    e.preventDefault();
+    setShowModal((prevState) => !prevState);
+  };
   const { value: accountData, setValue: setAccountData } =
     useContext(UserContext);
 
-  const connectMessageEl = (
-    <h3>
-      Please connect to <a href="/">your Wallet</a>.
-    </h3>
-  );
+  //const connectMessageEl = (
+  //  <h3>
+  //    Please connect to <NavLink to={id ? `/${id}` : `/`}>your Wallet</NavLink>.
+  //  </h3>
+  //);
   const installMessageEl = (
     <h3>
-      Please install <a href="https://metamask.io/download/">MetaMask</a>
+      Please install
+      <NavLink to="https://metamask.io/download/">MetaMask</NavLink>
     </h3>
   );
 
@@ -239,6 +244,7 @@ function UserCabinet({ buyMiners }) {
               summa: amount,
             });
           });
+          setCoin(null);
           break;
       }
     }
