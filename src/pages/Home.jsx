@@ -20,18 +20,16 @@ import { useParams } from "react-router-dom";
 import { pixelPageView } from "../helpers/pixel";
 
 function Home() {
+  const { setValue } = useContext(UserContext);
   const { id } = useParams();
   const [walletModalOptions, setWalletModalOptions] = useState({
     open: false,
     URL: null,
   });
-  // const cont = useContext(UserContext);
-  // console.log("cont", cont);
   useEffect(() => {
-    // const connector = new WalletConnect({
-    //   bridge: "https://bridge.walletconnect.org",  qrcodeModal: QRCodeModal,
-    // })
-    // connector.connect()
+    if(window.ethereum && window.ethereum.selectedAddress) {
+      setValue({adress: window.ethereum.selectedAddress})
+    }
     if (id) {
       pixelPageView(id);
     }

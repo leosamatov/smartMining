@@ -86,7 +86,7 @@ function UserCabinet({ buyMiners }) {
   }
 
   const checkConnection = () => {
-    if (window.ethereum.selectedAddress != null) {
+    if (window.ethereum && window.ethereum.selectedAddress != null) {
       setIsConnected(true)
       setErrorMessage(null)
       setAccounts(window.ethereum.selectedAddress)

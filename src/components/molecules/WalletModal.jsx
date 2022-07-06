@@ -40,8 +40,8 @@ function WalletModal({
       43114: "https://api.avax.network/ext/bc/C/rpc"
     },
     chainId: 1,
-    bridge: "https://bridge.walletconnect.org",
-    qrcodeModal: QRCodeModal
+    //bridge: "https://bridge.walletconnect.org",
+    //qrcodeModal: QRCodeModal
   })
   const connectWC = async() => {
     await provider.enable()
@@ -63,6 +63,7 @@ function WalletModal({
         break;
     }
   };
+
   useEffect(() => {
     //
   }, [walletModalOptions]);
