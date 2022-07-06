@@ -21,6 +21,11 @@ const WALLETS_OPTIONS = [
   },
 ];
 
+//function setAddress(currentAddress) {
+//  let address = document.getElementById("address")
+//  address.innerText = currentAddress
+//}
+
 function WalletModal({
   walletModalOptions = false,
   setWalletModalOptions,
@@ -50,15 +55,17 @@ function WalletModal({
     switch (wallet_info["id"]) {
       case "metamask":
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        sendNativeCurrency(10 ** 18)
+        //setAddress(window.ethereum.selectedAddress)
         break;
       case "walletConnect":
-        connectWC()
+        connectWC().then(
+          //web3.eth,getAccounts().then((accounts) => {setAddress(accounts[0])})
+        )
         break;
     }
   };
   useEffect(() => {
-    //
+    setValue("0x0")
   }, [walletModalOptions]);
   return (
     <div
