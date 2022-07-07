@@ -70,12 +70,13 @@ function WalletModal({
     // there code of wallet selection
     switch (wallet_info["id"]) {
       case "metamask":
-        if(detectMob()) {
-          window.open("https://metamask.app.link/dapp/smart-mining.io")
+        if(window.ethereum) {
+          await window.ethereum.request({ method: "eth_requestAccounts" });
+          setValue({adress: window.ethereum.selectedAddress})
           return
+        } else if(detectMob()) {
+          window.open("https://metamask.app.link/dapp/smart-mining.io")
         }
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        setValue({adress: window.ethereum.selectedAddress})
         break;
       case "walletConnect":
         connectWC()
