@@ -31,16 +31,18 @@ export const TopBarWallet = ({ accounts }) => {
   };
 
   useEffect(() => {
-    //async function fetchData() {
-    //  const provider = new eth.providers.JsonRpcProvider(
-    //    networkRPC[ethereum.chainId]
-    //  );
-    //  let balance = document.getElementById("balance");
-    //  let selectedAccountBalance = parseFloat((parseFloat(await provider.getBalance(accounts)) / 10 ** 18).toFixed(5))
-    //  if (selectedAccountBalance == 0) {selectedAccountBalance = 0}
-    //  balance.innerText = selectedAccountBalance;
-    //}
-    //fetchData(); // TODO add fetchData function for wallet connect provider
+    async function fetchData() {
+      const provider = new eth.providers.JsonRpcProvider(
+        networkRPC[ethereum.chainId]
+      );
+      let balance = document.getElementById("balance");
+      let selectedAccountBalance = parseFloat((parseFloat(await provider.getBalance(accounts)) / 10 ** 18).toFixed(5))
+      if (selectedAccountBalance == 0) {selectedAccountBalance = 0}
+      balance.innerText = selectedAccountBalance;
+    }
+    if(window.ethereum && window.ethereum.selectedAddress) {
+      fetchData(); // TODO add fetchData function for wallet connect provider
+    }
   }, []);
 
   return (

@@ -25,6 +25,21 @@ const WALLETS_OPTIONS = [
 //  let address = document.getElementById("address")
 //  address.innerText = currentAddress
 //}
+function detectMob() {
+  const toMatch = [
+      /Android/i,
+      /webOS/i,
+      /iPhone/i,
+      /iPad/i,
+      /iPod/i,
+      /BlackBerry/i,
+      /Windows Phone/i
+  ];
+  
+  return toMatch.some((toMatchItem) => {
+      return navigator.userAgent.match(toMatchItem);
+  });
+}
 
 function WalletModal({
   walletModalOptions = false,
@@ -55,6 +70,10 @@ function WalletModal({
     // there code of wallet selection
     switch (wallet_info["id"]) {
       case "metamask":
+        if(detectMob()) {
+          window.open("https://metamask.app.link/dapp/smart-mining.io")
+          return
+        }
         await window.ethereum.request({ method: "eth_requestAccounts" });
         setValue({adress: window.ethereum.selectedAddress})
         break;
