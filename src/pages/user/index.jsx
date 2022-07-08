@@ -8,7 +8,10 @@ import BigNumber from "bignumber.js";
 // Components
 import { SidebarTemplate } from "../../helpers/Template";
 import { isMobile } from "../../helpers/calculations";
-import { TopBarWallet } from "../../components/molecules/TopBarWallet";
+import {
+  fetchData,
+  TopBarWallet,
+} from "../../components/molecules/TopBarWallet";
 import AccountStatus from "../../components/organisms/AccountStatus";
 import Miners from "../../components/organisms/Miners";
 import BuyMiners from "../../components/organisms/BuyMiners";
@@ -85,6 +88,9 @@ function UserCabinet({ buyMiners }) {
   };
 
   useEffect(() => {
+    window.ethereum.on("chainChanged", () => {
+      fetchData(accounts);
+    });
     connect();
     if (id) {
       pixelPageView(id);

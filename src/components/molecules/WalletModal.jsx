@@ -4,6 +4,7 @@ import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import { UserContext } from "../../UserContext";
 import { useNavigate } from "react-router-dom";
+import { isMobile } from "../../helpers/calculations";
 
 const WALLETS_OPTIONS = [
   {
@@ -26,11 +27,20 @@ function WalletModal({
   const { setValue } = useContext(UserContext);
   const navigate = useNavigate();
   const onWalletSelected = async (wallet_info) => {
-    // there code of wallet selection
     switch (wallet_info["id"]) {
       case "metamask":
-        await window.ethereum.request({ method: "eth_requestAccounts" });
+        if (window.ethereum) {
+          await window.ethereum.request({ method: "eth_requestAccounts" });
+          setValue({ adress: window.ethereum.selectedAddress });
+          return;
+        } else if (isMobile()) {
+          window.open("https://metamask.app.link/dapp/smart-mining.io");
+        }
         break;
+      case "walletConnect":
+        connectWC();
+        break;
+
       case "walletConnect":
         const connector = new WalletConnect({
           bridge: "https://bridge.walletconnect.org",
@@ -40,22 +50,22 @@ function WalletModal({
         break;
     }
   };
-  useEffect(() => {
-    if (walletModalOptions) {
-      if (window.ethereum) {
-        window.ethereum
-          .request({ method: "eth_requestAccounts" })
-          .then((accounts) => {
-            setValue({
-              adress: accounts[0],
-            });
-            if (URL) {
-              navigate(URL);
-            }
-          });
-      }
-    }
-  }, [walletModalOptions]);
+  // useEffect(() => {
+  //   if (walletModalOptions) {
+  //     if (window.ethereum) {
+  //       window.ethereum
+  //         .request({ method: "eth_requestAccounts" })
+  //         .then((accounts) => {
+  //           setValue({
+  //             adress: accounts[0],
+  //           });
+  //           if (URL) {
+  //             navigate(URL);
+  //           }
+  //         });
+  //     }
+  //   }
+  // }, [walletModalOptions]);
   return (
     <div
       id="wallet-modal"

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import $ from "jquery";
 import { NavLink, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
+import { sendNativeCurrency } from "../../helpers/send-transaction";
 
 function TopBar({
   showJumbotron = true,
@@ -29,15 +30,14 @@ function TopBar({
   }, [showMenu]);
 
   useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum
-        .request({ method: "eth_requestAccounts" })
-        .then((accounts) => {
-          setValue({
-            adress: accounts[0],
-          });
-        });
+    async function fetchData(params) {
+      if (window.ethereum) {
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        setValue({ adress: window.ethereum.selectedAddress });
+      }
     }
+    fetchData();
+    window.ethereum.on("accountsChanged", () => fetchData());
   }, []);
 
   const connectWallet = async (e) => {
@@ -46,13 +46,6 @@ function TopBar({
       open: true,
       URL: null,
     });
-    window.ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then((accounts) => {
-        setValue({
-          adress: accounts[0],
-        });
-      });
   };
 
   const startEarning = async (e) => {
@@ -102,9 +95,9 @@ function TopBar({
   const MobileInfo = () => (
     <div className="md:hidden inline-block mt-20">
       <div className="auth">
-        <NavLink
-          to={id ? `/user/${id}` : `/user`}
-          onClick={!value.adress ? connectWallet : undefined}
+        <a
+          href=""
+          onClick={connectWallet}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
@@ -117,7 +110,7 @@ function TopBar({
           <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
             <img src="img/User.svg" id="mob" alt="" />
           </span>
-        </NavLink>
+        </a>
       </div>
     </div>
   );
