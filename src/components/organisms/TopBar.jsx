@@ -32,11 +32,12 @@ function TopBar({
   useEffect(() => {
     async function fetchData(params) {
       if (window.ethereum) {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
         setValue({ adress: window.ethereum.selectedAddress });
       }
     }
-    fetchData();
+    setTimeout(() => {
+      fetchData();
+    }, 0);
     window.ethereum.on("accountsChanged", () => fetchData());
   }, []);
 
