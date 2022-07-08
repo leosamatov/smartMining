@@ -26,15 +26,7 @@ function Home() {
     open: false,
     URL: null,
   });
-  const { setValue } = useContext(UserContext);
-  async function fetchData() {
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    setValue({ adress: window.ethereum.selectedAddress });
-  }
   useEffect(() => {
-    if (window.ethereum && isMobile()) {
-      fetchData();
-    }
     if (id) {
       pixelPageView(id);
     }
