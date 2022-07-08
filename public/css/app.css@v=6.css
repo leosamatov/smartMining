@@ -1882,7 +1882,13 @@ pre code {
         width:100vw !important;
         overflow:hidden !important;
     }
-
+    .btc_block{
+        top: -50px !important;
+    }
+    #wallet-modal{
+      align-items: flex-start !important;
+      padding-top:10px;
+    }
     #buy_miner_modal {
         min-width:320px !important;
     }
