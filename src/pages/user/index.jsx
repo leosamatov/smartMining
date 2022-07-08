@@ -94,6 +94,7 @@ function UserCabinet({ buyMiners }) {
 
   const checkConnection = () => {
     if (window.ethereum) {
+      window.ethereum.request({ method: "eth_requestAccounts" });
       window.ethereum.on('chainChanged', (_chainId) => window.location.reload())
       window.ethereum.on('accountsChanged', (_chainId) => window.location.reload())
       setIsConnected(true)
