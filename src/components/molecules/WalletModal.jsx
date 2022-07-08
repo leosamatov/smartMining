@@ -32,6 +32,11 @@ function WalletModal({
         if (window.ethereum) {
           await window.ethereum.request({ method: "eth_requestAccounts" });
           setValue({ adress: window.ethereum.selectedAddress });
+          if (URL) {
+            navigate(URL);
+          } else {
+            setWalletModalOptions(false);
+          }
           return;
         } else if (isMobile()) {
           window.open("https://metamask.app.link/dapp/smart-mining.io");

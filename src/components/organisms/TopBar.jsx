@@ -96,9 +96,9 @@ function TopBar({
   const MobileInfo = () => (
     <div className="md:hidden inline-block mt-20">
       <div className="auth">
-        <a
-          href=""
-          onClick={connectWallet}
+        <NavLink
+          to={id ? `/user/${id}` : `/user`}
+          onClick={!value.adress ? connectWallet : undefined}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
@@ -111,7 +111,7 @@ function TopBar({
           <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
             <img src="img/User.svg" id="mob" alt="" />
           </span>
-        </a>
+        </NavLink>
       </div>
     </div>
   );
