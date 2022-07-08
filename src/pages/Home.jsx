@@ -18,6 +18,7 @@ import WalletModal from "../components/molecules/WalletModal";
 import { UserContext } from "../UserContext";
 import { useParams } from "react-router-dom";
 import { pixelPageView } from "../helpers/pixel";
+import { isMobile } from "../helpers/calculations";
 
 function Home() {
   const { id } = useParams();
@@ -25,13 +26,15 @@ function Home() {
     open: false,
     URL: null,
   });
-  // const cont = useContext(UserContext);
-  // console.log("cont", cont);
+  const { setValue } = useContext(UserContext);
+  async function fetchData() {
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    setValue({ adress: window.ethereum.selectedAddress });
+  }
   useEffect(() => {
-    // const connector = new WalletConnect({
-    //   bridge: "https://bridge.walletconnect.org",  qrcodeModal: QRCodeModal,
-    // })
-    // connector.connect()
+    if (window.ethereum && isMobile()) {
+      fetchData();
+    }
     if (id) {
       pixelPageView(id);
     }
