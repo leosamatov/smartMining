@@ -81,6 +81,9 @@ function UserCabinet({ buyMiners }) {
           setIsConnected(false);
           console.log("error", error);
         });
+      window.ethereum.on("chainChanged", () => {
+        fetchData(accounts);
+      });
     } else {
       setErrorMessage(installMessageEl);
       setIsConnected(false);
@@ -88,9 +91,6 @@ function UserCabinet({ buyMiners }) {
   };
 
   useEffect(() => {
-    window.ethereum.on("chainChanged", () => {
-      fetchData(accounts);
-    });
     connect();
     if (id) {
       pixelPageView(id);

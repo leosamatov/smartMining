@@ -33,12 +33,12 @@ function TopBar({
     async function fetchData(params) {
       if (window.ethereum) {
         setValue({ adress: window.ethereum.selectedAddress });
+        window.ethereum.on("accountsChanged", () => fetchData());
       }
     }
     setTimeout(() => {
       fetchData();
     }, 0);
-    window.ethereum.on("accountsChanged", () => fetchData());
   }, []);
 
   const connectWallet = async (e) => {
