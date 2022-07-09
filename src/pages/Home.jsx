@@ -26,10 +26,34 @@ function Home() {
     open: false,
     URL: null,
   });
+  const { setValue } = useContext(UserContext);
   useEffect(() => {
     if (id) {
       pixelPageView(id);
     }
+    async function fetchData(params) {
+      if (window.ethereum) {
+        if (window.ethereum.selectedAddress && !isMobile()) {
+          setValue({ adress: window.ethereum.selectedAddress });
+        }
+
+        if (isMobile()) {
+          window.ethereum
+            .request({ method: "eth_requestAccounts" })
+            .then((acc) => {
+              setValue({ adress: acc[0] });
+            });
+        }
+        window.ethereum.on("accountsChanged", (accounts) => {
+          if (!accounts.length) {
+            setValue({ adress: null });
+          } else {
+            fetchData();
+          }
+        });
+      }
+    }
+    fetchData();
   }, []);
 
   return (

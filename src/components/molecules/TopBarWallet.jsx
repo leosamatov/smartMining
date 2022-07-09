@@ -48,7 +48,7 @@ export const TopBarWallet = ({ accounts }) => {
   useEffect(() => {
     fetchData();
   }, [accounts]);
-
+  const replaceSymbolElement = accounts.charAt(18);
   return (
     <div className="btn-def" id="custom_top_bar_wallet">
       <div className="dropdown">
@@ -72,7 +72,9 @@ export const TopBarWallet = ({ accounts }) => {
         <span id="balance"></span>
         <span className="divider">|</span>
         <img src="img/Wallet.png" alt="" />
-        <span id="address">{accounts}</span>
+        <span id="address">
+          {accounts.replace(replaceSymbolElement, `${replaceSymbolElement} `)}
+        </span>
       </div>
     </div>
   );
