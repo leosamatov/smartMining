@@ -101,7 +101,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                   </div>
                   <div>
                     <NavLink
-                      to={id ? `/user/${id}` : `/user`}
+                      to={id ? `/user-buy/${id}` : `/user-buy`}
                       onClick={
                         !value.adress
                           ? (e) => {
@@ -109,7 +109,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
 
                               setWalletModalOptions({
                                 open: true,
-                                URL: id ? `/user/${id}` : `/user`,
+                                URL: id ? `/user-buy/${id}` : `/user-buy`,
                               });
                             }
                           : undefined
@@ -148,7 +148,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                   </div>
                   <div>
                     <NavLink
-                      to={id ? `/user/${id}` : `/user`}
+                      to={id ? `/user-buy/${id}` : `/user-buy`}
                       onClick={
                         !value.adress
                           ? (e) => {
@@ -156,7 +156,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                               if (!value.adress) {
                                 setWalletModalOptions({
                                   open: true,
-                                  URL: id ? `/user/${id}` : `/user`,
+                                  URL: id ? `/user-buy/${id}` : `/user-buy`,
                                 });
                               }
                             }
@@ -198,7 +198,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                   </div>
                   <div>
                     <NavLink
-                      to={id ? `/user/${id}` : `/user`}
+                      to={id ? `/user-buy/${id}` : `/user-buy`}
                       onClick={
                         !value.adress
                           ? (e) => {
@@ -206,7 +206,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                               if (!value.adress) {
                                 setWalletModalOptions({
                                   open: true,
-                                  URL: id ? `/user/${id}` : `/user`,
+                                  URL: id ? `/user-buy/${id}` : `/user-buy`,
                                 });
                               }
                             }
@@ -246,7 +246,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                   </div>
                   <div>
                     <NavLink
-                      to={id ? `/user/${id}` : `/user`}
+                      to={id ? `/user-buy/${id}` : `/user-buy`}
                       onClick={
                         !value.adress
                           ? (e) => {
@@ -254,7 +254,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                               if (!value.adress) {
                                 setWalletModalOptions({
                                   open: true,
-                                  URL: id ? `/user/${id}` : `/user`,
+                                  URL: id ? `/user-buy/${id}` : `/user-buy`,
                                 });
                               }
                             }
@@ -303,7 +303,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
               </div>
               <div>
                 <NavLink
-                  to={id ? `/user/${id}` : `/user`}
+                  to={id ? `/user-buy/${id}` : `/user-buy`}
                   onClick={
                     !value.adress
                       ? (e) => {
@@ -311,7 +311,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                           if (!value.adress) {
                             setWalletModalOptions({
                               open: true,
-                              URL: id ? `/user/${id}` : `/user`,
+                              URL: id ? `/user-buy/${id}` : `/user-buy`,
                             });
                           }
                         }
@@ -350,7 +350,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
               </div>
               <div>
                 <NavLink
-                  to={id ? `/user/${id}` : `/user`}
+                  to={id ? `/user-buy/${id}` : `/user-buy`}
                   onClick={
                     !value.adress
                       ? (e) => {
@@ -358,7 +358,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                           if (!value.adress) {
                             setWalletModalOptions({
                               open: true,
-                              URL: id ? `/user/${id}` : `/user`,
+                              URL: id ? `/user-buy/${id}` : `/user-buy`,
                             });
                           }
                         }
@@ -397,7 +397,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
               </div>
               <div>
                 <NavLink
-                  to={id ? `/user/${id}` : `/user`}
+                  to={id ? `/user-buy/${id}` : `/user-buy`}
                   onClick={
                     !value.adress
                       ? (e) => {
@@ -405,7 +405,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                           if (!value.adress) {
                             setWalletModalOptions({
                               open: true,
-                              URL: id ? `/user/${id}` : `/user`,
+                              URL: id ? `/user-buy/${id}` : `/user-buy`,
                             });
                           }
                         }
@@ -444,7 +444,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
               </div>
               <div>
                 <NavLink
-                  to={id ? `/user/${id}` : `/user`}
+                  to={id ? `/user-buy/${id}` : `/user-buy`}
                   onClick={
                     !value.adress
                       ? (e) => {
@@ -452,7 +452,7 @@ function CloudMiningContracts({ setWalletModalOptions }) {
                           if (!value.adress) {
                             setWalletModalOptions({
                               open: true,
-                              URL: id ? `/user/${id}` : `/user`,
+                              URL: id ? `/user-buy/${id}` : `/user-buy`,
                             });
                           }
                         }

@@ -61,10 +61,13 @@
 #wallet-modal .wallet-modal-content__body {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     padding-bottom: 2rem;
     overflow-y: scroll;
-    padding-right:5px;
+    /* width: 100%; */
+    padding-right: 5px;
     height: 90%;
+    justify-content: center;
     
 }
 

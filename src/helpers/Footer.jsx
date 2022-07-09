@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
-function Footer({ setWalletModalOptions }) {
+function Footer({ setWalletModalOptions, isHomePage = true }) {
   const { value } = useContext(UserContext);
   const { id } = useParams();
   const smoothScroll = (e) => {
@@ -33,29 +33,33 @@ function Footer({ setWalletModalOptions }) {
           <div className="sm:w-full md:w-1/3 lg:w-1/5 space-y-3">
             <div className="font-bold text-lg">Smart Mining</div>
             <ul className="opacity-60 space-y-2">
-              <li>
-                <a onClick={smoothScroll} href="#team" data-href="#team">
-                  Our Team
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={smoothScroll}
-                  href="#calculator"
-                  data-href="#calculator"
-                >
-                  Calculator
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={smoothScroll}
-                  href="#contracts"
-                  data-href="#contracts"
-                >
-                  Contracts
-                </a>
-              </li>
+              {isHomePage && (
+                <>
+                  <li>
+                    <a onClick={smoothScroll} href="#team" data-href="#team">
+                      Our Team
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={smoothScroll}
+                      href="#calculator"
+                      data-href="#calculator"
+                    >
+                      Calculator
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={smoothScroll}
+                      href="#contracts"
+                      data-href="#contracts"
+                    >
+                      Contracts
+                    </a>
+                  </li>
+                </>
+              )}
               <li>
                 <NavLink to="/faq">FAQ</NavLink>
               </li>
@@ -74,7 +78,7 @@ function Footer({ setWalletModalOptions }) {
                 <NavLink to="/referral">Referral Program</NavLink>
               </li> */}
               <li>
-                <NavLink to="/certificates/Certificate.pdf" target="_blank">
+                <NavLink to="/certificates/Certificate.pdf">
                   Certificate
                 </NavLink>
               </li>

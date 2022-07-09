@@ -12,11 +12,11 @@ const WALLETS_OPTIONS = [
     img: "/img/MetaMask_Fox.svg.png",
     name: "Metamask",
   },
-  {
-    id: "walletConnect",
-    img: "/img/walletconnect-logo.png",
-    name: "Wallet Connect",
-  },
+  // {
+  //   id: "walletConnect",
+  //   img: "/img/walletconnect-logo.png",
+  //   name: "Wallet Connect",
+  // },
 ];
 
 function WalletModal({

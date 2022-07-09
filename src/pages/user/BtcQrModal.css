@@ -44,10 +44,11 @@
     justify-content: center;
     flex-direction: column;
     height: 100%;
-        gap: 30px;
     width: 100%;
 }
-
+.btc_content section{
+    margin-top: 30px;
+}
 .qs-1 {
     /* max-width: 50px; */
     height: fit-content;
@@ -55,7 +56,6 @@
     align-items: center;
     justify-content: center;
     padding: 0px;
-    gap: 10px;
 }
 .qs-1 img{
     max-width: 200px;
@@ -69,11 +69,16 @@
     align-items: center;
     height: fit-content;
     font-size: 16px;
-    gap: 10px;
 }
 .qs-1 div {
-    padding: 10px;
+    /* padding: 10px; */
     /* box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.5); */
+}
+.qs-1 div, .qs-2 div, .qs-3 div {
+    margin-right: 15px;
+}
+.qs-1, .qs-2, .qs-3 {
+    display: flex;
 }
 .qs-2 {
     /* max-width: 50px; */
@@ -84,7 +89,6 @@
     align-items: center;
     height: fit-content;
     font-size: 16px;
-    gap: 10px;
 }
 .btc_buttons{
     background: #7AD475 !important;
@@ -113,6 +117,15 @@
     .bitcoin_buy_container .btc_block{
         top: -50px !important;
     } 
+    .btc_content section{
+        margin-top: 7px !important;
+    }
+    .btc_block{
+        width:100vw !important;
+        overflow:hidden !important;
+        max-height:500px !important;
+        min-height: 500px !important;
+    }
 }
 @media (max-width: 360px) {
     .hashModalBodyContainer > button{

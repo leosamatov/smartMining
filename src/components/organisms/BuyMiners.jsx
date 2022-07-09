@@ -261,7 +261,7 @@ function BuyMiners({ show, toggle, setIsCoinSelectorModalOpened, setValue }) {
               </div>
 
               <div className="flex miner-modal-result space-x-4">
-                <div className="w-1/3">
+                <div className="w-1/3 wcash">
                   <div className="font-bold text-sm m-0 opacity-60 uppercase">
                     Day earning
                   </div>
@@ -270,7 +270,7 @@ function BuyMiners({ show, toggle, setIsCoinSelectorModalOpened, setValue }) {
                   </div>
                 </div>
 
-                <div className="w-1/3">
+                <div className="w-1/3 wcash">
                   <div className="font-bold text-sm m-0 opacity-60 uppercase">
                     Month earning
                   </div>
@@ -279,7 +279,7 @@ function BuyMiners({ show, toggle, setIsCoinSelectorModalOpened, setValue }) {
                   </div>
                 </div>
 
-                <div className="w-1/3">
+                <div className="w-1/3 wcash">
                   <div className="font-bold text-sm m-0 opacity-60 uppercase">
                     Year earning
                   </div>

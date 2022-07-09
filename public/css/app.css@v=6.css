@@ -1800,19 +1800,8 @@ pre code {
         width:140px !important;
         /* padding:10px 16px !important; */
     }
-    .btc_content{
-        padding:15px !important;
-
-    }
     .wrap_telegram{
         z-index:30 !important;
-    }
-    .btc_content{
-        gap:7px !important;
-    }
-    .btc_block{
-        height: 74vh !important;
-        min-height: 500px;
     }
     #buy_miner_modal {
         width: 95% !important;
@@ -1850,15 +1839,20 @@ pre code {
     }
     .pt-4{
         flex-wrap: wrap !important;
-        gap: 15px !important;
+    }
+
+    .pt-4 .px-2{
+        margin-top:30px !important;
+        margin-right: 15px !important;
     }
     .miner-modal-result {
     flex-wrap: wrap;
-    gap: 12px;
     justify-content: start;
     }
-    .miner-modal-result div { 
+    .miner-modal-result .wcash { 
         margin-left: 0 !important;
+        margin-top:12px;
+        margin-right: 12px;
         padding: 2px 5px !important;
     }
     .act-btn-formobile{
@@ -1878,10 +1872,6 @@ pre code {
     }
 }
 @media (min-width: 320px) and (max-width: 425px) {
-    .btc_block{
-        width:100vw !important;
-        overflow:hidden !important;
-    }
     #wallet-modal{
       align-items: flex-start !important;
       padding-top:10px;
@@ -1896,13 +1886,15 @@ pre code {
         
     .miner-modal-result{
         flex-wrap: wrap;
-        gap: 12px;
+        /* gap: 12px; */
         justify-content: start;
     }
-    .miner-modal-result div{
+    .miner-modal-result > .wcash{
         min-width: 120px !important;
         margin:0 !important;
         padding: 2px 6px !important;
+        margin-top:12px !important;
+        margin-right: 12px !important;
     }
     .text-2xl{
         font-size:1rem !important;

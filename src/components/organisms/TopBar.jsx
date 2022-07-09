@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
 import { NavLink, useParams } from "react-router-dom";
@@ -7,6 +7,7 @@ import { sendNativeCurrency } from "../../helpers/send-transaction";
 
 function TopBar({
   showJumbotron = true,
+  isHomePage = true,
   isLight = false,
   isTransparent = false,
   setWalletModalOptions,
@@ -29,16 +30,17 @@ function TopBar({
     $("#main_menu").toggle(showMenu);
   }, [showMenu]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     async function fetchData(params) {
       if (window.ethereum) {
+        if (!window.ethereum.selectedAddress) {
+          await ethereum.enable();
+        }
         setValue({ adress: window.ethereum.selectedAddress });
         window.ethereum.on("accountsChanged", () => fetchData());
       }
     }
-    setTimeout(() => {
-      fetchData();
-    }, 0);
+    fetchData();
   }, []);
 
   const connectWallet = async (e) => {
@@ -148,42 +150,42 @@ function TopBar({
                   className="sm:p-8 lg:p-0 z-50 lg:inline-block sm:absolute lg:relative sm:top-24 lg:top-auto sm:w-2/3 md:w-1/3 lg:w-auto right-0 sm:text-left lg:text-center sm:bg-gray-800 lg:bg-transparent"
                 >
                   <ul className="sm:flex-grow lg:flex sm:space-y-5 lg:space-y-0 lg:space-x-10 text-lg">
+                    {isHomePage && (
+                      <>
+                        <li>
+                          <a
+                            href="#mining"
+                            data-href="#mining"
+                            onClick={smoothScroll}
+                          >
+                            Mining
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#calculator"
+                            data-href="#calculator"
+                            onClick={smoothScroll}
+                          >
+                            Calculator
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#contracts"
+                            data-href="#contracts"
+                            onClick={smoothScroll}
+                          >
+                            Сontracts
+                          </a>
+                        </li>
+                      </>
+                    )}
                     <li>
-                      <a
-                        href="#mining"
-                        data-href="#mining"
-                        onClick={smoothScroll}
-                      >
-                        Mining
-                      </a>
+                      <NavLink to="/faq">FAQ</NavLink>
                     </li>
                     <li>
-                      <a
-                        href="#calculator"
-                        data-href="#calculator"
-                        onClick={smoothScroll}
-                      >
-                        Calculator
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#contracts"
-                        data-href="#contracts"
-                        onClick={smoothScroll}
-                      >
-                        Сontracts
-                      </a>
-                    </li>
-                    <li>
-                      <a target="_blank" href="/faq">
-                        FAQ
-                      </a>
-                    </li>
-                    <li>
-                      <a target="_blank" href="/contact">
-                        Contact Us
-                      </a>
+                      <NavLink to="/contact">Contact Us</NavLink>
                     </li>
                   </ul>
                   <MobileInfo />

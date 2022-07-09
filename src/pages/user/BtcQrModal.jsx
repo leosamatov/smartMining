@@ -79,7 +79,7 @@ function HashModal({ showModal, setShowModal }) {
                   error={error}
                   id="outlined-basic"
                   color="warning"
-                  placeholder="Enter the transaction hash"
+                  placeholder="Transaction hash"
                   label="Enter the transaction hash"
                   variant="outlined"
                   helperText={error ? "Incorrect entry." : null}

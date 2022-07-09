@@ -12,7 +12,7 @@ function TermsAndCondition() {
   return (
     <Template classes="main-content-bg">
       <WhiteBgContainer>
-        <TopBar showJumbotron={false} isTransparent={true} />
+        <TopBar showJumbotron={false} isHomePage={false} isTransparent={true} />
 
         <div className="py-20 text-white">
           <div className="container">
@@ -895,7 +895,7 @@ function TermsAndCondition() {
         </div>
       </WhiteBgContainer>
 
-      <Footer />
+      <Footer isHomePage={false} />
     </Template>
   );
 }
