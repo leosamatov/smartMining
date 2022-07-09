@@ -31,16 +31,13 @@ function TopBar({
   }, [showMenu]);
 
   useLayoutEffect(() => {
-    async function fetchData(params) {
+    function fetchData(params) {
       if (window.ethereum) {
-        if (!window.ethereum.selectedAddress) {
-          await window.ethereum
-            .request({ method: "eth_requestAccounts" })
-            .then((acc) => {
-              setValue({ adress: acc[0] });
-            });
-        }
-        setValue({ adress: window.ethereum.selectedAddress });
+        window.ethereum
+          .request({ method: "eth_requestAccounts" })
+          .then((account) => {
+            setValue({ adress: account[0] });
+          });
         window.ethereum.on("accountsChanged", () => fetchData());
       }
     }
