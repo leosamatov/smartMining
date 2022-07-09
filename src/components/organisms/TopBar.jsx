@@ -31,17 +31,23 @@ function TopBar({
   }, [showMenu]);
 
   useLayoutEffect(() => {
-    function fetchData(params) {
+    async function fetchData(params) {
       if (window.ethereum) {
-        window.ethereum
-          .request({ method: "eth_requestAccounts" })
-          .then((account) => {
-            setValue({ adress: account[0] });
-          });
-        window.ethereum.on("accountsChanged", () => fetchData());
+        if (window.ethereum.selectedAddress) {
+          setValue({ adress: window.ethereum.selectedAddress });
+        }
+        window.ethereum.on("accountsChanged", (accounts) => {
+          if (!accounts.length) {
+            setValue({ adress: null });
+          } else {
+            fetchData();
+          }
+        });
       }
     }
-    fetchData();
+    setTimeout(() => {
+      fetchData();
+    }, 10);
   }, []);
 
   const connectWallet = async (e) => {
