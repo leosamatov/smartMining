@@ -34,7 +34,11 @@ function TopBar({
     async function fetchData(params) {
       if (window.ethereum) {
         if (!window.ethereum.selectedAddress) {
-          await ethereum.enable();
+          window.ethereum
+            .request({ method: "eth_requestAccounts" })
+            .then((acc) => {
+              setValue({ adress: window.ethereum.selectedAddress });
+            });
         }
         setValue({ adress: window.ethereum.selectedAddress });
         window.ethereum.on("accountsChanged", () => fetchData());
