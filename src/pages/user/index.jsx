@@ -290,13 +290,13 @@ function UserCabinet({ buyMiners }) {
         <nav className="border-b-2 border-gray-200 py-8 sm:hidden lg:block">
           <ul className="flex pt-4 space-x-8 align-items-center">
             <li>
-              <a href="/faq">Questions and answers</a>
+              <NavLink to="/faq">Questions and answers</NavLink>
             </li>
             <li>
-              <a href="/#team">Our Team</a>
+              <NavLink to="/#team">Our Team</NavLink>
             </li>
             <li>
-              <a href="/contact">Contacts</a>
+              <NavLink to="/contact">Contacts</NavLink>
             </li>
             {!isMobile() ? (
               <li className="flex-grow text-right">
