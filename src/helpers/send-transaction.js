@@ -4,10 +4,12 @@ import Binance from "binance-api-node";
 import Swal from "sweetalert2";
 import * as eth from "ethers";
 import { data } from "jquery";
+import { pixelLead } from "./pixel";
 
 // Modals
 // eslint-disable-next-line no-unused-vars
 export function SUCCESS_TRANSACTION() {
+  pixelLead();
   Swal.fire({
     title: "Success!",
     text: "Success transaction",
