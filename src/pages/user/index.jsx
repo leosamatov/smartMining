@@ -28,7 +28,7 @@ import { pixelPageView } from "../../helpers/pixel";
 //usdc(matic, bep-20 ),
 //dai( bep-20, avax, matic)
 
-function UserCabinet({ buyMiners }) {
+function UserCabinet({ buyMiners, setWalletModalOptions }) {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(buyMiners);
   const toggleModal = (e) => {
@@ -91,6 +91,7 @@ function UserCabinet({ buyMiners }) {
   };
 
   useEffect(() => {
+    setWalletModalOptions({ open: false, URL: null });
     connect();
     if (id) {
       pixelPageView(id);

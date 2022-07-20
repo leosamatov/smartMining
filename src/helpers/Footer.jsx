@@ -20,18 +20,18 @@ function Footer({ setWalletModalOptions, isHomePage = true }) {
           <div className="flex-column justify-between w-1/5 sm:hidden lg:flex">
             <div>
               <NavLink to={id ? `/${id}` : `/`} className="flex items-center">
-                <img className="mr-3" src="img/logo.svg" alt="Smart Mining" />
+                <img className="mr-3" src="img/logo.svg" alt="SMART MINING" />
                 <div>
                   <img src="img/TRON.svg" alt="" />
                 </div>
               </NavLink>
             </div>
             <div className="opacity-60 text-sm">
-              2022. Smart Mining <br /> All rights reserved
+              2022. SMART MINING <br /> All rights reserved
             </div>
           </div>
           <div className="sm:w-full md:w-1/3 lg:w-1/5 space-y-3">
-            <div className="font-bold text-lg">Smart Mining</div>
+            <div className="font-bold text-lg">SMART MINING</div>
             <ul className="opacity-60 space-y-2">
               {isHomePage && (
                 <>
@@ -78,9 +78,7 @@ function Footer({ setWalletModalOptions, isHomePage = true }) {
                 <NavLink to="/referral">Referral Program</NavLink>
               </li> */}
               <li>
-                <NavLink to="/certificates/Certificate.pdf">
-                  Certificate
-                </NavLink>
+                <a href="/certificates/Certificate.pdf">Certificate</a>
               </li>
             </ul>
           </div>
@@ -124,16 +122,16 @@ function Footer({ setWalletModalOptions, isHomePage = true }) {
         </div>
         <div className="text-white opacity-40 sm:pt-6 lg:pt-10 text-sm">
           <div className="lg:hidden text-sm">
-            2022. Smart Mining <br /> All rights reserved
+            2022. SMART MINING <br /> All rights reserved
           </div>
           <div className="sm:w-full lg:w-4/5 sm:pt-6 lg:pt-0">
             {" "}
-            Smart Mining involves financial risks and may not be appropriate for
+            SMART MINING involves financial risks and may not be appropriate for
             all people. The information presented here is for information and
             educational purposes only and should not be considered an offer or
-            solicitation to invest to Smart Mining or elsewhere. Any investment
+            solicitation to invest to SMART MINING or elsewhere. Any investment
             decisions that you make are solely your responsibility. <br />
-            Smart Mining does not provide service for USA residents.
+            SMART MINING does not provide service for USA residents.
           </div>
         </div>
       </div>

@@ -8,11 +8,16 @@ import Footer from "../helpers/Footer";
 // Components
 import TopBar from "../components/organisms/TopBar";
 
-function CloudMining() {
+function CloudMining({ setWalletModalOptions }) {
   return (
     <Template classes="main-content-bg">
       <WhiteBgContainer>
-        <TopBar showJumbotron={false} isHomePage={false} isTransparent={true} />
+        <TopBar
+          setWalletModalOptions={setWalletModalOptions}
+          showJumbotron={false}
+          isHomePage={false}
+          isTransparent={true}
+        />
 
         <div className="py-20 text-white">
           <div className="container">
@@ -176,7 +181,10 @@ function CloudMining() {
         </div>
       </WhiteBgContainer>
 
-      <Footer isHomePage={false} />
+      <Footer
+        setWalletModalOptions={setWalletModalOptions}
+        isHomePage={false}
+      />
     </Template>
   );
 }

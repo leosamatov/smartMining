@@ -8,11 +8,16 @@ import Footer from "../helpers/Footer";
 // Components
 import TopBar from "../components/organisms/TopBar";
 
-function TermsAndCondition() {
+function TermsAndCondition({ setWalletModalOptions }) {
   return (
     <Template classes="main-content-bg">
       <WhiteBgContainer>
-        <TopBar showJumbotron={false} isHomePage={false} isTransparent={true} />
+        <TopBar
+          setWalletModalOptions={setWalletModalOptions}
+          showJumbotron={false}
+          isHomePage={false}
+          isTransparent={true}
+        />
 
         <div className="py-20 text-white">
           <div className="container">
@@ -26,34 +31,34 @@ function TermsAndCondition() {
                 <br />
                 INTRODUCTION
                 <br />
-                THESE TERMS OF SERVICE APPLY TO THE USE OF THE SMART-MINING .COM
+                THESE TERMS OF SERVICE APPLY TO THE USE OF THE smart-mining .COM
                 CLOUD MINING SERVICE AND SMARTMINING WEBSITE LOCATED AT
-                SMART-MINING .COM AND ITS SUBDOMAINS. THE WEBSITE AND THE
-                SERVICE ARE THE PROPERTY OF SMART-MINING COMPANY.
+                smart-mining .COM AND ITS SUBDOMAINS. THE WEBSITE AND THE
+                SERVICE ARE THE PROPERTY OF smart-mining COMPANY.
               </p>
 
               <p>
-                THEY SET OUT HOW THE SMART-MINING .COM CLOUD HOSTED
+                THEY SET OUT HOW THE smart-mining .COM CLOUD HOSTED
                 CRYPTOCURRENCY MINING SERVICE WORKS AND DESCRIBE ANY ASSOCIATED
-                RIGHTS AND RESPONSIBILITIES. THE SMART-MINING .COM TERMS OF
+                RIGHTS AND RESPONSIBILITIES. THE smart-mining .COM TERMS OF
                 SERVICE AND ANY INSTRUCTIONS, GUIDANCE AND SIMILAR INFORMATION
                 FOUND ON THE WEBSITE (FROM TIME TO TIME) ALSO APPLY TO HOW YOU
-                USE THE SMART-MINING .COM CLOUD MINING SERVICE (TOGETHER THE
+                USE THE smart-mining .COM CLOUD MINING SERVICE (TOGETHER THE
                 "AGREEMENT"). BY USING THE WEBSITE AND/OR THE SERVICE, YOU AGREE
                 TO THESE TERMS OF SERVICE; IF YOU DO NOT AGREE, DO NOT USE THE
                 SITE AND/OR THE SERVICE.
               </p>
 
               <p>
-                SMART-MINING RESERVES THE RIGHT, AT ITS SOLE DISCRETION, TO
+                smart-mining RESERVES THE RIGHT, AT ITS SOLE DISCRETION, TO
                 AMEND, CHANGE, MODIFY, ADD OR REMOVE PORTIONS OF THESE TERMS OF
                 SERVICE, AT ANY TIME. IT IS YOUR RESPONSIBILITY TO CHECK THESE
                 TERMS PERIODICALLY FOR CHANGES. THE CURRENT VERSION OF THESE
-                TERMS IS AVAILABLE AT HTTPS://SMART-MINING .COM/TERMS. YOUR
+                TERMS IS AVAILABLE AT HTTPS://smart-mining .COM/TERMS. YOUR
                 CONTINUED USE OF THE WEBSITE AND/OR THE SERVICE FOLLOWING THE
                 PUBLISHED UPDATES TO THE TERMS WILL MEAN THAT YOU ACCEPT AND
                 AGREE TO THE CHANGES. AS LONG AS YOU AGREE AND COMPLY WITH THESE
-                TERMS, SMART-MINING GRANTS YOU A PERSONAL, NON- EXCLUSIVE,
+                TERMS, smart-mining GRANTS YOU A PERSONAL, NON- EXCLUSIVE,
                 NON-TRANSFERABLE, LIMITED PRIVILEGE TO ENTER AND USE THE WEBSITE
                 AND THE SERVICE.
               </p>
@@ -62,9 +67,9 @@ function TermsAndCondition() {
                 CLOUD MINING INVOLVES FINANCIAL RISKS AND MAY NOT BE APPROPRIATE
                 FOR ALL PEOPLE. THE INFORMATION PRESENTED HERE IS FOR
                 INFORMATION AND EDUCATIONAL PURPOSES ONLY AND SHOULD NOT BE
-                CONSIDERED AN OFFER OR SOLICITATION TO INVEST TO SMART-MINING OR
+                CONSIDERED AN OFFER OR SOLICITATION TO INVEST TO smart-mining OR
                 ELSEWHERE. ANY INVESTMENT DECISIONS THAT YOU MAKE ARE SOLELY
-                YOUR RESPONSIBILITY. SMART-MINING DOES NOT PROVIDE SERVICE FOR
+                YOUR RESPONSIBILITY. smart-mining DOES NOT PROVIDE SERVICE FOR
                 USA RESIDENTS.
               </p>
 
@@ -74,12 +79,12 @@ function TermsAndCondition() {
 
               <p>
                 1.1. This is an agreement (referred to as "Terms") between
-                SMART-MINING company - Nr. 143 556 965, Trust Company Complex,
+                smart-mining company - Nr. 143 556 965, Trust Company Complex,
                 Ajeltake Road, Ajeltake Island, Majuro, Marshall Islands
                 MH96960, +420 517 810 282 (also referred to in these Terms as
-                "SMART-MINING", "SMART-MINING ", "we", "us" or "our") and you
+                "smart-mining", "smart-mining ", "we", "us" or "our") and you
                 (also referred to in these Terms as "Customer", "you", "your"),
-                the person accessing and using the SMART-MINING.com cloud mining
+                the person accessing and using the smart-mining.com cloud mining
                 service and accepting these Terms. <br />
                 1.2. In these Terms: <br />
                 1.2.1. a reference to "Cryptocurrency", "Cryptocurrencies" is a
@@ -99,7 +104,7 @@ function TermsAndCondition() {
                 made to the mining by each member; <br />
                 1.2.4. the "Mining Hardware" is the computer hardware, not owned
                 but used as a source of mining efficiency and costs calculation
-                by SMART-MINING mining; <br />
+                by smart-mining mining; <br />
                 1.2.5. "Hashrate" or "Hash rate" is the mining power of the
                 Mining Hardware used to mine Cryptocurrencies. Hashrate is
                 mining algorithm specific (SHA-256, Scrypt, X11 etc); <br />
@@ -108,27 +113,27 @@ function TermsAndCondition() {
                 the Website. “Cloud Machine” is a derivative of a real mining
                 machine;
                 <br />
-                1.2.7. "Service" is SMART-MINING mining contract, which enables
+                1.2.7. "Service" is smart-mining mining contract, which enables
                 individuals to virtually mine Cryptocurrencies for themselves.
-                SMART-MINING mining contract performance is deriving from Mining
-                Hardware efficiency and costs. SMART-MINING mining “Service” in
+                smart-mining mining contract performance is deriving from Mining
+                Hardware efficiency and costs. smart-mining mining “Service” in
                 no way should be considered as a purchase of real mining
                 equipment; <br />
                 1.2.8. the "Support" or "Customer Support" or "Helpdesk" is the
-                technical support service of SMART-MINING that is provided via
-                email/ticket system, available in the SMART-MINING knowledge
-                base/FAQ at http://support.SMART-MINING.com where Customers can
+                technical support service of smart-mining that is provided via
+                email/ticket system, available in the smart-mining knowledge
+                base/FAQ at http://support.smart-mining.com where Customers can
                 find answers to general questions and request assistance by
                 submitting a request; <br />
                 1.2.9. the "Panel" is the graphical user interface of the
                 Service, with which the Miner interacts to perform all actions
                 related to the Service; <br />
-                1.2.10. the "Website" is SMART-MINING.com and any apps,
+                1.2.10. the "Website" is smart-mining.com and any apps,
                 software, emails or other websites which we use to provide the
-                services of SMART-MINING.com (which includes the Service);{" "}
+                services of smart-mining.com (which includes the Service);{" "}
                 <br />
                 1.2.11. a "Payout" is the periodic deposit to your Balance,
-                dependent on your Cloud Machine. SMART-MINING may change the
+                dependent on your Cloud Machine. smart-mining may change the
                 periodicity of Payouts at any time, to a maximum of once per 24
                 hours; <br />
                 1.2.12. "Fees" are maintenance and electricity fees, charged
@@ -140,7 +145,7 @@ function TermsAndCondition() {
                 specific Hash rate; <br />
                 1.2.16. a "Contract Term" is the period of time for which a
                 Miner has agreed to pay to administer a Cloud Machine, by
-                default, SMART-MINING provides lifetime Contracts that do not
+                default, smart-mining provides lifetime Contracts that do not
                 have an expiry date, unless stated otherwise; <br />
                 1.2.17. "Hold" is the state an Account can be placed in that
                 prevents the said Account to make any withdrawals, used as a
@@ -154,7 +159,7 @@ function TermsAndCondition() {
                 least 6 characters long) that is linked to a Customer's Account;{" "}
                 <br />
                 1.2.21. a "Referral Link" is the URL with a Referral Code, that
-                allows a new Customer to register with SMART-MINING; <br />
+                allows a new Customer to register with smart-mining; <br />
                 1.2.22. a "Referral" is a Customer who registered by using
                 another Customer's Referral Link; <br />
                 1.2.23. a "Referrer" is a Customer who had another Customer
@@ -164,15 +169,15 @@ function TermsAndCondition() {
                 1.2.25. a "Referral Bonus" is the reward a Referrer receives for
                 a Referral Purchase; <br />
                 1.2.26. an "Affiliate Network" is a third-party website that
-                allows any person (with or without a SMART-MINING Account) to
-                receive financial rewards for SMART-MINING Contracts purchased
+                allows any person (with or without a smart-mining Account) to
+                receive financial rewards for smart-mining Contracts purchased
                 by referred Customers. <br />
                 1.3. These Terms apply to any mining you undertake by using the
                 Service and Website and they form a legal agreement between you
-                and SMART-MINING on the acceptance of you application for an
+                and smart-mining on the acceptance of you application for an
                 Account (as set out below). <br />
                 1.4. If there is ever a conflict between these terms of service
-                and the SMART-MINING terms of use or the instructions, guidance
+                and the smart-mining terms of use or the instructions, guidance
                 and similar information found on the Website, these terms of
                 service will take priority. <br />
                 1.5. IT IS NOT POSSIBLE FOR US TO STATE DEFINITIVELY HOW MANY
@@ -205,8 +210,8 @@ function TermsAndCondition() {
                 the fact that Cryptocurrencies are unregulated and
                 decentralized, their value is not insured by any legal entities.
                 The value of any Contract, any amount of any Cryptocurrency is
-                subject to change by SMART-MINING due to a number of factors out
-                of SMART-MINING’ control. These factors include but are not
+                subject to change by smart-mining due to a number of factors out
+                of smart-mining’ control. These factors include but are not
                 limited to changes of mining difficulty and/or other mining
                 parameters/properties, fluctuating price (in fiat currency to
                 Cryptocurrency exchange rate, such as USD/BTC) of
@@ -219,7 +224,7 @@ function TermsAndCondition() {
                 <br />
                 2.2. Any information related to Cryptocurrency and
                 Cryptocurrency mining that is/was posted, published and/or
-                provided by SMART-MINING via any channel of communication
+                provided by smart-mining via any channel of communication
                 (including but not limited to: on the Website, in the Panel, via
                 the Support Service, via Email newsletter, in social media) is
                 subject to change.
@@ -278,7 +283,7 @@ function TermsAndCondition() {
               <p>
                 5.1. These Terms of Service are valid indefinitely, even after
                 Account termination. <br />
-                5.2. The Contract Term for SMART-MINING.com Cloud Machines is
+                5.2. The Contract Term for smart-mining.com Cloud Machines is
                 unlimited by default, unless stated otherwise. The Contract is
                 valid while profitable, until expired or until terminated (refer
                 to section 13), whichever comes first. <br />
@@ -294,12 +299,12 @@ function TermsAndCondition() {
                 During the consecutive 21 day period, Payouts and Fees will also
                 be temporarily stopped. If during the suspension period, the
                 Contract- related mining factors (such as the exchange rate and
-                mining difficulty) that are outside of SMART-MINING’s control
+                mining difficulty) that are outside of smart-mining’s control
                 will change favorably, making mining profitable again, the
                 Service will be unsuspended and contracts reactivated. Initial
                 cost is not refunded after contract ends.
                 <br />
-                5.6. SMART-MINING reserves the right to change the launch date,
+                5.6. smart-mining reserves the right to change the launch date,
                 Contract Term and/or Mining Term of any Contract.
                 <br />
                 6. ACCOUNT
@@ -324,13 +329,13 @@ function TermsAndCondition() {
                 beneficiary. <br />
                 6.6. When you register, you may submit an order to administer a
                 Cloud Machine. This order will allow you to specify the
-                processing power of the Cloud Machine. Only SMART-MINING can
+                processing power of the Cloud Machine. Only smart-mining can
                 decide whether orders will be successful and acceptance is
                 subject to availability, amongst other things. <br />
                 6.7. Your order is a request to acquire a Contract from us and
                 does not represent a formed contract. If we accept your order,
                 we will associate your Contract with your Account. Until then,
-                an order is considered pending and SMART-MINING reserves the
+                an order is considered pending and smart-mining reserves the
                 right to decline your payment. <br />
                 6.8. Subject to the payment of any fees which may be applied,
                 Miners will be able to receive Cryptocurrencies on the basis of
@@ -339,7 +344,7 @@ function TermsAndCondition() {
                 to administer the Cloud Machine during the Contract Term. Those
                 Cryptocurrencies will be transferred to your wallet upon your
                 request, if such request is confirmed. <br />
-                6.9. If you lose access to your Account, SMART-MINING may ask
+                6.9. If you lose access to your Account, smart-mining may ask
                 you to provide certain types of data, including personally
                 identifiable information, to determine ownership of the Account.
                 This may include, but is not limited to: proof of identity;
@@ -381,25 +386,25 @@ function TermsAndCondition() {
                 regulations, these terms of service and all rules applicable to
                 the use of the Website and the Service. <br />
                 8.2. You agree not to falsely describe or otherwise misrepresent
-                yourself in any dealings with SMART-MINING . <br />
+                yourself in any dealings with smart-mining . <br />
                 8.3. You are not allowed to abuse any campaigns, discounts,
                 referral bonuses and/or referral systems, provided from time to
-                time by SMART-MINING and/or its partners. <br />
+                time by smart-mining and/or its partners. <br />
                 8.4. You are not allowed to use any means to mask your internet
                 traffic and IP address (such as Proxy, Tor, VPN and others).{" "}
                 <br />
                 8.5. Multi-Level Marketing (MLM) and/or High-Yield Investment
                 Projects (HYIP) systems are forbidden from providing any
-                services to their users or partners based on SMART-MINING and/or
-                SMART-MINING, including but not limited to SMART-MINING and/or
-                SMART-MINING Products and/or Services. <br />
+                services to their users or partners based on smart-mining and/or
+                smart-mining, including but not limited to smart-mining and/or
+                smart-mining Products and/or Services. <br />
                 8.6. You are strictly forbidden to use or exploit errors in
                 design of the Website, the Service and/or all and any of their
                 parts, features which have not been documented, and/or "program
                 bugs" for commercial/personal gain or as means to disrupt and/or
                 destabilize the Service and/or the Website. If you encounter
                 such an error by accident, you are required to report your
-                findings to support@SMART-MINING.com.
+                findings to support@smart-mining.com.
                 <br />
                 9. ADMINISTRATION OF MINING
               </p>
@@ -448,7 +453,7 @@ function TermsAndCondition() {
                 to change). <br />
                 10.5.2. You are able to purchase additional Contract(s) for the
                 Cloud Machine(s) to increase your total Hashrate. <br />
-                10.6. SMART-MINING reserves the right to make retroactive
+                10.6. smart-mining reserves the right to make retroactive
                 recalculations to Balance(s), Cloud Machines, Hash rate and
                 logs, including but not limited to, in the case of any error
                 occurring in the Service, to correct any mistakes or
@@ -477,7 +482,7 @@ function TermsAndCondition() {
                 11.3. The Fees are deducted from your Balance once a day
                 immediately after a Payout for all active Cloud Machines (if
                 more than 1 are active). <br />
-                11.4. SMART-MINING reserves the right to change the fees at any
+                11.4. smart-mining reserves the right to change the fees at any
                 time without prior notice. <br />
                 11.5. Fees are non-refundable.
                 <br />
@@ -555,7 +560,7 @@ function TermsAndCondition() {
                 banking services; or <br />
                 12.5.5.7. any change in the value of Cryptocurrency howsoever
                 arising (including as a result of the acts or omissions of
-                SMART-MINING ). <br />
+                smart-mining ). <br />
                 12.6. To the maximum extent permitted by law, our aggregate
                 liability in respect of any claims made in connection with or
                 arising out of the use of the Website or the Service (whether in
@@ -566,8 +571,8 @@ function TermsAndCondition() {
                 which: <br />
                 12.7.1. is unlawful; <br />
                 12.7.2. may give rise to civil or criminal liability for
-                SMART-MINING ; or <br />
-                12.7.3. may bring SMART-MINING into disrepute. <br />
+                smart-mining ; or <br />
+                12.7.3. may bring smart-mining into disrepute. <br />
                 12.8. You hereby agree to indemnify, defend and hold us and our
                 officers, directors, owners, agents, information providers,
                 affiliates, licensors and licensees (collectively, the
@@ -613,7 +618,7 @@ function TermsAndCondition() {
                 breach of these terms of service, or any fraud or impropriety by
                 another user, you must contact us immediately. <br />
                 13.5. In case of any Credit Card purchase (refer to section
-                14.5.4.) SMART-MINING has the right to place the Customer's
+                14.5.4.) smart-mining has the right to place the Customer's
                 Account on Hold (hold the ability to withdraw any mined funds
                 from the Customer's Account Balance) for a period of up to 30
                 days as a security measure of anti-fraud related regulations and
@@ -637,31 +642,31 @@ function TermsAndCondition() {
                 decides not to complete the order. The order will be expired
                 after a given period of time (dependent on the payment method)
                 and the Customer will not be obliged to proceed with the order.
-                SMART-MINING will not process requests to cancel unpaid orders,
+                smart-mining will not process requests to cancel unpaid orders,
                 as it is intended the unpaid orders will be expired.
                 <br />
                 14.4. A Customer is solely responsible for the accuracy of
                 payment, including but not limited to: the destination account,
                 transferable amount and payment details: <br />
                 14.4.1. If the transferred amount is below requested,
-                SMART-MINING reserves the right, at its sole discretion, to
+                smart-mining reserves the right, at its sole discretion, to
                 adjust the Contract accordingly to received funds or request the
                 missing amount to be paid, before activating the Contract.{" "}
                 <br />
                 14.4.2. If the transferred amount is above requested,
-                SMART-MINING reserves the right, at its sole discretion, to
+                smart-mining reserves the right, at its sole discretion, to
                 adjust the Contract accordingly to received funds, add the
                 excessive amount to Customer's Account Balance or return the
                 excessive amount through the payment system the Customer has
                 used to pay for the order initially. <br />
                 14.4.3. If the Customer initiates the payment with
                 incorrect/insufficient details and/or to the wrong destination
-                account, SMART-MINING will attempt, if possible, to process the
+                account, smart-mining will attempt, if possible, to process the
                 order in a timely matter. If the destination address does not
-                belong to SMART-MINING (directly or via a third-party service)
-                and/or is not related to SMART-MINING in any way, SMART-MINING
+                belong to smart-mining (directly or via a third-party service)
+                and/or is not related to smart-mining in any way, smart-mining
                 will not be held responsible and will decline any claims. <br />
-                14.4.4. SMART-MINING is not obliged to proactively resolve
+                14.4.4. smart-mining is not obliged to proactively resolve
                 payment related issues without a claim submitted by the
                 Customer. <br />
                 14.5. In case of payment related issues a claim must be raised:{" "}
@@ -670,28 +675,28 @@ function TermsAndCondition() {
                 claim/dispute by contacting support within 14 days from the
                 creation of payment with proof of payment. Requests submitted
                 after 14 days may not be processed. <br />
-                14.5.2. SMART-MINING reserves the right to request proof of
+                14.5.2. smart-mining reserves the right to request proof of
                 payment, if there are suspicions or facts the payment was not
                 received but the Contract was activated. The Customer is obliged
                 to provide proof of payment within 14 days of reception of such
                 request. <br />
                 14.5.3. Proof of payment includes but is not limited to:
-                SMART-MINING order number, unique transaction ID or number,
+                smart-mining order number, unique transaction ID or number,
                 destination account, transferred amount, account statement from
                 the payment system used. <br />
                 14.5.4. Credit Card purchases may require proof of ownership of
                 the payment method and an identification request. <br />
                 14.5.5. If proof of payment is not provided within 14 days or
                 provided proof is deemed insufficient and/or invalid: <br />
-                14.5.5.1. if the claim was initiated by a Customer: SMART-MINING
+                14.5.5.1. if the claim was initiated by a Customer: smart-mining
                 reserves the right to decline Customer's claim(s); <br />
-                14.5.5.2. if the claim was initiated by SMART-MINING:
-                SMART-MINING reserves the right to adjust/cancel related
+                14.5.5.2. if the claim was initiated by smart-mining:
+                smart-mining reserves the right to adjust/cancel related
                 Contracts and adjust Customer's Account Balance by amounts mined
                 by related Contract. <br />
                 14.6. Unless otherwise provided by law or by a particular offer,
-                all purchases are final and non-refundable. SMART-MINING
-                reserves the right to issue refunds at SMART-MINING 's sole
+                all purchases are final and non-refundable. smart-mining
+                reserves the right to issue refunds at smart-mining 's sole
                 discretion. If we issue a refund, we are under no obligation to
                 issue the same or similar refund in the future. This refund
                 policy does not affect any statutory rights that may apply.{" "}
@@ -702,12 +707,12 @@ function TermsAndCondition() {
                 Customer's Account Balance. If any amount was successfully
                 withdrawn from the Account Balance, no refund requests will be
                 processed on said Account. <br />
-                14.9.2. SMART-MINING has the right to nullify or deduct any
+                14.9.2. smart-mining has the right to nullify or deduct any
                 Hashrate and/or funds mined by the Hashrate of the refunded
                 purchase from the Customer's Account Balance as well as any
                 funds provided as a Referral Bonus for the refunded purchase
                 from the Referrer's Account Balance. <br />
-                14.9.3. SMART-MINING is not obliged to reimburse any funds spent
+                14.9.3. smart-mining is not obliged to reimburse any funds spent
                 for the Maintenance and Electricity Fees. <br />
                 15. COMMUNICATIONS
               </p>
@@ -750,7 +755,7 @@ function TermsAndCondition() {
                 15.8.7. interferes with another user's use and enjoyment of the
                 Website; <br />
                 15.8.8. impersonates any moderator, administrator or any staff
-                or any other person connected with SMART-MINING ; <br />
+                or any other person connected with smart-mining ; <br />
                 15.8.9. contains the confidential information of any other
                 person; <br />
                 15.8.10. solicits passwords or personal information; <br />
@@ -817,7 +822,7 @@ function TermsAndCondition() {
                 17.3. These terms of service, together with the terms of use,
                 privacy policy and any instructions, guidance and similar
                 information found on the Website (from time to time), constitute
-                the entire agreement between you and SMART-MINING relating to
+                the entire agreement between you and smart-mining relating to
                 your use of the Website and the Service and mining through the
                 Website or the Service, to the exclusion of any other terms.{" "}
                 <br />
@@ -842,7 +847,7 @@ function TermsAndCondition() {
                 17.8. This Website the Panel are presented in multiple
                 languages. In the case of a conflict between translations, the
                 English version will prevail. <br />
-                17.9. SMART-MINING will be entitled to assign and otherwise
+                17.9. smart-mining will be entitled to assign and otherwise
                 transfer the agreement covered by these terms of service by
                 giving you reasonable notice, which may include notice given via
                 the Website. <br />
@@ -867,7 +872,7 @@ function TermsAndCondition() {
                 time from the contract account for the amount that was pledged.
                 <br />
                 18.5. Contract pledging is an additional service provided by
-                SMART-MINING Mining and is optional to use.
+                smart-mining Mining and is optional to use.
                 <br />
               </p>
             </div>
@@ -895,7 +900,10 @@ function TermsAndCondition() {
         </div>
       </WhiteBgContainer>
 
-      <Footer isHomePage={false} />
+      <Footer
+        setWalletModalOptions={setWalletModalOptions}
+        isHomePage={false}
+      />
     </Template>
   );
 }
