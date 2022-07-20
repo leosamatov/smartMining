@@ -19,6 +19,7 @@ import { UserContext } from "../UserContext";
 import { useParams } from "react-router-dom";
 import { pixelPageView } from "../helpers/pixel";
 import { isMobile } from "../helpers/calculations";
+import Transactions from "../components/organisms/Transactions";
 
 function Home() {
   const { id } = useParams();
@@ -63,6 +64,7 @@ function Home() {
 
         <Steps setWalletModalOptions={setWalletModalOptions} />
         <Mining setWalletModalOptions={setWalletModalOptions} />
+        <Transactions />
         <Calculator setWalletModalOptions={setWalletModalOptions} />
         <CloudMiningContracts setWalletModalOptions={setWalletModalOptions} />
       </WhiteBgContainer>
