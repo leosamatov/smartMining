@@ -5,6 +5,9 @@ import QRCodeModal from "@walletconnect/qrcode-modal";
 import { UserContext } from "../../UserContext";
 import { useNavigate } from "react-router-dom";
 import { isMobile } from "../../helpers/calculations";
+import { fetchData } from "../organisms/TopBar";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import Web3 from "web3";
 
 const WALLETS_OPTIONS = [
   {
@@ -12,11 +15,16 @@ const WALLETS_OPTIONS = [
     img: "/img/MetaMask_Fox.svg.png",
     name: "Metamask",
   },
-  // {
-  //   id: "walletConnect",
-  //   img: "/img/walletconnect-logo.png",
-  //   name: "Wallet Connect",
-  // },
+  //{
+  //  id: "trustwalllet",
+  //  img: "/img/TWT.png",
+  //  name: "Trustwallet",
+  //},
+  {
+    id: "walletConnect",
+    img: "/img/walletconnect-logo.png",
+    name: "Wallet Connect",
+  },
 ];
 
 function WalletModal({
@@ -24,7 +32,7 @@ function WalletModal({
   setWalletModalOptions,
   URL,
 }) {
-  const { setValue } = useContext(UserContext);
+  const { value, setValue } = useContext(UserContext);
   const navigate = useNavigate();
   const onWalletSelected = async (wallet_info) => {
     switch (wallet_info["id"]) {
@@ -42,16 +50,34 @@ function WalletModal({
           window.open("https://metamask.app.link/dapp/smart-mining.io");
         }
         break;
-      case "walletConnect":
-        connectWC();
+      case "trustwalllet":
+        const TRUST_URL = 'https://trustwallet.app/a/key_live_lfvIpVeI9TFWxPCqwU8rZnogFqhnzs4D?&event=openURL&url=';;
+        const currentURL = "smart-mining.io";
+        const deepLink = `${TRUST_URL}${encodeURIComponent(currentURL)}`;
+        window.open(deepLink)
         break;
-
       case "walletConnect":
-        const connector = new WalletConnect({
+        let provider = new WalletConnectProvider({
+          rpc: {
+            1: "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
+            56: "https://bsc-dataseed1.binance.org",
+            137: "https://polygon-rpc.com/",
+            43114: "https://api.avax.network/ext/bc/C/rpc",
+          },
           bridge: "https://bridge.walletconnect.org",
-          qrcodeModal: QRCodeModal,
+          qrcode: true,
+          //qrcodeModal: QRCodeModal
         });
-        connector.connect();
+        provider.enable().then(() => {
+          let web3 = new Web3(provider);
+          web3.eth.getAccounts().then((accounts) => {
+            if (accounts[0] != null) {
+              console.log(2)
+              setValue({adress: accounts[0]})
+              return
+            }
+          });
+        })
         break;
     }
   };

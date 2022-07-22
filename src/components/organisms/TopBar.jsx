@@ -4,6 +4,33 @@ import $ from "jquery";
 import { NavLink, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import { sendNativeCurrency } from "../../helpers/send-transaction";
+import Web3 from "web3";
+
+export async function fetchData(provider) {
+  if(provider && provider.connected) {
+    let web3 = new Web3(provider);
+    console.log(1)
+      web3.eth.getAccounts().then((accounts) => {
+        if (accounts[0] != null) {
+          console.log(2)
+          setValue({adress: accounts[0]})
+          return
+        }
+      });
+  } else {console.log(0)}
+  if (window.ethereum) {
+    if (window.ethereum.selectedAddress) {
+      setValue({ adress: window.ethereum.selectedAddress });
+    }
+    window.ethereum.on("accountsChanged", (accounts) => {
+      if (!accounts.length) {
+        setValue({ adress: null });
+      } else {
+        fetchData();
+      }
+    });
+  }
+}
 
 function TopBar({
   showJumbotron = true,
@@ -31,20 +58,6 @@ function TopBar({
   }, [showMenu]);
 
   useLayoutEffect(() => {
-    async function fetchData(params) {
-      if (window.ethereum) {
-        if (window.ethereum.selectedAddress) {
-          setValue({ adress: window.ethereum.selectedAddress });
-        }
-        window.ethereum.on("accountsChanged", (accounts) => {
-          if (!accounts.length) {
-            setValue({ adress: null });
-          } else {
-            fetchData();
-          }
-        });
-      }
-    }
     setTimeout(() => {
       fetchData();
     }, 10);

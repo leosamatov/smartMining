@@ -9,81 +9,97 @@ const COIN_SELECTOR_OPTIONS = [
     id: "ethereum",
     img: "/img/eth.png",
     name: "Ethereum",
+    network: 1
   },
   {
     id: "bsc",
     img: "/img/bsc.png",
     name: "BNB",
+    network: 56
   },
   {
     id: "polygon",
     img: "/img/polygon.png",
     name: "Matic",
+    network: 137
   },
   {
     id: "avalanche",
     img: "/img/avalanche.png",
     name: "Avalanche",
+    network: 43114
   },
   {
     id: "usdt_eth",
     img: "/img/usdt.png",
     name: "USDT (ERC20)",
+    network: 1
   },
   {
     id: "usdt_bsc",
     img: "/img/usdt.png",
     name: "USDT (BEP20)",
+    network: 56
   },
   {
     id: "usdt_polygon",
     img: "/img/usdt.png",
     name: "USDT (Polygon)",
+    network: 137
   },
   {
     id: "usdt_avax",
     img: "/img/usdt.png",
     name: "USDT (Avalanche)",
+    network: 43114
   },
   {
     id: "busd",
     img: "/img/busd.png",
     name: "BUSD (BEP20)",
+    network: 56
   },
   {
     id: "usdc_bsc",
     img: "/img/usdc.png",
     name: "USDC (BEP20)",
+    network: 56
   },
   {
     id: "usdc_polygon",
     img: "/img/usdc.png",
     name: "USDC (Polygon)",
+    network: 137
   },
   {
     id: "dai_eth",
     img: "/img/dai.png",
     name: "DAI (ERC20)",
+    network: 1
   },
   {
     id: "dai_bsc",
     img: "/img/dai.png",
     name: "DAI (BEP20)",
+    network: 56
   },
   {
     id: "dai_polygon",
     img: "/img/dai.png",
     name: "DAI (Polygon)",
+    network: 137
   },
   {
     id: "dai_avax",
     img: "/img/dai.png",
     name: "DAI (Avalanche)",
+    network: 43114
   },
   {
     id: "btc",
     img: "/img/opengraph.png",
     name: "Bitcoin",
+    network: 0
   },
 ];
 function CoinSelectorModal({

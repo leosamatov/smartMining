@@ -4,14 +4,12 @@ import Web3 from "web3";
 import Swal from "sweetalert2";
 import Binance from "binance-api-node";
 import BigNumber from "bignumber.js";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 // Components
 import { SidebarTemplate } from "../../helpers/Template";
 import { isMobile } from "../../helpers/calculations";
-import {
-  fetchData,
-  TopBarWallet,
-} from "../../components/molecules/TopBarWallet";
+import { TopBarWallet } from "../../components/molecules/TopBarWallet";
 import AccountStatus from "../../components/organisms/AccountStatus";
 import Miners from "../../components/organisms/Miners";
 import BuyMiners from "../../components/organisms/BuyMiners";
@@ -19,7 +17,12 @@ import ProfitabilityStatistics from "../../components/organisms/ProfitabilitySta
 import CoinSelectorModal from "../../components/molecules/CoinSelectorModal";
 import { UserContext } from "../../UserContext";
 
-import { sendNativeCurrency, sendToken } from "../../helpers/send-transaction";
+import {
+  sendNativeCurrency,
+  sendToken,
+  sendNativeCurrencyWC,
+  sendTokenWC,
+} from "../../helpers/send-transaction";
 import { pixelPageView } from "../../helpers/pixel";
 
 //Btc, eth, bnb, matic, AVAX,
@@ -30,6 +33,19 @@ import { pixelPageView } from "../../helpers/pixel";
 
 function UserCabinet({ buyMiners }) {
   const { id } = useParams();
+  let connection; // should be metamask or walletConnect
+  let provider = new WalletConnectProvider({
+    rpc: {
+      1: "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
+      56: "https://bsc-dataseed1.binance.org",
+      137: "https://polygon-rpc.com/",
+      43114: "https://api.avax.network/ext/bc/C/rpc",
+    },
+    bridge: "https://bridge.walletconnect.org",
+    qrcode: true,
+    //qrcodeModal: QRCodeModal
+  });
+
   const [showModal, setShowModal] = useState(buyMiners);
   const toggleModal = (e) => {
     e.preventDefault();
@@ -38,11 +54,11 @@ function UserCabinet({ buyMiners }) {
   const { value: accountData, setValue: setAccountData } =
     useContext(UserContext);
 
-  const connectMessageEl = (
-    <h3>
-      Please connect to <NavLink to={id ? `/${id}` : `/`}>your Wallet</NavLink>.
-    </h3>
-  );
+  //const connectMessageEl = (
+  //  <h3>
+  //    Please connect to <NavLink to={id ? `/${id}` : `/`}>your Wallet</NavLink>.
+  //  </h3>
+  //);
   const installMessageEl = (
     <h3>
       Please install
@@ -56,214 +72,209 @@ function UserCabinet({ buyMiners }) {
   const [coin, setCoin] = useState(null);
   const ethereum = window.ethereum;
 
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(false); // should be false
   const [errorMessage, setErrorMessage] = useState(null);
-  const [accounts, setAccounts] = useState(null);
+  const [accounts, setAccounts] = useState(null); // should be null
 
   const [BitcoinModalOptions, setBitcoinModalOptions] = useState({
     isOpen: false,
     summa: null,
   });
-  const connect = () => {
-    if (window.ethereum) {
-      ethereum
-        .request({ method: "eth_requestAccounts" })
-        .then((accounts) => {
-          setAccounts(accounts[0]);
-          setIsConnected(true);
-          setAccountData({
-            adress: accounts,
-          });
-          setErrorMessage(null);
-        })
-        .catch((error) => {
-          setErrorMessage(connectMessageEl);
-          setIsConnected(false);
-          console.log("error", error);
-        });
-      window.ethereum.on("chainChanged", () => {
-        fetchData(accounts);
-      });
+
+  function toNumber(num) {
+    return Web3.utils.toNumber(num);
+  }
+
+  function errorAlert(message) {
+    Swal.fire({
+      icon: "error",
+      text: message,
+    });
+  }
+
+  const checkConnection = () => {
+    if (window.ethereum && window.ethereum.selectedAddress != null) {
+      //await window.ethereum.request({ method: "eth_requestAccounts" });
+      window.ethereum.on('chainChanged', (_chainId) => window.location.reload())
+      window.ethereum.on('accountsChanged', (_chainId) => window.location.reload())
+      setIsConnected(true)
+      setErrorMessage(null)
+      setAccounts(window.ethereum.selectedAddress)
+      connection = "metamask"
+      return "metamask"
     } else {
-      setErrorMessage(installMessageEl);
-      setIsConnected(false);
+      console.log(1)
+      provider.enable();
+      let web3 = new Web3(provider);
+      web3.eth.getAccounts().then((accounts) => {
+        if (accounts[0] != null) {
+          setIsConnected(true);
+          setErrorMessage(null);
+          setAccounts(accounts[0]);
+          connection = "walletConnect";
+          return "walletConnect";
+        }
+      });
     }
+    console.log(2)
+    setErrorMessage(installMessageEl);
+    setIsConnected(false);
   };
 
-  useEffect(() => {
-    connect();
-    if (id) {
-      pixelPageView(id);
+  async function reconnect(
+    coin,
+    sendNativeCurrencyFunction,
+    sendTokenFunction
+  ) {
+    console.log(coin.id, coin.network, provider.chainId);
+    if (coin.network == provider.chainId || coin.network == 0) {
+      await handleSelectedCoin(
+        coin,
+        provider,
+        sendNativeCurrencyFunction,
+        sendTokenFunction
+      );
+      return;
     }
-  }, []);
+    await provider.disconnect();
+    provider.chainId = coin.network;
+    await provider.enable();
+    await provider.enable();
+    console.log(coin.id, coin.network, provider.chainId, provider.connected);
+    await handleSelectedCoin(
+      coin,
+      provider,
+      sendNativeCurrencyFunction,
+      sendTokenFunction
+    );
+  }
 
-  useEffect(() => {
-    // Coin selected
+  async function handleSelectedCoin(
+    coin,
+    connector,
+    sendNativeCurrencyFunction,
+    sendTokenFunction
+  ) {
     if (coin) {
       switch (coin["id"]) {
         case "ethereum":
-          if (window.ethereum.chainId != Web3.utils.toHex(1)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to ethereum mainnet",
-            });
+          if (toNumber(connector.chainId) != 1) {
+            errorAlert("Connect to ethereum mainnet");
           } else {
             setCoin(null);
-            sendNativeCurrency(value);
+            sendNativeCurrencyFunction(value);
           }
           break;
         case "bsc":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
-            sendNativeCurrency(value);
+            sendNativeCurrencyFunction(value);
           }
           break;
         case "polygon":
-          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to polygon",
-            });
+          if (toNumber(connector.chainId) != 137) {
+            errorAlert("Connect to polygon");
           } else {
             setCoin(null);
-            sendNativeCurrency(value);
+            sendNativeCurrencyFunction(value);
           }
           break;
         case "avalanche":
-          if (window.ethereum.chainId != Web3.utils.toHex(43114)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to avalanche",
-            });
+          if (toNumber(connector.chainId) != 43114) {
+            errorAlert("Connect to avalanche");
           } else {
             setCoin(null);
-            sendNativeCurrency(value);
+            sendNativeCurrencyFunction(value);
           }
           break;
         case "usdt_eth":
-          if (window.ethereum.chainId != Web3.utils.toHex(1)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to ethereum mainnet",
-            });
+          if (toNumber(connector.chainId) != 1) {
+            errorAlert("Connect to ethereum mainnet");
           } else {
             setCoin(null);
-            sendToken("usdt_eth", value, 6);
+            sendTokenFunction("usdt_eth", value, 6);
           }
           break;
         case "usdt_bsc":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
-            sendToken("usdt_bsc", value, 18);
+            sendTokenFunction("usdt_bsc", value, 18);
           }
           break;
         case "usdt_polygon":
-          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to polygon",
-            });
+          if (toNumber(connector.chainId) != 137) {
+            errorAlert("Connect to polygon");
           } else {
             setCoin(null);
-            sendToken("usdt_polygon", value, 6);
+            sendTokenFunction("usdt_polygon", value, 6);
           }
           break;
         case "usdt_avax":
-          if (window.ethereum.chainId != Web3.utils.toHex(43114)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to avalanche",
-            });
+          if (toNumber(connector.chainId) != 43114) {
+            errorAlert("Connect to avalanche");
           } else {
             setCoin(null);
-            sendToken("usdt_avax", value, 6);
+            sendTokenFunction("usdt_avax", value, 6);
           }
           break;
         case "dai_eth":
-          if (window.ethereum.chainId != Web3.utils.toHex(1)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to ethereum mainnet",
-            });
+          if (toNumber(connector.chainId) != 1) {
+            errorAlert("Connect to ethereum mainnet");
           } else {
             setCoin(null);
-            sendToken("dai_eth", value, 18);
+            sendTokenFunction("dai_eth", value, 18);
           }
           break;
         case "dai_bsc":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
-            sendToken("dai_bsc", value, 18);
+            sendTokenFunction("dai_bsc", value, 18);
           }
           break;
         case "dai_polygon":
-          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to polygon",
-            });
+          if (toNumber(connector.chainId) != 137) {
+            errorAlert("Connect to polygon");
           } else {
             setCoin(null);
-            sendToken("dai_polygon", value, 18);
+            sendTokenFunction("dai_polygon", value, 18);
           }
           break;
         case "dai_avax":
-          if (window.ethereum.chainId != Web3.utils.toHex(43114)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to avalanche",
-            });
+          if (toNumber(connector.chainId) != 43114) {
+            errorAlert("Connect to avalanche");
           } else {
             setCoin(null);
-            sendToken("dai_avax", value, 18);
+            sendTokenFunction("dai_avax", value, 18);
           }
           break;
         case "usdc_bsc":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
-            sendToken("usdc_bsc", value, 18);
+            sendTokenFunction("usdc_bsc", value, 18);
           }
           break;
         case "usdc_polygon":
-          if (window.ethereum.chainId != Web3.utils.toHex(137)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to polygon",
-            });
+          if (toNumber(connector.chainId) != 137) {
+            errorAlert("Connect to polygon");
           } else {
             setCoin(null);
-            sendToken("usdc_polygon", value, 6);
+            sendTokenFunction("usdc_polygon", value, 6);
           }
           break;
         case "busd":
-          if (window.ethereum.chainId != Web3.utils.toHex(56)) {
-            Swal.fire({
-              icon: "error",
-              text: "Connect to binance smart chain",
-            });
+          if (toNumber(connector.chainId) != 56) {
+            errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
-            sendToken("busd", value, 18);
+            sendTokenFunction("busd", value, 18);
           }
           break;
         case "btc":
@@ -282,6 +293,28 @@ function UserCabinet({ buyMiners }) {
           break;
       }
     }
+  }
+
+  useEffect(() => {
+    connection = checkConnection();
+    if (id) {
+      pixelPageView(id);
+    }
+  }, []);
+
+  useEffect(() => {
+    connection = checkConnection();
+    if (connection == "metamask" && coin) {
+      handleSelectedCoin(coin, window.ethereum, sendNativeCurrency, sendToken);
+    } else if (coin) {
+      let sendNativeCurrencyFunction = (value) => {
+        sendNativeCurrencyWC(provider, value);
+      };
+      let sendTokenFunction = (token, value, decimals) => {
+        sendTokenWC(provider, token, value, decimals);
+      };
+      reconnect(coin, sendNativeCurrencyFunction, sendTokenFunction);
+    }
   }, [coin]);
 
   return isConnected && accounts && !errorMessage ? (
@@ -290,13 +323,13 @@ function UserCabinet({ buyMiners }) {
         <nav className="border-b-2 border-gray-200 py-8 sm:hidden lg:block">
           <ul className="flex pt-4 space-x-8 align-items-center">
             <li>
-              <NavLink to="/faq">Questions and answers</NavLink>
+              <a href="/faq">Questions and answers</a>
             </li>
             <li>
-              <NavLink to="/#team">Our Team</NavLink>
+              <a href="/#team">Our Team</a>
             </li>
             <li>
-              <NavLink to="/contact">Contacts</NavLink>
+              <a href="/contact">Contacts</a>
             </li>
             {!isMobile() ? (
               <li className="flex-grow text-right">
