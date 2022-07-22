@@ -113,6 +113,7 @@
     text-align:left;
     justify-content: left;
 }
+<<<<<<< HEAD
 @media (min-width: 320px) and (max-width: 425px) {
     .bitcoin_buy_container .btc_block{
         top: -50px !important;
@@ -127,8 +128,10 @@
         min-height: 500px !important;
     }
 }
+=======
+>>>>>>> 3577dea0e16508eef2636c8ae2c9f50d63ff8cb6
 @media (max-width: 360px) {
     .hashModalBodyContainer > button{
-       margin-top:10px;
+       margin-top:10px !important;
     }
 }

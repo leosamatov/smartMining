@@ -27,6 +27,11 @@ const WALLETS_OPTIONS = [
   },
 ];
 
+//function setAddress(currentAddress) {
+//  let address = document.getElementById("address")
+//  address.innerText = currentAddress
+//}
+
 function WalletModal({
   walletModalOptions = false,
   setWalletModalOptions,
