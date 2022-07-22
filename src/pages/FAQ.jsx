@@ -10,7 +10,7 @@ import Questions from "../components/molecules/Questions";
 
 const FAQ_DATA = [
   {
-    question: "How does cooperation with the Smart Mining start?",
+    question: "How does cooperation with the SMART MINING start?",
     answer:
       "Go through a simple procedure to connect your wallet and pay and pay to become our investor. Then pay the rent for the miner. You don't need to buy or install any additional hardware.",
   },
@@ -70,16 +70,24 @@ const FAQ_DATA = [
   },
 ];
 
-function FAQ() {
+function FAQ({ walletModalOptions, setWalletModalOptions }) {
   return (
     <Template background="#F4F7FF light">
       <WhiteBgContainer>
-        <TopBar showJumbotron={false} isHomePage={false} isLight={true} />
+        <TopBar
+          setWalletModalOptions={setWalletModalOptions}
+          showJumbotron={false}
+          isHomePage={false}
+          isLight={true}
+        />
 
         <Questions items={FAQ_DATA} />
       </WhiteBgContainer>
 
-      <Footer isHomePage={false} />
+      <Footer
+        setWalletModalOptions={setWalletModalOptions}
+        isHomePage={false}
+      />
     </Template>
   );
 }

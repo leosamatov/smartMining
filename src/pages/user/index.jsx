@@ -31,7 +31,7 @@ import { pixelPageView } from "../../helpers/pixel";
 //usdc(matic, bep-20 ),
 //dai( bep-20, avax, matic)
 
-function UserCabinet({ buyMiners }) {
+function UserCabinet({ buyMiners, setWalletModalOptions }) {
   const { id } = useParams();
   let connection; // should be metamask or walletConnect
   let provider = new WalletConnectProvider({
@@ -296,7 +296,7 @@ function UserCabinet({ buyMiners }) {
   }
 
   useEffect(() => {
-    connection = checkConnection();
+    setWalletModalOptions({ open: false, URL: null });
     if (id) {
       pixelPageView(id);
     }

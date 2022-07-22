@@ -70,10 +70,10 @@ function Calculator({ setWalletModalOptions }) {
       <div>
         <div className="main-dark-bg text-white relative">
           <div className="container sm:py-12 md:py-16 lg:py-24 sm:pb-20 relative">
-            <img
+            {/* <img
               src="img/Ellipse1.svg"
               className="absolute top-0 left-4 z-30"
-            />
+            /> */}
             <div className="sm:flex-wrap lg:flex relative sm:space-y-6 lg:space-y-0">
               <div className="sm:w-full lg:w-2/3">
                 <div className="-mb-9 font-md sm:text-3xl md:text-6xl title-font">
