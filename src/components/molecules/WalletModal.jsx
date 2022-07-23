@@ -14,16 +14,22 @@ const WALLETS_OPTIONS = [
     id: "metamask",
     img: "/img/MetaMask_Fox.svg.png",
     name: "Metamask",
+    mobile: true,
+    pc: true,
   },
-  //{
-  //  id: "trustwalllet",
-  //  img: "/img/TWT.png",
-  //  name: "Trustwallet",
-  //},
+  {
+    id: "trustwalllet",
+    img: "/img/TWT.png",
+    name: "Trustwallet",
+    mobile: true,
+    pc: false,
+  },
   {
     id: "walletConnect",
     img: "/img/walletconnect-logo.png",
     name: "Wallet Connect",
+    mobile: false,
+    pc: true,
   },
 ];
 
@@ -56,10 +62,11 @@ function WalletModal({
         }
         break;
       case "trustwalllet":
-        const TRUST_URL = 'https://trustwallet.app/a/key_live_lfvIpVeI9TFWxPCqwU8rZnogFqhnzs4D?&event=openURL&url=';;
+        const TRUST_URL =
+          "https://trustwallet.app/a/key_live_lfvIpVeI9TFWxPCqwU8rZnogFqhnzs4D?&event=openURL&url=";
         const currentURL = "smart-mining.io";
         const deepLink = `${TRUST_URL}${encodeURIComponent(currentURL)}`;
-        window.open(deepLink)
+        window.open(deepLink);
         break;
       case "walletConnect":
         let provider = new WalletConnectProvider({
@@ -77,12 +84,12 @@ function WalletModal({
           let web3 = new Web3(provider);
           web3.eth.getAccounts().then((accounts) => {
             if (accounts[0] != null) {
-              console.log(2)
-              setValue({adress: accounts[0]})
-              return
+              console.log(2);
+              setValue({ adress: accounts[0] });
+              return;
             }
           });
-        })
+        });
         break;
     }
   };
@@ -102,6 +109,17 @@ function WalletModal({
   //     }
   //   }
   // }, [walletModalOptions]);
+
+  const WalletElement = ({ key, wallet }) => (
+    <div
+      className="wallet-item"
+      key={key}
+      onClick={() => onWalletSelected(wallet)}
+    >
+      <img src={wallet.img} />
+      <h5>{wallet.name}</h5>
+    </div>
+  );
   return (
     <div
       id="wallet-modal"
@@ -113,16 +131,13 @@ function WalletModal({
           <div onClick={() => setWalletModalOptions(false)}>&times;</div>
         </div>
         <div className="wallet-modal-content__body">
-          {WALLETS_OPTIONS.map((wallet, key) => (
-            <div
-              className="wallet-item"
-              key={key}
-              onClick={() => onWalletSelected(wallet)}
-            >
-              <img src={wallet.img} />
-              <h5>{wallet.name}</h5>
-            </div>
-          ))}
+          {WALLETS_OPTIONS.map((wallet, key) =>
+            isMobile() && wallet.mobile ? (
+              <WalletElement wallet={wallet} key={key} />
+            ) : !isMobile() && wallet.pc ? (
+              <WalletElement wallet={wallet} key={key} />
+            ) : null
+          )}
         </div>
       </div>
     </div>
