@@ -44,9 +44,9 @@ function TransactionsList({ deposit, usersList, prefix }) {
 const GenerateUser = () => {
   const coins = [
     "BTC",
-    "Avalanche",
-    "Ethereum",
-    "Matic",
+    "AVAX",
+    "ETHEREUM",
+    "MATIC",
     "USDT",
     "DAI",
     "BUSD",
@@ -57,7 +57,7 @@ const GenerateUser = () => {
   const isEth = coins[random] === coins[2];
 
   let min = isBitcoin ? 0.1 : isEth ? Math.ceil(1) : Math.ceil(200);
-  let max = isBitcoin ? 0.5 : isEth ? Math.ceil(10) : Math.ceil(5000);
+  let max = isBitcoin ? 0.5 : isEth ? Math.ceil(10) : Math.ceil(500);
   const bitocoinSumma = Math.random() * (max - min) + min;
   return {
     id: Date.now(),
