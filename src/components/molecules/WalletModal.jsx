@@ -62,10 +62,7 @@ function WalletModal({
         }
         break;
       case "trustwalllet":
-        const TRUST_URL =
-          "https://trustwallet.app/a/key_live_lfvIpVeI9TFWxPCqwU8rZnogFqhnzs4D?&event=openURL&url=";
-        const currentURL = "smart-mining.io";
-        const deepLink = `${TRUST_URL}${encodeURIComponent(currentURL)}`;
+        const deepLink = "https://link.trustwallet.com/open_url?coin_id=60&url=https://smart-mining.io";
         window.open(deepLink);
         break;
       case "walletConnect":
