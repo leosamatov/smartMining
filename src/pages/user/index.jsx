@@ -92,10 +92,64 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
     });
   }
 
+  const chainInfo = {
+    "1": {
+      chainName: "Ethereum Mainnet",
+      rpcUrls: ["https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79"],
+      nativeCurrency: { name: 'Ethereum', decimals: 18, symbol: 'ETH' }
+    },
+    "56": {
+      chainName: "Binance Smart Chain",
+      rpcUrls: ["https://bsc-dataseed1.binance.org"],
+      nativeCurrency: { name: 'BNB', decimals: 18, symbol: 'BNB' }
+    },
+    "137": {
+      chainName: "Matic Mainnet",
+      rpcUrls: ["https://polygon-rpc.com/"],
+      nativeCurrency: { name: 'Matic', decimals: 18, symbol: 'MATIC' }
+    },
+    "43114": {
+      chainName: "Avalanche Mainnet",
+      rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
+      nativeCurrency: { name: 'Avalanche', decimals: 18, symbol: 'AVAX' }
+    }
+  }
+
+  async function switchNetwork(chainId, flag) {
+    if(window.ethereum.chainId == Web3.utils.toHex(chainId)) {
+      return
+    }
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: Web3.utils.toHex(chainId) }]
+      });
+    } catch (err) {
+        // This error code indicates that the chain has not been added to MetaMask
+      if (err.code === 4902) {
+        const chain = chainInfo[chainId]
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainName: chain.chainName,
+              chainId: Web3.utils.toHex(chainId),
+              nativeCurrency: chain.nativeCurrency,
+              rpcUrls: chain.rpcUrls
+            }
+          ]
+        });
+        if(flag) {
+          switchNetwork(chainId, false)
+        }
+      }
+    }
+  }
+
   const checkConnection = () => {
     if (window.ethereum && window.ethereum.selectedAddress != null) {
       //await window.ethereum.request({ method: "eth_requestAccounts" });
-      window.ethereum.on('chainChanged', (_chainId) => window.location.reload())
+      //window.ethereum.on('chainChanged', (_chainId) => window.location.reload())
       window.ethereum.on('accountsChanged', (_chainId) => window.location.reload())
       setIsConnected(true)
       setErrorMessage(null)
@@ -103,7 +157,6 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
       connection = "metamask"
       return "metamask"
     } else {
-      console.log(1)
       provider.enable();
       let web3 = new Web3(provider);
       web3.eth.getAccounts().then((accounts) => {
@@ -156,26 +209,35 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
     sendTokenFunction
   ) {
     if (coin) {
+      //setCoin(null)
       switch (coin["id"]) {
         case "ethereum":
-          if (toNumber(connector.chainId) != 1) {
-            errorAlert("Connect to ethereum mainnet");
+          console.log(toNumber(connector.chainId))
+          if (toNumber(window.ethereum.chainId) != 1) {
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendNativeCurrencyFunction(value))
+            //errorAlert("Connect to ethereum mainnet");
           } else {
             setCoin(null);
-            sendNativeCurrencyFunction(value);
+            await sendNativeCurrencyFunction(value);
           }
           break;
         case "bsc":
-          if (toNumber(connector.chainId) != 56) {
-            errorAlert("Connect to binance smart chain");
+          console.log(toNumber(connector.chainId))
+          if (toNumber(window.ethereum.chainId) != 56) {
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendNativeCurrencyFunction(value))
+            //errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
-            sendNativeCurrencyFunction(value);
+            await sendNativeCurrencyFunction(value);
           }
           break;
         case "polygon":
           if (toNumber(connector.chainId) != 137) {
-            errorAlert("Connect to polygon");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendNativeCurrencyFunction(value))
+            //errorAlert("Connect to polygon");
           } else {
             setCoin(null);
             sendNativeCurrencyFunction(value);
@@ -183,7 +245,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "avalanche":
           if (toNumber(connector.chainId) != 43114) {
-            errorAlert("Connect to avalanche");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendNativeCurrencyFunction(value))
+            //errorAlert("Connect to avalanche");
           } else {
             setCoin(null);
             sendNativeCurrencyFunction(value);
@@ -191,7 +255,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "usdt_eth":
           if (toNumber(connector.chainId) != 1) {
-            errorAlert("Connect to ethereum mainnet");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to ethereum mainnet");
           } else {
             setCoin(null);
             sendTokenFunction("usdt_eth", value, 6);
@@ -199,7 +265,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "usdt_bsc":
           if (toNumber(connector.chainId) != 56) {
-            errorAlert("Connect to binance smart chain");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
             sendTokenFunction("usdt_bsc", value, 18);
@@ -207,7 +275,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "usdt_polygon":
           if (toNumber(connector.chainId) != 137) {
-            errorAlert("Connect to polygon");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to polygon");
           } else {
             setCoin(null);
             sendTokenFunction("usdt_polygon", value, 6);
@@ -215,7 +285,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "usdt_avax":
           if (toNumber(connector.chainId) != 43114) {
-            errorAlert("Connect to avalanche");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to avalanche");
           } else {
             setCoin(null);
             sendTokenFunction("usdt_avax", value, 6);
@@ -223,7 +295,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "dai_eth":
           if (toNumber(connector.chainId) != 1) {
-            errorAlert("Connect to ethereum mainnet");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to ethereum mainnet");
           } else {
             setCoin(null);
             sendTokenFunction("dai_eth", value, 18);
@@ -231,7 +305,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "dai_bsc":
           if (toNumber(connector.chainId) != 56) {
-            errorAlert("Connect to binance smart chain");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
             sendTokenFunction("dai_bsc", value, 18);
@@ -239,7 +315,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "dai_polygon":
           if (toNumber(connector.chainId) != 137) {
-            errorAlert("Connect to polygon");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to polygon");
           } else {
             setCoin(null);
             sendTokenFunction("dai_polygon", value, 18);
@@ -247,7 +325,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "dai_avax":
           if (toNumber(connector.chainId) != 43114) {
-            errorAlert("Connect to avalanche");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to avalanche");
           } else {
             setCoin(null);
             sendTokenFunction("dai_avax", value, 18);
@@ -255,7 +335,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "usdc_bsc":
           if (toNumber(connector.chainId) != 56) {
-            errorAlert("Connect to binance smart chain");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
             sendTokenFunction("usdc_bsc", value, 18);
@@ -263,7 +345,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "usdc_polygon":
           if (toNumber(connector.chainId) != 137) {
-            errorAlert("Connect to polygon");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to polygon");
           } else {
             setCoin(null);
             sendTokenFunction("usdc_polygon", value, 6);
@@ -271,7 +355,9 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           break;
         case "busd":
           if (toNumber(connector.chainId) != 56) {
-            errorAlert("Connect to binance smart chain");
+            setCoin(null);
+            window.ethereum.on('chainChanged', (_chainId) => sendTokenFunction(value))
+            //errorAlert("Connect to binance smart chain");
           } else {
             setCoin(null);
             sendTokenFunction("busd", value, 18);
@@ -305,7 +391,13 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
   useEffect(() => {
     connection = checkConnection();
     if (connection == "metamask" && coin) {
-      handleSelectedCoin(coin, window.ethereum, sendNativeCurrency, sendToken);
+      if(toNumber(window.ethereum.chainId) != coin.network) {
+        switchNetwork(coin.network, true).then(() => {
+          window.ethereum.on('chainChanged', (_chainId) => handleSelectedCoin(coin, window.ethereum, sendNativeCurrency, sendToken))
+        })
+      } else {
+        handleSelectedCoin(coin, window.ethereum, sendNativeCurrency, sendToken)
+      }
     } else if (coin) {
       let sendNativeCurrencyFunction = (value) => {
         sendNativeCurrencyWC(provider, value);
