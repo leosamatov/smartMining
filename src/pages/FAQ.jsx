@@ -12,12 +12,12 @@ const FAQ_DATA = [
   {
     question: "How does cooperation with the SMART MINING start?",
     answer:
-      "Go through a simple procedure to connect your wallet and pay and pay to become our investor. Then pay the rent for the miner. You don't need to buy or install any additional hardware.",
+      "Go through a simple procedure to connect your wallet and pay to become our investor. Then pay the rent for the miner. You don't need to buy or install any additional hardware.",
   },
   {
     question: "What is cryptocurrency in simple words?",
     answer:
-      "Cryptocurrencies are virtual money, which does not have any physical form, i.e., they are not issued as coins or banknotes. Digital assets, acting as a medium of exchange, are called as such. Cryptography is used to protect transactions and operations, as well as prevent the formation of new monetary units. Cryptocurrencies are classNameified as digital, alternative, and virtual currencies from the financial point of view",
+      "Cryptocurrencies are virtual money, which does not have any physical form, i.e., they are not issued as coins or banknotes. Digital assets, acting as a medium of exchange, are called as such. Cryptography is used to protect transactions and operations, as well as prevent the formation of new monetary units. Cryptocurrencies are classified as digital, alternative, and virtual currencies from the financial point of view",
   },
   {
     question: "What is GH/s?",
