@@ -42,16 +42,7 @@ function TransactionsList({ deposit, usersList, prefix }) {
   );
 }
 const GenerateUser = () => {
-  const coins = [
-    "BTC",
-    "AVAX",
-    "ETHEREUM",
-    "MATIC",
-    "USDT",
-    "DAI",
-    "BUSD",
-    "USDC",
-  ];
+  const coins = ["BTC", "AVAX", "ETH", "MATIC", "USDT", "DAI", "BUSD", "USDC"];
   const random = Math.floor(Math.random() * coins.length);
   const isBitcoin = coins[random] === coins[0];
   const isEth = coins[random] === coins[2];

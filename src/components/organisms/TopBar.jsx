@@ -189,7 +189,7 @@ function TopBar({
                       </>
                     )}
                     <li>
-                      <NavLink to="/faq">FAQ</NavLink>
+                      <NavLink to="/faq">F.A.Q</NavLink>
                     </li>
                     <li>
                       <NavLink to="/contact">Contact Us</NavLink>

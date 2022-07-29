@@ -7,12 +7,13 @@ import Footer from "../helpers/Footer";
 // Components
 import TopBar from "../components/organisms/TopBar";
 import Questions from "../components/molecules/Questions";
-
 const FAQ_DATA = [
   {
-    question: "How does cooperation with the SMART MINING start?",
-    answer:
-      "Go through a simple procedure to connect your wallet and pay to become our investor. Then pay the rent for the miner. You don't need to buy or install any additional hardware.",
+    question: "BASIC INSTRUCTION",
+    answer: `Our service requires a crypto wallet <b>(Metamask, Trustwallet, etc.)</b>. 
+      Connect your wallet by pressing the <b>Сonnect Wallet</b> button to get access to your personal account. Your wallet is directly linked to your personal account. 
+      Use any of the buttons <b>Connect Wallet</b>, <b>Start Earning</b> or <b>Personal Area</b> to switch to your personal account. 
+      Use the <b>Buy miners</b> button in your personal account to choose the deposit amount which directly affects your investment plan (your income rate). The next step is to choose any convenient cryptocurrency from our list. The cryptocurrency you choose must correspond to your wallet's network. After that, confirm the transaction in your wallet and the deposit will be made. From now on you will start receiving your daily profit which you can withdraw to your wallet at any time convenient for you. To withdraw funds use the "<b>Withdraw</b>" button in your personal area. Also, you can track your profitability statistics and other indicators of the miners in your personal cabinet. If you have any questions, please contact the support service.`,
   },
   {
     question: "What is cryptocurrency in simple words?",
@@ -23,11 +24,6 @@ const FAQ_DATA = [
     question: "What is GH/s?",
     answer:
       "GH/s (gigahash per second) is a unit of computing power of a computer (miner). It is used to determine the speed of operations performed by a technique when using a cryptographic code. The current indicator is crucial in calculating income. The higher the hashrate, the more productive the equipment, the more cryptocurrency the investor produces.",
-  },
-  {
-    question: "How does the cloud mining earning scheme work?",
-    answer:
-      "All is clear. The investor should determine the optimum capacity for himself (the hash amount), buy a cloud mining contract (or even several contracts), and earn income every day depending on the parameters of the chosen contract.",
   },
   {
     question: "When are the payment deadlines?",
@@ -61,7 +57,7 @@ const FAQ_DATA = [
   {
     question: "How do I withdraw my mining income?",
     answer:
-      "Select the Withdraw tab, then make a money withdrawal request in the Wallet section. Once the request is processed, the declared amount is transferred to your wallet within 24 hours.",
+      "Click the Withdraw tab, then make a withdrawal request. After processing the request, the requested amount will be transferred to your wallet within 24 hours.",
   },
   {
     question: "Why does it make sense to reinvest my mining profits?",

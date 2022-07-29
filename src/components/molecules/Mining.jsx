@@ -3,15 +3,13 @@ import SingleHowToStep from "../atoms/SingleHowToStep";
 
 const MINING_STEPS_DATA = [
   {
-    title: "Sign up now",
-    description:
-      "Go through a simple procedure connect your wallet. Then pay the rent for the miner to become our investor. You don't need to buy or install any additional hardware.",
+    title: "CONNECT YOUR WALLET",
+    description: `You need a crypto wallet <b>(MetaMask, Trustwallet, etc.)</b>. Connect your wallet by pressing the <b>Сonnect Wallet</b> button, then you can switch to your personal account.`,
     src: "img/Zareg.svg",
   },
   {
-    title: "Buy a contract",
-    description:
-      "Choose a contract that suits you and start cryptocurrency cloud mining",
+    title: "Deposit",
+    description: `Click on <b>Buy miners</b> button in your personal area and choose the deposit amount. Then press <b>Buy</b>, choose your cryptocurrency and make a deposit. `,
     src: "img/Buy.svg",
   },
   {

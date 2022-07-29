@@ -10737,7 +10737,8 @@ img, video {
 }
 
 .max-w-xs {
-    max-width: 20rem
+    text-align:justify;
+    max-width: 23rem
 }
 
 .max-w-7xl {
