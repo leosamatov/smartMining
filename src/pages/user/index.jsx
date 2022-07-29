@@ -40,13 +40,12 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
 
   const connectMessageEl = (
     <h3>
-      Please connect to <NavLink to={id ? `/${id}` : `/`}>your Wallet</NavLink>.
+      Please connect to <NavLink to={id ? `/${id}` : `/`}>Your Wallet</NavLink>.
     </h3>
   );
   const installMessageEl = (
     <h3>
-      Please install
-      <NavLink to="https://metamask.io/download/">MetaMask</NavLink>
+      Please install <a href="https://metamask.io/download/">MetaMask</a>
     </h3>
   );
 
