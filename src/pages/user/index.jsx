@@ -96,10 +96,10 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
       pixelPageView(id);
     }
   }, []);
-
   useEffect(() => {
     // Coin selected
     if (coin) {
+      setCoin(null);
       switch (coin["id"]) {
         case "ethereum":
           if (window.ethereum.chainId != Web3.utils.toHex(1)) {
