@@ -45,9 +45,7 @@ function TopBar({
         });
       }
     }
-    setTimeout(() => {
-      fetchData();
-    }, 10);
+    fetchData();
   }, []);
 
   const connectWallet = async (e) => {

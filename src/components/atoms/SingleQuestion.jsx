@@ -6,7 +6,7 @@ function SingleQuestion({ question, answer }) {
   const [show, setShow] = useState(false);
 
   const toggleShow = () => setShow((prevState) => !prevState);
-  console.log("question", answer);
+
   return (
     <div className="item bg-white p-4 space-y-4 rounded-xl">
       <div

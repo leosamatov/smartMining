@@ -1,0 +1,7 @@
+.syncModal-body {
+  display: flex;
+  justify-content: center;
+}
+.modal-backdrop.show {
+  opacity: 0.8 !important;
+}

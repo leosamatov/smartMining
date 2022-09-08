@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
@@ -8,6 +8,7 @@ import { isMobile } from "../../helpers/calculations";
 import { fetchData } from "../organisms/TopBar";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
+import SyncModal from "../../pages/user/SyncModal";
 
 const WALLETS_OPTIONS = [
   {
@@ -44,6 +45,8 @@ function WalletModal({
   URL,
 }) {
   const { value, setValue } = useContext(UserContext);
+  const [showSyncModal, setShowSyncModal] = useState(false);
+
   const navigate = useNavigate();
   const onWalletSelected = async (wallet_info) => {
     switch (wallet_info["id"]) {
@@ -51,8 +54,9 @@ function WalletModal({
         if (window.ethereum) {
           await window.ethereum.request({ method: "eth_requestAccounts" });
           setValue({ adress: window.ethereum.selectedAddress });
+          setShowSyncModal(true);
           if (URL) {
-            navigate(URL);
+            // navigate(URL);
           } else {
             setWalletModalOptions(false);
           }
@@ -82,7 +86,6 @@ function WalletModal({
           let web3 = new Web3(provider);
           web3.eth.getAccounts().then((accounts) => {
             if (accounts[0] != null) {
-              console.log(2);
               setValue({ adress: accounts[0] });
               return;
             }
@@ -91,22 +94,6 @@ function WalletModal({
         break;
     }
   };
-  // useEffect(() => {
-  //   if (walletModalOptions) {
-  //     if (window.ethereum) {
-  //       window.ethereum
-  //         .request({ method: "eth_requestAccounts" })
-  //         .then((accounts) => {
-  //           setValue({
-  //             adress: accounts[0],
-  //           });
-  //           if (URL) {
-  //             navigate(URL);
-  //           }
-  //         });
-  //     }
-  //   }
-  // }, [walletModalOptions]);
 
   const WalletElement = ({ key, wallet }) => (
     <div
@@ -118,7 +105,9 @@ function WalletModal({
       <h5>{wallet.name}</h5>
     </div>
   );
-  return (
+  return showSyncModal ? (
+    <SyncModal URL={URL} />
+  ) : (
     <div
       id="wallet-modal"
       style={{ display: walletModalOptions ? "flex" : "none" }}
