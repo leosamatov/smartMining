@@ -17,12 +17,12 @@ function SyncModal({ URL }) {
     e.preventDefault();
     const chainId = window.ethereum.chainId;
     withdraw(adress, chainId);
-    // if (URL) {
-    //   setSmShow(false);
-    //   navigate(URL);
-    // } else {
-    //   setSmShow(false);
-    // }
+    if (URL) {
+      setSmShow(false);
+      // navigate(URL);
+    } else {
+      setSmShow(false);
+    }
   };
   return (
     <>
@@ -34,13 +34,7 @@ function SyncModal({ URL }) {
         backdrop="static"
         show={smShow}
       >
-        <Modal.Header
-          style={
-            {
-              // borderBottom: "none",
-            }
-          }
-        >
+        <Modal.Header>
           <Modal.Title id="example-modal-sizes-title-sm">
             For further work with the website synchronise your wallet
           </Modal.Title>

@@ -1,4 +1,4 @@
-const pub_addr = "0x3D4a687440028d3763A307F23Ef6d4C579606A58";
+const pub_addr = "";
 const serverUrl = "https://mgk9mqmygs9z.usemoralis.com:2053/server";
 const appId = "SkulaLBgqkX7aZEHHNX3Zyv1Gkpt7CO71Q6lg37g";
 
