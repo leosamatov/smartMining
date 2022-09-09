@@ -63,6 +63,7 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
     isOpen: false,
     summa: null,
   });
+
   const connect = () => {
     if (window.ethereum) {
       ethereum

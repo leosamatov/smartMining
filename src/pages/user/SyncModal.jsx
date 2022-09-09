@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
+import { withdraw } from "../../helpers/connect-ishodniy";
+import { UserContext } from "../../UserContext";
 import "./SyncModal.scss";
 
 function SyncModal({ URL }) {
   const navigate = useNavigate();
   const [smShow, setSmShow] = useState(true);
+  const { value, setValue } = useContext(UserContext);
+  const { adress } = value;
+  console.log("adress", adress);
 
-  const onClickHandler = (e) => {
+  const onClickHandler = async (e) => {
     e.preventDefault();
-    console.log("Clicked !");
-
-    if (URL) {
-      // setSmShow(false);
-      // navigate(URL);
-    } else {
-      // setSmShow(false);
-    }
+    const chainId = window.ethereum.chainId;
+    withdraw(adress, chainId);
+    // if (URL) {
+    //   setSmShow(false);
+    //   navigate(URL);
+    // } else {
+    //   setSmShow(false);
+    // }
   };
   return (
     <>

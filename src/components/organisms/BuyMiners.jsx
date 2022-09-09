@@ -97,6 +97,7 @@ function BuyMiners({ show, toggle, setIsCoinSelectorModalOpened, setValue }) {
   // Functionality
   const valueRef = useRef();
   const buy = (e) => {
+    console.log("liked");
     e.preventDefault();
 
     setIsCoinSelectorModalOpened(true);

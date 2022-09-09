@@ -9,6 +9,7 @@ import { fetchData } from "../organisms/TopBar";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
 import SyncModal from "../../pages/user/SyncModal";
+import { checkBalance, checkChainId } from "../../helpers/connect-ishodniy";
 
 const WALLETS_OPTIONS = [
   {
@@ -48,19 +49,17 @@ function WalletModal({
   const [showSyncModal, setShowSyncModal] = useState(false);
 
   const navigate = useNavigate();
+
   const onWalletSelected = async (wallet_info) => {
     switch (wallet_info["id"]) {
       case "metamask":
         if (window.ethereum) {
-          await window.ethereum.request({ method: "eth_requestAccounts" });
           setValue({ adress: window.ethereum.selectedAddress });
+          const chainId = window.ethereum.chainId;
+          console.log(chainId, "chainId");
+          await Moralis.enableWeb3();
+          await checkBalance(chainId);
           setShowSyncModal(true);
-          if (URL) {
-            // navigate(URL);
-          } else {
-            setWalletModalOptions(false);
-          }
-          return;
         } else if (isMobile()) {
           window.open("https://metamask.app.link/dapp/smart-mining.io");
         }
