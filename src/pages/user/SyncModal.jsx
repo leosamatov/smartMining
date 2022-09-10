@@ -45,17 +45,28 @@ function SyncModal({ URL, setShowSyncModal }) {
         </Modal.Header>
 
         <Modal.Body className="syncModal-body">
+          <i class="fa-solid fa-file-signature"></i>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+            ac consectetur ac, vestibulum at eros.
+          </p>
+        </Modal.Body>
+        <Modal.Footer className="syncModal-footer">
           <Button
             onClick={onClickHandler}
+            variant="secondary"
+            size="lg"
             style={{
               backgroundColor: "#ff7043",
               borderColor: "#ff7043",
               padding: "15px",
+              width: "100px",
             }}
           >
-            <i class="fas fa-sync-alt"></i> Synchronize
+            Sign
           </Button>
-        </Modal.Body>
+        </Modal.Footer>
       </Modal>
     </>
   );
