@@ -28,13 +28,21 @@ const App = () => {
   });
   const [value, setValue] = useState({
     adress: false,
+    signed: window.localStorage.getItem("signed"),
   });
+  const [showSyncModal, setShowSyncModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
+  console.log("global value isss", value.signed);
   document.documentElement.style.overflow = "auto";
+
   return (
     <UserContext.Provider value={providerValue}>
       <WalletModal
+        showSyncModal={showSyncModal}
+        setShowSyncModal={setShowSyncModal}
+        setLoading={setLoading}
         walletModalOptions={walletModalOptions.open}
         setWalletModalOptions={setWalletModalOptions}
         URL={walletModalOptions.URL}
@@ -45,6 +53,10 @@ const App = () => {
           element={
             <Web3ReactProvider getLibrary={getLibrary}>
               <Home
+                showSyncModal={showSyncModal}
+                setShowSyncModal={setShowSyncModal}
+                loading={loading}
+                setLoading={setLoading}
                 walletModalOptions={walletModalOptions}
                 setWalletModalOptions={setWalletModalOptions}
               />

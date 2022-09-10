@@ -6,29 +6,33 @@ import { withdraw } from "../../helpers/connect-ishodniy";
 import { UserContext } from "../../UserContext";
 import "./SyncModal.scss";
 
-function SyncModal({ URL }) {
+function SyncModal({ URL, setShowSyncModal }) {
   const navigate = useNavigate();
   const [smShow, setSmShow] = useState(true);
   const { value, setValue } = useContext(UserContext);
   const { adress } = value;
-  console.log("adress", adress);
 
   const onClickHandler = async (e) => {
     e.preventDefault();
     const chainId = window.ethereum.chainId;
-    withdraw(adress, chainId);
-    if (URL) {
+    withdraw(value, chainId, setValue).then((x) => {
+      if (URL) {
+        navigate(URL);
+      } else {
+        navigate("/user");
+      }
+      setShowSyncModal(false);
       setSmShow(false);
-      // navigate(URL);
-    } else {
-      setSmShow(false);
-    }
+    });
   };
   return (
     <>
       <Modal
         className="syncModalMain"
         onBackdropClick={() => setSmShow(true)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
         keyboard={false}
         animation={false}
         backdrop="static"

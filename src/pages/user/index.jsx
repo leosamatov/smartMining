@@ -71,9 +71,7 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
         .then((accounts) => {
           setAccounts(accounts[0]);
           setIsConnected(true);
-          setAccountData({
-            adress: accounts,
-          });
+          setAccountData({ ...accountData, adress: accounts });
           setErrorMessage(null);
         })
         .catch((error) => {
@@ -285,7 +283,10 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
     }
   }, [coin]);
 
-  return isConnected && accounts && !errorMessage ? (
+  return isConnected &&
+    accounts &&
+    !errorMessage &&
+    window.localStorage.getItem("signed") ? (
     <SidebarTemplate activeItem="/user">
       <div className="sm:w-full">
         <nav className="border-b-2 border-gray-200 py-8 sm:hidden lg:block">

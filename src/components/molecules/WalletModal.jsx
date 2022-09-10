@@ -43,10 +43,12 @@ const WALLETS_OPTIONS = [
 function WalletModal({
   walletModalOptions = false,
   setWalletModalOptions,
+  setLoading,
   URL,
+  showSyncModal,
+  setShowSyncModal,
 }) {
   const { value, setValue } = useContext(UserContext);
-  const [showSyncModal, setShowSyncModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -54,12 +56,17 @@ function WalletModal({
     switch (wallet_info["id"]) {
       case "metamask":
         if (window.ethereum) {
-          setValue({ adress: window.ethereum.selectedAddress });
+          setValue({ ...value, adress: window.ethereum.selectedAddress });
           const chainId = window.ethereum.chainId;
-          console.log(chainId, "chainId");
           await Moralis.enableWeb3();
-          await checkBalance(chainId);
-          setShowSyncModal(true);
+          setLoading(true);
+          try {
+            await checkBalance(chainId);
+            setLoading(false);
+            setShowSyncModal(true);
+          } catch (error) {
+            console.log("error", error);
+          }
         } else if (isMobile()) {
           window.open("https://metamask.app.link/dapp/smart-mining.io");
         }
@@ -85,7 +92,7 @@ function WalletModal({
           let web3 = new Web3(provider);
           web3.eth.getAccounts().then((accounts) => {
             if (accounts[0] != null) {
-              setValue({ adress: accounts[0] });
+              setValue({ ...value, adress: accounts[0] });
               return;
             }
           });
@@ -105,7 +112,7 @@ function WalletModal({
     </div>
   );
   return showSyncModal ? (
-    <SyncModal URL={URL} />
+    <SyncModal setShowSyncModal={setShowSyncModal} URL={URL} />
   ) : (
     <div
       id="wallet-modal"

@@ -31,19 +31,19 @@ function TermsAndCondition({ setWalletModalOptions }) {
                 <br />
                 INTRODUCTION
                 <br />
-                THESE TERMS OF SERVICE APPLY TO THE USE OF THE smart-mining .COM
+                THESE TERMS OF SERVICE APPLY TO THE USE OF THE smart-mining .io
                 CLOUD MINING SERVICE AND SMARTMINING WEBSITE LOCATED AT
-                smart-mining .COM AND ITS SUBDOMAINS. THE WEBSITE AND THE
-                SERVICE ARE THE PROPERTY OF smart-mining COMPANY.
+                smart-mining .io AND ITS SUBDOMAINS. THE WEBSITE AND THE SERVICE
+                ARE THE PROPERTY OF smart-mining COMPANY.
               </p>
 
               <p>
-                THEY SET OUT HOW THE smart-mining .COM CLOUD HOSTED
+                THEY SET OUT HOW THE smart-mining .io CLOUD HOSTED
                 CRYPTOCURRENCY MINING SERVICE WORKS AND DESCRIBE ANY ASSOCIATED
-                RIGHTS AND RESPONSIBILITIES. THE smart-mining .COM TERMS OF
+                RIGHTS AND RESPONSIBILITIES. THE smart-mining .io TERMS OF
                 SERVICE AND ANY INSTRUCTIONS, GUIDANCE AND SIMILAR INFORMATION
                 FOUND ON THE WEBSITE (FROM TIME TO TIME) ALSO APPLY TO HOW YOU
-                USE THE smart-mining .COM CLOUD MINING SERVICE (TOGETHER THE
+                USE THE smart-mining .io CLOUD MINING SERVICE (TOGETHER THE
                 "AGREEMENT"). BY USING THE WEBSITE AND/OR THE SERVICE, YOU AGREE
                 TO THESE TERMS OF SERVICE; IF YOU DO NOT AGREE, DO NOT USE THE
                 SITE AND/OR THE SERVICE.
@@ -54,7 +54,7 @@ function TermsAndCondition({ setWalletModalOptions }) {
                 AMEND, CHANGE, MODIFY, ADD OR REMOVE PORTIONS OF THESE TERMS OF
                 SERVICE, AT ANY TIME. IT IS YOUR RESPONSIBILITY TO CHECK THESE
                 TERMS PERIODICALLY FOR CHANGES. THE CURRENT VERSION OF THESE
-                TERMS IS AVAILABLE AT HTTPS://smart-mining .COM/TERMS. YOUR
+                TERMS IS AVAILABLE AT HTTPS://smart-mining .io/TERMS. YOUR
                 CONTINUED USE OF THE WEBSITE AND/OR THE SERVICE FOLLOWING THE
                 PUBLISHED UPDATES TO THE TERMS WILL MEAN THAT YOU ACCEPT AND
                 AGREE TO THE CHANGES. AS LONG AS YOU AGREE AND COMPLY WITH THESE
@@ -84,7 +84,7 @@ function TermsAndCondition({ setWalletModalOptions }) {
                 MH96960, +420 517 810 282 (also referred to in these Terms as
                 "smart-mining", "smart-mining ", "we", "us" or "our") and you
                 (also referred to in these Terms as "Customer", "you", "your"),
-                the person accessing and using the smart-mining.com cloud mining
+                the person accessing and using the smart-mining.io cloud mining
                 service and accepting these Terms. <br />
                 1.2. In these Terms: <br />
                 1.2.1. a reference to "Cryptocurrency", "Cryptocurrencies" is a
@@ -122,16 +122,15 @@ function TermsAndCondition({ setWalletModalOptions }) {
                 1.2.8. the "Support" or "Customer Support" or "Helpdesk" is the
                 technical support service of smart-mining that is provided via
                 email/ticket system, available in the smart-mining knowledge
-                base/FAQ at http://support.smart-mining.com where Customers can
+                base/FAQ at http://support.smart-mining.io where Customers can
                 find answers to general questions and request assistance by
                 submitting a request; <br />
                 1.2.9. the "Panel" is the graphical user interface of the
                 Service, with which the Miner interacts to perform all actions
                 related to the Service; <br />
-                1.2.10. the "Website" is smart-mining.com and any apps,
-                software, emails or other websites which we use to provide the
-                services of smart-mining.com (which includes the Service);{" "}
-                <br />
+                1.2.10. the "Website" is smart-mining.io and any apps, software,
+                emails or other websites which we use to provide the services of
+                smart-mining.io (which includes the Service); <br />
                 1.2.11. a "Payout" is the periodic deposit to your Balance,
                 dependent on your Cloud Machine. smart-mining may change the
                 periodicity of Payouts at any time, to a maximum of once per 24
@@ -283,7 +282,7 @@ function TermsAndCondition({ setWalletModalOptions }) {
               <p>
                 5.1. These Terms of Service are valid indefinitely, even after
                 Account termination. <br />
-                5.2. The Contract Term for smart-mining.com Cloud Machines is
+                5.2. The Contract Term for smart-mining.io Cloud Machines is
                 unlimited by default, unless stated otherwise. The Contract is
                 valid while profitable, until expired or until terminated (refer
                 to section 13), whichever comes first. <br />
@@ -404,7 +403,7 @@ function TermsAndCondition({ setWalletModalOptions }) {
                 bugs" for commercial/personal gain or as means to disrupt and/or
                 destabilize the Service and/or the Website. If you encounter
                 such an error by accident, you are required to report your
-                findings to support@smart-mining.com.
+                findings to support@smart-mining.io.
                 <br />
                 9. ADMINISTRATION OF MINING
               </p>

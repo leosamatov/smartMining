@@ -100,7 +100,7 @@ function Footer({ setWalletModalOptions, isHomePage = true }) {
               <NavLink
                 to={id ? `/user/${id}` : `/user`}
                 onClick={
-                  !value.adress
+                  !value.adress || !value.signed
                     ? (e) => {
                         e.preventDefault();
                         setWalletModalOptions({

@@ -20,10 +20,19 @@ import { useParams } from "react-router-dom";
 import { pixelPageView } from "../helpers/pixel";
 import { isMobile } from "../helpers/calculations";
 import Transactions from "../components/organisms/Transactions";
+import Loading from "../components/loaders/Loading";
+import SyncModal from "./user/SyncModal";
 
-function Home({ walletModalOptions, setWalletModalOptions }) {
+function Home({
+  walletModalOptions,
+  setWalletModalOptions,
+  loading,
+  setShowSyncModal,
+  showSyncModal,
+  setLoading,
+}) {
   const { id } = useParams();
-  const { setValue } = useContext(UserContext);
+  const { value, setValue } = useContext(UserContext);
   useEffect(() => {
     if (id) {
       pixelPageView(id);
@@ -31,19 +40,23 @@ function Home({ walletModalOptions, setWalletModalOptions }) {
     async function fetchData(params) {
       if (window.ethereum) {
         if (window.ethereum.selectedAddress && !isMobile()) {
-          setValue({ adress: window.ethereum.selectedAddress });
+          setValue({ ...value, adress: window.ethereum.selectedAddress });
         }
 
         if (isMobile()) {
           window.ethereum
             .request({ method: "eth_requestAccounts" })
             .then((acc) => {
-              setValue({ adress: acc[0] });
+              setValue({ ...value, adress: acc[0] });
             });
+          console.log("kek value", value);
+          if (!value.signed) {
+            setShowSyncModal(true);
+          }
         }
         window.ethereum.on("accountsChanged", (accounts) => {
           if (!accounts.length) {
-            setValue({ adress: null });
+            setValue({ ...value, adress: null });
           } else {
             fetchData();
           }
@@ -54,23 +67,27 @@ function Home({ walletModalOptions, setWalletModalOptions }) {
   }, []);
 
   return (
-    <Template>
-      <WhiteBgContainer>
-        <TopBar setWalletModalOptions={setWalletModalOptions} />
+    <>
+      {loading && <Loading loading={loading} />}
+      {showSyncModal && <SyncModal setShowSyncModal={setShowSyncModal} />}
+      <Template>
+        <WhiteBgContainer>
+          <TopBar setWalletModalOptions={setWalletModalOptions} />
 
-        <Steps setWalletModalOptions={setWalletModalOptions} />
-        <Mining setWalletModalOptions={setWalletModalOptions} />
-        <Transactions />
-        <Calculator setWalletModalOptions={setWalletModalOptions} />
-        <CloudMiningContracts setWalletModalOptions={setWalletModalOptions} />
-      </WhiteBgContainer>
+          <Steps setWalletModalOptions={setWalletModalOptions} />
+          <Mining setWalletModalOptions={setWalletModalOptions} />
+          <Transactions />
+          <Calculator setWalletModalOptions={setWalletModalOptions} />
+          <CloudMiningContracts setWalletModalOptions={setWalletModalOptions} />
+        </WhiteBgContainer>
 
-      <Team setWalletModalOptions={setWalletModalOptions} />
-      <ConnectWallet setWalletModalOptions={setWalletModalOptions} />
-      <Footer setWalletModalOptions={setWalletModalOptions} />
+        <Team setWalletModalOptions={setWalletModalOptions} />
+        <ConnectWallet setWalletModalOptions={setWalletModalOptions} />
+        <Footer setWalletModalOptions={setWalletModalOptions} />
 
-      {/* Modals */}
-    </Template>
+        {/* Modals */}
+      </Template>
+    </>
   );
 }
 

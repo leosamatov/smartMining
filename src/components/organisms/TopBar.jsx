@@ -34,11 +34,11 @@ function TopBar({
     async function fetchData(params) {
       if (window.ethereum) {
         if (window.ethereum.selectedAddress) {
-          setValue({ adress: window.ethereum.selectedAddress });
+          setValue({ ...value, adress: window.ethereum.selectedAddress });
         }
         window.ethereum.on("accountsChanged", (accounts) => {
           if (!accounts.length) {
-            setValue({ adress: null });
+            setValue({ ...value, adress: null });
           } else {
             fetchData();
           }
@@ -66,7 +66,7 @@ function TopBar({
       <div className="auth mob-hide">
         <NavLink
           to={id ? `/user/${id}` : `/user`}
-          onClick={!value.adress ? connectWallet : undefined}
+          onClick={!value.adress || !value.signed ? connectWallet : undefined}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
@@ -105,7 +105,7 @@ function TopBar({
       <div className="auth">
         <NavLink
           to={id ? `/user/${id}` : `/user`}
-          onClick={!value.adress ? connectWallet : undefined}
+          onClick={!value.adress || !value.signed ? connectWallet : undefined}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
