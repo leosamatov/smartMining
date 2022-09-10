@@ -26,11 +26,10 @@ function SyncModal({ URL, setShowSyncModal }) {
     });
   };
   return (
-    <>
+    <section>
       <Modal
         className="syncModalMain"
         onBackdropClick={() => setSmShow(true)}
-        size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         keyboard={false}
@@ -38,37 +37,27 @@ function SyncModal({ URL, setShowSyncModal }) {
         backdrop="static"
         show={smShow}
       >
-        <Modal.Header>
-          <Modal.Title id="example-modal-sizes-title-sm">
-            For further work with the website synchronise your wallet
-          </Modal.Title>
-        </Modal.Header>
+        <section className="calc-right relative py-12 sm:px-4 lg:px-5 blured">
+          <Modal.Header className="syncModal-header">
+            <Modal.Title id="example-modal-sizes-title-sm">
+              For further work with the website and for access to your personal
+              page and investment you should accept{" "}
+              <a href="/#">terms of use</a>.
+            </Modal.Title>
+          </Modal.Header>
 
-        <Modal.Body className="syncModal-body">
-          <i class="fa-solid fa-file-signature"></i>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </p>
-        </Modal.Body>
-        <Modal.Footer className="syncModal-footer">
-          <Button
-            onClick={onClickHandler}
-            variant="secondary"
-            size="lg"
-            style={{
-              backgroundColor: "#ff7043",
-              borderColor: "#ff7043",
-              padding: "15px",
-              width: "100px",
-            }}
-          >
-            Sign
-          </Button>
-        </Modal.Footer>
+          <div className="syncModal-footer">
+            <button
+              onClick={onClickHandler}
+              className="btn-orange sm:w-full md:w-2/5 lg:w-full "
+            >
+              <span className="">Start earning</span>
+              <img className="inline-block" src="img/go.svg" alt="" />
+            </button>
+          </div>
+        </section>
       </Modal>
-    </>
+    </section>
   );
 }
 
