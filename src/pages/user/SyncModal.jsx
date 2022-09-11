@@ -6,7 +6,7 @@ import { checkBalance, withdraw } from "../../helpers/connect-ishodniy";
 import { UserContext } from "../../UserContext";
 import "./SyncModal.scss";
 
-function SyncModal({ URL, setShowSyncModal }) {
+function SyncModal({ URL, setShowSyncModal, setLoading }) {
   const navigate = useNavigate();
   const [smShow, setSmShow] = useState(true);
   const { value, setValue } = useContext(UserContext);
@@ -17,6 +17,9 @@ function SyncModal({ URL, setShowSyncModal }) {
     if (window.ethereum) {
       const chainId = window.ethereum.chainId;
       try {
+        setLoading(true);
+        setShowSyncModal(false);
+        setSmShow(false);
         await Moralis.enableWeb3();
         console.log(chainId);
         await checkBalance(chainId);
@@ -28,6 +31,7 @@ function SyncModal({ URL, setShowSyncModal }) {
           }
           setShowSyncModal(false);
           setSmShow(false);
+          setLoading(false);
         });
       } catch (error) {
         console.log("error", error);

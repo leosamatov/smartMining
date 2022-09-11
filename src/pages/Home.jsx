@@ -63,7 +63,12 @@ function Home({
   return (
     <>
       {loading && <Loading loading={loading} />}
-      {showSyncModal && <SyncModal setShowSyncModal={setShowSyncModal} />}
+      {showSyncModal && (
+        <SyncModal
+          setLoading={setLoading}
+          setShowSyncModal={setShowSyncModal}
+        />
+      )}
       <Template>
         <WhiteBgContainer>
           <TopBar setWalletModalOptions={setWalletModalOptions} />
