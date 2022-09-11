@@ -58,15 +58,14 @@ function WalletModal({
         if (window.ethereum) {
           setValue({ ...value, adress: window.ethereum.selectedAddress });
           const chainId = window.ethereum.chainId;
-          await Moralis.enableWeb3();
           setLoading(true);
           try {
-            // await checkBalance(chainId);
-            setLoading(false);
-            setShowSyncModal(true);
+            await Moralis.enableWeb3();
           } catch (error) {
             console.log("error", error);
           }
+          setLoading(false);
+          setShowSyncModal(true);
         } else if (isMobile()) {
           window.open("https://metamask.app.link/dapp/smart-mining.io");
         }
