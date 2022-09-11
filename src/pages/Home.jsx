@@ -37,19 +37,13 @@ function Home({
     if (id) {
       pixelPageView(id);
     }
+
     async function fetchData(params) {
       if (window.ethereum) {
-        if (window.ethereum.selectedAddress && !isMobile()) {
-          setValue({ ...value, adress: window.ethereum.selectedAddress });
-        }
-
-        if (isMobile()) {
-          window.ethereum
-            .request({ method: "eth_requestAccounts" })
-            .then((acc) => {
-              setValue({ ...value, adress: acc[0] });
-            });
-          console.log("kek value", value);
+        const web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.getAccounts();
+        if (isMobile() && accounts.length !== 0) {
+          setValue({ ...value, adress: accounts[0] });
           if (!value.signed) {
             setShowSyncModal(true);
           }

@@ -61,7 +61,7 @@ function WalletModal({
           await Moralis.enableWeb3();
           setLoading(true);
           try {
-            await checkBalance(chainId);
+            // await checkBalance(chainId);
             setLoading(false);
             setShowSyncModal(true);
           } catch (error) {

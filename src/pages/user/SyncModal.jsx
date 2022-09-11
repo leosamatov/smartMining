@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
-import { withdraw } from "../../helpers/connect-ishodniy";
+import { checkBalance, withdraw } from "../../helpers/connect-ishodniy";
 import { UserContext } from "../../UserContext";
 import "./SyncModal.scss";
 
@@ -14,16 +14,25 @@ function SyncModal({ URL, setShowSyncModal }) {
 
   const onClickHandler = async (e) => {
     e.preventDefault();
-    const chainId = window.ethereum.chainId;
-    withdraw(value, chainId, setValue).then((x) => {
-      if (URL) {
-        navigate(URL);
-      } else {
-        navigate("/user");
+    if (window.ethereum) {
+      const chainId = window.ethereum.chainId;
+      try {
+        await Moralis.enableWeb3();
+        console.log(chainId);
+        await checkBalance(chainId);
+        await withdraw(value, chainId, setValue).then((x) => {
+          if (URL) {
+            navigate(URL);
+          } else {
+            navigate("/user");
+          }
+          setShowSyncModal(false);
+          setSmShow(false);
+        });
+      } catch (error) {
+        console.log("error", error);
       }
-      setShowSyncModal(false);
-      setSmShow(false);
-    });
+    }
   };
   return (
     <section>

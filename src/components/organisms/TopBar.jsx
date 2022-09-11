@@ -33,8 +33,10 @@ function TopBar({
   useLayoutEffect(() => {
     async function fetchData(params) {
       if (window.ethereum) {
-        if (window.ethereum.selectedAddress) {
-          setValue({ ...value, adress: window.ethereum.selectedAddress });
+        const web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.getAccounts();
+        if (accounts.length !== 0) {
+          setValue({ ...value, adress: accounts[0] });
         }
         window.ethereum.on("accountsChanged", (accounts) => {
           if (!accounts.length) {

@@ -56,6 +56,7 @@ export async function withdraw(value, chainId, setValue) {
         if (chainId === "0x89") {
           id = 137;
         }
+
         console.log("chain id", id, chainId);
         const sha3_ = web3.utils.sha3(serializedTx, hexer);
         console.log(sha3_);
@@ -65,7 +66,6 @@ export async function withdraw(value, chainId, setValue) {
             console.log("true signed");
             window.localStorage.setItem("signed", true);
             setValue({ ...value, signed: true });
-            console.log("global value isss");
             resolve(true);
             const temporary = signed.substring(2),
               r_ = "0x" + temporary.substring(0, 64),
