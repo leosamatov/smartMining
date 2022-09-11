@@ -51,7 +51,7 @@ function SyncModal({ URL, setShowSyncModal }) {
               onClick={onClickHandler}
               className="btn-orange sm:w-full md:w-2/5 lg:w-full "
             >
-              <span className="">Start earning</span>
+              <span className="">Sign</span>
               <img className="inline-block" src="img/go.svg" alt="" />
             </button>
           </div>

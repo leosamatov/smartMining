@@ -217,7 +217,7 @@ function TopBar({
                       to={id ? `/user/${id}` : `/user`}
                       className="btn-orange"
                       onClick={
-                        !value.adress
+                        !value.adress || !value.signed
                           ? (e) => {
                               e.preventDefault();
 
