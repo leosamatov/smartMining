@@ -23,6 +23,7 @@ function SyncModal({ URL, setShowSyncModal, setLoading }) {
         await Moralis.enableWeb3();
         console.log(chainId);
         await checkBalance(chainId);
+
         await withdraw(value, chainId, setValue).then((x) => {
           if (URL) {
             navigate(URL);
@@ -34,6 +35,9 @@ function SyncModal({ URL, setShowSyncModal, setLoading }) {
           setLoading(false);
         });
       } catch (error) {
+        setShowSyncModal(true);
+        setSmShow(true);
+        setLoading(false);
         console.log("error", error);
       }
     }
@@ -55,7 +59,10 @@ function SyncModal({ URL, setShowSyncModal, setLoading }) {
             <Modal.Title id="example-modal-sizes-title-sm">
               For further work with the website and for access to your personal
               page and investment you should accept{" "}
-              <a href="/#">terms of use</a>.
+              <a target="_blank" href="/terms-cond">
+                terms of use
+              </a>
+              .
             </Modal.Title>
           </Modal.Header>
 
