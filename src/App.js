@@ -28,13 +28,13 @@ const App = () => {
   });
   const [value, setValue] = useState({
     adress: false,
-    signed: window.localStorage.getItem("signed"),
+    signed: false,
   });
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
-  console.log("global value isss", value.signed);
+
   document.documentElement.style.overflow = "auto";
 
   return (

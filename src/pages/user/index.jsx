@@ -72,7 +72,8 @@ function UserCabinet({ buyMiners, setWalletModalOptions }) {
           setAccounts(accounts[0]);
           setIsConnected(true);
           setAccountData({ ...accountData, adress: accounts });
-          if (!window.localStorage.getItem("signed")) {
+          console.log("authValue", accountData.signed);
+          if (!accountData.signed) {
             setErrorMessage(connectMessageEl);
           } else {
             setErrorMessage(null);
