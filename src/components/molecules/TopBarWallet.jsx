@@ -22,7 +22,7 @@ export const fetchData = async () => {
   const provider = new eth.providers.JsonRpcProvider(
     networkRPC[ethereum.chainId]
   );
-  console.log("ethereum.chainId]", ethereum.chainId);
+
   let balance = document.getElementById("balance");
   let selectedAccountBalance = (
     parseFloat(await provider.getBalance(window.ethereum.selectedAddress)) /
