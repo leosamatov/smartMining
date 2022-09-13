@@ -37,27 +37,6 @@ function Home({
     if (id) {
       pixelPageView(id);
     }
-
-    async function fetchData(params) {
-      if (window.ethereum) {
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        if (isMobile() && accounts.length !== 0) {
-          setValue({ ...value, adress: accounts[0] });
-          if (!value.signed) {
-            setShowSyncModal(true);
-          }
-        }
-        window.ethereum.on("accountsChanged", (accounts) => {
-          if (!accounts.length) {
-            setValue({ ...value, adress: null });
-          } else {
-            fetchData();
-          }
-        });
-      }
-    }
-    fetchData();
   }, []);
 
   return (
@@ -71,7 +50,11 @@ function Home({
       )}
       <Template>
         <WhiteBgContainer>
-          <TopBar setWalletModalOptions={setWalletModalOptions} />
+          <TopBar
+            setLoading={setLoading}
+            setShowSyncModal={setShowSyncModal}
+            setWalletModalOptions={setWalletModalOptions}
+          />
 
           <Steps setWalletModalOptions={setWalletModalOptions} />
           <Mining setWalletModalOptions={setWalletModalOptions} />
