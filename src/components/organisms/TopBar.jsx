@@ -81,9 +81,8 @@ function TopBar({
         });
       }
     }
-    if (isMobile()) {
-      fetchData();
-    }
+
+    fetchData();
   }, [value.adress]);
   const connectWallet = async (e) => {
     e.preventDefault();
