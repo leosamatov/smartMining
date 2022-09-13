@@ -117,11 +117,11 @@ function WalletModal({
       <h5>{wallet.name}</h5>
     </div>
   );
-  useEffect(() => {
-    if (!value.signed && value.adress && window.location.pathname === "/") {
-      setShowSyncModal(true);
-    }
-  }, [value.signed, value.adress]);
+  // useEffect(() => {
+  //   if (!value.signed && value.adress && window.location.pathname === "/") {
+  //     setShowSyncModal(true);
+  //   }
+  // }, [value.signed, value.adress]);
   return showSyncModal ? (
     <SyncModal
       setShowSyncModal={setShowSyncModal}

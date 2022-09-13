@@ -82,7 +82,7 @@ function TopBar({
       }
     }
 
-    fetchData();
+    // fetchData();
   }, [value.adress]);
   const connectWallet = async (e) => {
     e.preventDefault();
