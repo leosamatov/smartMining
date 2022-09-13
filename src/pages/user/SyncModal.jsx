@@ -15,16 +15,17 @@ function SyncModal({ URL, setShowSyncModal, setLoading }) {
   const onClickHandler = async (e) => {
     e.preventDefault();
     if (window.ethereum) {
-      const chainId = window.ethereum.chainId;
+      let chainId = await window.ethereum.chainId;
+
       try {
         setLoading(true);
         setShowSyncModal(false);
         setSmShow(false);
         await Moralis.enableWeb3();
-        console.log(chainId);
         await checkBalance(chainId);
+        chainId = await window.ethereum.chainId;
 
-        await withdraw(value, chainId, setValue).then((x) => {
+        await withdraw(value, setValue).then((x) => {
           if (URL) {
             navigate(URL);
           } else {
