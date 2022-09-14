@@ -12,9 +12,6 @@ import Calculator from "../components/organisms/Calculator";
 import CloudMiningContracts from "../components/organisms/CloudMiningContracts";
 import Team from "../components/molecules/Team";
 import ConnectWallet from "../components/molecules/ConnectWallet";
-import WalletConnect from "@walletconnect/client";
-import QRCodeModal from "@walletconnect/qrcode-modal";
-import WalletModal from "../components/molecules/WalletModal";
 import { UserContext } from "../UserContext";
 import { useParams } from "react-router-dom";
 import { pixelPageView } from "../helpers/pixel";
@@ -41,13 +38,7 @@ function Home({
 
   return (
     <>
-      {loading && <Loading loading={loading} />}
-      {showSyncModal && (
-        <SyncModal
-          setLoading={setLoading}
-          setShowSyncModal={setShowSyncModal}
-        />
-      )}
+      {/* {loading && <Loading loading={loading} />} */}
       <Template>
         <WhiteBgContainer>
           <TopBar

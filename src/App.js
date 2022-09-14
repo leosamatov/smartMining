@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
-import Referral from "./pages/Referral";
+
 import History from "./pages/History";
 import TermsAndCondition from "./pages/TermsAndCondition";
 import Privacy from "./pages/Privacy";
@@ -11,15 +11,11 @@ import CloudMining from "./pages/CloudMining";
 import CryptoMining from "./pages/CryptoMining";
 import UserCabinet from "./pages/user";
 import NotFound from "./pages/NotFound";
-import { Web3ReactProvider } from "@web3-react/core";
-import Web3 from "web3";
+
 import { UserContext } from "./UserContext";
 import { useMemo, useState } from "react";
 import WalletModal from "./components/molecules/WalletModal";
-
-function getLibrary(provider, connector) {
-  return new Web3(provider);
-}
+import SyncModal from "./pages/user/SyncModal";
 
 const App = () => {
   const [walletModalOptions, setWalletModalOptions] = useState({
@@ -39,6 +35,12 @@ const App = () => {
 
   return (
     <UserContext.Provider value={providerValue}>
+      {showSyncModal && (
+        <SyncModal
+          setLoading={setLoading}
+          setShowSyncModal={setShowSyncModal}
+        />
+      )}
       <WalletModal
         showSyncModal={showSyncModal}
         setShowSyncModal={setShowSyncModal}
@@ -51,27 +53,23 @@ const App = () => {
         <Route
           path="/"
           element={
-            <Web3ReactProvider getLibrary={getLibrary}>
-              <Home
-                showSyncModal={showSyncModal}
-                setShowSyncModal={setShowSyncModal}
-                loading={loading}
-                setLoading={setLoading}
-                walletModalOptions={walletModalOptions}
-                setWalletModalOptions={setWalletModalOptions}
-              />
-            </Web3ReactProvider>
+            <Home
+              showSyncModal={showSyncModal}
+              setShowSyncModal={setShowSyncModal}
+              loading={loading}
+              setLoading={setLoading}
+              walletModalOptions={walletModalOptions}
+              setWalletModalOptions={setWalletModalOptions}
+            />
           }
         />
         <Route
           path="/:id"
           element={
-            <Web3ReactProvider getLibrary={getLibrary}>
-              <Home
-                walletModalOptions={walletModalOptions}
-                setWalletModalOptions={setWalletModalOptions}
-              />
-            </Web3ReactProvider>
+            <Home
+              walletModalOptions={walletModalOptions}
+              setWalletModalOptions={setWalletModalOptions}
+            />
           }
         />
         <Route

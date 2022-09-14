@@ -9,7 +9,7 @@ import { fetchData } from "../organisms/TopBar";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
 import SyncModal from "../../pages/user/SyncModal";
-import { checkBalance, checkChainId } from "../../helpers/connect-ishodniy";
+import { checkConnection } from "../../helpers/connect-ishodniy";
 
 const WALLETS_OPTIONS = [
   {
@@ -49,71 +49,27 @@ function WalletModal({
   setShowSyncModal,
 }) {
   const { value, setValue } = useContext(UserContext);
+  const check = async (params) => {
+    await checkConnection(setShowSyncModal, setWalletModalOptions);
+  };
 
   const navigate = useNavigate();
 
   const onWalletSelected = async (wallet_info) => {
-    switch (wallet_info["id"]) {
-      case "metamask":
-        if (window.ethereum) {
-          setLoading(true);
-          await Moralis.enableWeb3();
-          const web3 = new Web3(window.ethereum);
-          const accounts = await web3.eth.getAccounts();
-          if (accounts.length !== 0) {
-            setValue({ ...value, adress: accounts[0] });
-          }
-          setLoading(false);
-          setShowSyncModal(true);
-        } else if (isMobile()) {
-          window.open("https://metamask.app.link/dapp/smart-mining.io");
-        }
-        break;
-      case "trustwalllet":
-        const deepLink =
-          "https://link.trustwallet.com/open_url?coin_id=60&url=https://smart-mining.io";
-        window.open(deepLink);
-        break;
-      case "walletConnect":
-        let provider = new WalletConnectProvider({
-          rpc: {
-            1: "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
-            56: "https://bsc-dataseed1.binance.org",
-            137: "https://polygon-rpc.com/",
-            43114: "https://api.avax.network/ext/bc/C/rpc",
-          },
-          bridge: "https://bridge.walletconnect.org",
-          qrcode: true,
-          //qrcodeModal: QRCodeModal
-        });
-        provider.enable().then(() => {
-          let web3 = new Web3(provider);
-          web3.eth.getAccounts().then((accounts) => {
-            if (accounts[0] != null) {
-              setValue({ ...value, adress: accounts[0] });
-              return;
-            }
-          });
-        });
-        break;
-    }
+    // switch (wallet_info["id"]) {
+    // }
   };
 
   const WalletElement = ({ key, wallet }) => (
-    <div
-      className="wallet-item"
-      key={key}
-      onClick={() => onWalletSelected(wallet)}
-    >
+    <div className="wallet-item" key={key}>
       <img src={wallet.img} />
       <h5>{wallet.name}</h5>
     </div>
   );
   // useEffect(() => {
-  //   if (!value.signed && value.adress && window.location.pathname === "/") {
-  //     setShowSyncModal(true);
-  //   }
-  // }, [value.signed, value.adress]);
+  //   check();
+  // }, []);
+
   return showSyncModal ? (
     <SyncModal
       setShowSyncModal={setShowSyncModal}
