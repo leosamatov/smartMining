@@ -93,7 +93,8 @@ export async function checkConnection(
   setShowSyncModal,
   setWalletModalOptions,
   connectButtonRef,
-  setValue
+  setValue,
+  setLoading
 ) {
   connectButton = connectButtonRef;
 
@@ -122,7 +123,8 @@ export async function checkConnection(
         await connectToMetamask(
           setValue,
           setWalletModalOptions,
-          setShowSyncModal
+          setShowSyncModal,
+          setLoading
         );
       });
     }
@@ -135,7 +137,8 @@ export async function checkConnection(
         await connectToMetamask(
           setValue,
           setWalletModalOptions,
-          setShowSyncModal
+          setShowSyncModal,
+          setLoading
         );
       });
     }
@@ -152,15 +155,18 @@ function renderUserInfo(addr, bal, setValue) {
 async function connectToMetamask(
   setValue,
   setWalletModalOptions,
-  setShowSyncModal
+  setShowSyncModal,
+  setLoading
 ) {
   await Moralis.enableWeb3();
+  setLoading(true);
   if (typeof accounts === "undefined") {
     const accounts = await web3.eth.getAccounts();
     userAddr = accounts[0];
   }
   await checkBalance();
   renderUserInfo(userAddr, userBalance, setValue);
+  setLoading(false);
   if (chainName === ETH && chainId !== 1) {
     await Moralis.switchNetwork(ETH);
     chainId = 1;

@@ -38,7 +38,7 @@ function Home({
 
   return (
     <>
-      {/* {loading && <Loading loading={loading} />} */}
+      {loading && <Loading loading={loading} />}
       <Template>
         <WhiteBgContainer>
           <TopBar

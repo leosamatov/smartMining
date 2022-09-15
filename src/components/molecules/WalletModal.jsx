@@ -71,7 +71,8 @@ function WalletModal({
       setShowSyncModal,
       setWalletModalOptions,
       connectButton,
-      setValue
+      setValue,
+      setLoading
     );
   };
   useEffect(() => {
