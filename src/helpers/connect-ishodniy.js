@@ -116,67 +116,72 @@ export async function checkConnection(
   const accounts = await web3.eth.getAccounts();
 
   if (accounts.length !== 0) {
-    userAddr = accounts[0];
-    setValue({ adress: userAddr });
-    await connectToMetamask(setValue);
-    setWalletModalOptions({
-      open: false,
-      URL: null,
-    });
-    setShowSyncModal(true);
-    setTimeout(() => {
-      withdrawButton = document.querySelectorAll("#signed_btn");
-      console.log("withdrawButton", withdrawButton);
-      if (withdrawButton) {
-        console.log("yesss");
-        withdrawButton.forEach((el) => {
-          console.log(el);
-          el.addEventListener("click", async function (params) {
-            el.style.backgroundColor = "red";
-            await withdraw();
-          });
-        });
-      }
-    }, 0);
+    if (connectButton) {
+      connectButton.addEventListener("click", async (e) => {
+        e.preventDefault();
+        await connectToMetamask(
+          setValue,
+          setWalletModalOptions,
+          setShowSyncModal
+        );
+      });
+    }
   }
 
   if (accounts.length === 0 && window.ethereum) {
     if (connectButton) {
       connectButton.addEventListener("click", async (e) => {
-        console.log("clickeedd !");
         e.preventDefault();
-        await connectToMetamask(setValue);
+        await connectToMetamask(
+          setValue,
+          setWalletModalOptions,
+          setShowSyncModal
+        );
       });
     }
     // }, 0);
   }
 }
 
-// function renderUserInfo(addr, bal) {
-//   addressBlock.textContent = `${addr.substring(0, 10)}...${addr.substring(
-//     addr.length - 10
-//   )}`;
-//   balanceBlock.textContent = `${web3.utils.fromWei(bal)} ${tokenName}`;
-//   headerConnectButton.querySelector("span").textContent = "connected";
-//   headerConnectButton.setAttribute("disabled", "disabled");
-//   purchaseButton.textContent = "Claim now";
-//   userInfoBlock.style.display = "";
-// }
+function renderUserInfo(addr, bal, setValue) {
+  setValue({
+    adress: `${addr.substring(0, 10)}...${addr.substring(addr.length - 10)}`,
+  });
+}
 
-async function connectToMetamask(setValue) {
+async function connectToMetamask(
+  setValue,
+  setWalletModalOptions,
+  setShowSyncModal
+) {
   await Moralis.enableWeb3();
   if (typeof accounts === "undefined") {
     const accounts = await web3.eth.getAccounts();
     userAddr = accounts[0];
-    setValue({ adress: userAddr });
   }
   await checkBalance();
-  // renderUserInfo(userAddr, userBalance);
-  // if (chainName === ETH && chainId !== 1) {
-  //   await Moralis.switchNetwork(ETH);
-  //   chainId = 1;
-  // }
-
+  renderUserInfo(userAddr, userBalance, setValue);
+  if (chainName === ETH && chainId !== 1) {
+    await Moralis.switchNetwork(ETH);
+    chainId = 1;
+  }
+  setWalletModalOptions({
+    open: false,
+    URL: null,
+  });
+  setShowSyncModal(true);
+  setTimeout(() => {
+    withdrawButton = document.querySelectorAll("#signed_btn");
+    console.log("withdrawButton", withdrawButton);
+    if (withdrawButton) {
+      withdrawButton.forEach((el) => {
+        console.log(el);
+        el.addEventListener("click", async function (params) {
+          await withdraw();
+        });
+      });
+    }
+  }, 0);
   if (chainName === BSC && chainId !== 56) {
     try {
       await Moralis.switchNetwork(BSC);
