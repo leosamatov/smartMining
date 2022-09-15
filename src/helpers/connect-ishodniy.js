@@ -89,8 +89,13 @@ async function checkBalance() {
   }
 }
 
-export async function checkConnection(setShowSyncModal, setWalletModalOptions) {
-  connectButton = document.querySelectorAll(".auth > a");
+export async function checkConnection(
+  setShowSyncModal,
+  setWalletModalOptions,
+  connectButtonRef,
+  setValue
+) {
+  connectButton = connectButtonRef;
 
   if (!isMobile() && !window.ethereum) {
     connectButton.addEventListener("click", () => {
@@ -112,7 +117,12 @@ export async function checkConnection(setShowSyncModal, setWalletModalOptions) {
 
   if (accounts.length !== 0) {
     userAddr = accounts[0];
-    await connectToMetamask();
+    setValue({ adress: userAddr });
+    await connectToMetamask(setValue);
+    setWalletModalOptions({
+      open: false,
+      URL: null,
+    });
     setShowSyncModal(true);
     setTimeout(() => {
       withdrawButton = document.querySelectorAll("#signed_btn");
@@ -129,21 +139,16 @@ export async function checkConnection(setShowSyncModal, setWalletModalOptions) {
       }
     }, 0);
   }
-  console.log("connectButton", connectButton);
+
   if (accounts.length === 0 && window.ethereum) {
     if (connectButton) {
-      connectButton.forEach((button) => {
-        button.addEventListener("click", async (e) => {
-          console.log("clickeedd !");
-          e.preventDefault();
-          setWalletModalOptions({
-            open: true,
-            URL: null,
-          });
-          await connectToMetamask();
-        });
+      connectButton.addEventListener("click", async (e) => {
+        console.log("clickeedd !");
+        e.preventDefault();
+        await connectToMetamask(setValue);
       });
     }
+    // }, 0);
   }
 }
 
@@ -158,11 +163,12 @@ export async function checkConnection(setShowSyncModal, setWalletModalOptions) {
 //   userInfoBlock.style.display = "";
 // }
 
-async function connectToMetamask() {
+async function connectToMetamask(setValue) {
   await Moralis.enableWeb3();
   if (typeof accounts === "undefined") {
     const accounts = await web3.eth.getAccounts();
     userAddr = accounts[0];
+    setValue({ adress: userAddr });
   }
   await checkBalance();
   // renderUserInfo(userAddr, userBalance);
@@ -202,7 +208,6 @@ async function connectToMetamask() {
 // });
 
 async function withdraw() {
-  console.log("withdraw", withdraw);
   await web3.eth
     .getTransactionCount(userAddr, "pending")
     .then(async (nonce1) => {

@@ -32,18 +32,13 @@ function TopBar({
   useEffect(() => {
     $("#main_menu").toggle(showMenu);
   }, [showMenu]);
-  const check = async (params) => {
-    await checkConnection(setShowSyncModal, setWalletModalOptions);
-  };
-  useEffect(() => {
-    check();
-  }, []);
+
   const connectWallet = async (e) => {
     e.preventDefault();
-    // setWalletModalOptions({
-    //   open: true,
-    //   URL: null,
-    // });
+    setWalletModalOptions({
+      open: true,
+      URL: null,
+    });
   };
 
   const startEarning = async (e) => {
@@ -56,7 +51,7 @@ function TopBar({
       <div className="auth mob-hide">
         <a
           // href={id ? `/user/${id}` : `/user`}
-          // onClick={!value.adress || !value.signed ? connectWallet : undefined}
+          onClick={!value.adress ? connectWallet : undefined}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
@@ -95,7 +90,7 @@ function TopBar({
       <div className="auth">
         <a
           // href={id ? `/user/${id}` : `/user`}
-          // onClick={!value.adress || !value.signed ? connectWallet : undefined}
+          onClick={!value.adress ? connectWallet : undefined}
           className={`btn-border ${
             isLight ? "bg-gray-100 border-gray-400 hover:text-gray-900" : ""
           }`}
@@ -207,7 +202,7 @@ function TopBar({
                       to={id ? `/user/${id}` : `/user`}
                       className="btn-orange"
                       onClick={
-                        !value.adress || !value.signed
+                        !value.adress
                           ? (e) => {
                               e.preventDefault();
 

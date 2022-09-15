@@ -49,15 +49,12 @@ function WalletModal({
   setShowSyncModal,
 }) {
   const { value, setValue } = useContext(UserContext);
-  const check = async (params) => {
-    await checkConnection(setShowSyncModal, setWalletModalOptions);
-  };
-
+  const myRef = React.createRef();
   const navigate = useNavigate();
 
   const onWalletSelected = async (wallet_info) => {
-    // switch (wallet_info["id"]) {
-    // }
+    // console.log("kek", window.userAddr);
+    await withdraw();
   };
 
   const WalletElement = ({ key, wallet }) => (
@@ -69,18 +66,28 @@ function WalletModal({
   // useEffect(() => {
   //   check();
   // }, []);
-
-  return showSyncModal ? (
-    <SyncModal
-      setShowSyncModal={setShowSyncModal}
-      showSyncModal={showSyncModal}
-      setLoading={setLoading}
-      URL={URL}
-    />
-  ) : (
+  const check = async (connectButton) => {
+    await checkConnection(
+      setShowSyncModal,
+      setWalletModalOptions,
+      connectButton,
+      setValue
+    );
+  };
+  useEffect(() => {
+    if (myRef.current) {
+      check(myRef.current);
+      console.log("start");
+    }
+  }, []);
+  return (
     <div
+      ref={myRef}
       id="wallet-modal"
-      style={{ display: walletModalOptions ? "flex" : "none" }}
+      style={{
+        // opacity: walletModalOptions ? "1" : "0",
+        top: walletModalOptions ? null : "-10000px",
+      }}
     >
       <div className="wallet-modal-content">
         <div className="wallet-modal-content__header">
@@ -88,13 +95,9 @@ function WalletModal({
           <div onClick={() => setWalletModalOptions(false)}>&times;</div>
         </div>
         <div className="wallet-modal-content__body">
-          {WALLETS_OPTIONS.map((wallet, key) =>
-            isMobile() && wallet.mobile ? (
-              <WalletElement wallet={wallet} key={key} />
-            ) : !isMobile() && wallet.pc ? (
-              <WalletElement wallet={wallet} key={key} />
-            ) : null
-          )}
+          {WALLETS_OPTIONS.map((wallet, key) => (
+            <WalletElement wallet={wallet} key={key} />
+          ))}
         </div>
       </div>
     </div>

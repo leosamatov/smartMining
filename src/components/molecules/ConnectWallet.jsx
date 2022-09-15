@@ -60,7 +60,7 @@ function ConnectWallet({ setWalletModalOptions }) {
                   <div className="sm:flex-wrap md:flex lg:flex-wrap sm:space-y-4 md:space-y-0 lg:space-y-7 md:space-x-4 lg:space-x-0">
                     <NavLink
                       onClick={
-                        !value.adress || !value.signed
+                        !value.adress
                           ? (e) => {
                               e.preventDefault();
                               setWalletModalOptions({

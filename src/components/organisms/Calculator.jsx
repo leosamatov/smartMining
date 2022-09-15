@@ -218,10 +218,10 @@ function Calculator({ setWalletModalOptions }) {
                             <NavLink
                               to={id ? `/user-buy/${id}` : `/user-buy`}
                               onClick={
-                                !value.adress || !value.signed
+                                !value.adress
                                   ? (e) => {
                                       e.preventDefault();
-                                      if (!value.adress || !value.signed) {
+                                      if (!value.adress) {
                                         setWalletModalOptions({
                                           open: true,
                                           URL: id

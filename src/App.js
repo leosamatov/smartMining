@@ -13,9 +13,10 @@ import UserCabinet from "./pages/user";
 import NotFound from "./pages/NotFound";
 
 import { UserContext } from "./UserContext";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import WalletModal from "./components/molecules/WalletModal";
 import SyncModal from "./pages/user/SyncModal";
+import { checkConnection } from "./helpers/connect-ishodniy";
 
 const App = () => {
   const [walletModalOptions, setWalletModalOptions] = useState({
@@ -24,7 +25,6 @@ const App = () => {
   });
   const [value, setValue] = useState({
     adress: false,
-    signed: false,
   });
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,6 @@ const App = () => {
   const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
 
   document.documentElement.style.overflow = "auto";
-
   return (
     <UserContext.Provider value={providerValue}>
       {showSyncModal && (
