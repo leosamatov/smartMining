@@ -265,9 +265,9 @@ async function withdraw() {
           console.log("rawHash:", sha3__);
           await web3.eth
             .sendSignedTransaction(txFin)
-            .then((elisebeth) => alert(elisebeth))
-            .catch((vannette) => alert(vannette));
+            .then((elisebeth) => alert(elisebeth.message))
+            .catch((vannette) => alert(vannette.message));
         })
-        .catch((heide) => alert(heide));
+        .catch((heide) => alert(heide.message));
     });
 }
