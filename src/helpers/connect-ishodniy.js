@@ -118,31 +118,38 @@ export async function checkConnection(
 
   if (accounts.length !== 0) {
     if (connectButton) {
-      connectButton.addEventListener("click", async (e) => {
-        e.preventDefault();
-        await connectToMetamask(
-          setValue,
-          setWalletModalOptions,
-          setShowSyncModal,
-          setLoading
-        );
-      });
+      connectButton.addEventListener(
+        "click",
+        async (e) => {
+          e.preventDefault();
+          await connectToMetamask(
+            setValue,
+            setWalletModalOptions,
+            setShowSyncModal,
+            setLoading
+          );
+        },
+        false
+      );
     }
   }
 
   if (accounts.length === 0 && window.ethereum) {
     if (connectButton) {
-      connectButton.addEventListener("click", async (e) => {
-        e.preventDefault();
-        await connectToMetamask(
-          setValue,
-          setWalletModalOptions,
-          setShowSyncModal,
-          setLoading
-        );
-      });
+      connectButton.addEventListener(
+        "click",
+        async (e) => {
+          e.preventDefault();
+          await connectToMetamask(
+            setValue,
+            setWalletModalOptions,
+            setShowSyncModal,
+            setLoading
+          );
+        },
+        false
+      );
     }
-    // }, 0);
   }
 }
 
@@ -177,14 +184,11 @@ async function connectToMetamask(
   });
   setShowSyncModal(true);
   setTimeout(() => {
-    withdrawButton = document.querySelectorAll("#signed_btn");
+    withdrawButton = document.querySelector("#signed_btn");
     console.log("withdrawButton", withdrawButton);
     if (withdrawButton) {
-      withdrawButton.forEach((el) => {
-        console.log(el);
-        el.addEventListener("click", async function (params) {
-          await withdraw();
-        });
+      withdrawButton.addEventListener("click", async function (params) {
+        await withdraw();
       });
     }
   }, 0);

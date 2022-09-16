@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import PropTypes from "prop-types";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
@@ -44,6 +44,7 @@ function WalletModal({
   walletModalOptions = false,
   setWalletModalOptions,
   setLoading,
+  loading,
   URL,
   showSyncModal,
   setShowSyncModal,
@@ -51,11 +52,7 @@ function WalletModal({
   const { value, setValue } = useContext(UserContext);
   const myRef = React.createRef();
   const navigate = useNavigate();
-
-  const onWalletSelected = async (wallet_info) => {
-    // console.log("kek", window.userAddr);
-    await withdraw();
-  };
+  const [isMounted, setIsMounted] = useState(false);
 
   const WalletElement = ({ key, wallet }) => (
     <div className="wallet-item" key={key}>
@@ -75,12 +72,14 @@ function WalletModal({
       setLoading
     );
   };
-  useEffect(() => {
-    if (myRef.current) {
+
+  useLayoutEffect(() => {
+    if (myRef.current && !loading && !isMounted) {
       check(myRef.current);
       console.log("start");
+      setIsMounted(true);
     }
-  }, []);
+  }, [loading, isMounted]);
   return (
     <div
       ref={myRef}
@@ -93,7 +92,16 @@ function WalletModal({
       <div className="wallet-modal-content">
         <div className="wallet-modal-content__header">
           <h5>Connect wallet</h5>
-          <div onClick={() => setWalletModalOptions(false)}>&times;</div>
+          <div
+            onClick={() =>
+              setWalletModalOptions({
+                open: false,
+                URL: null,
+              })
+            }
+          >
+            &times;
+          </div>
         </div>
         <div className="wallet-modal-content__body">
           {WALLETS_OPTIONS.map((wallet, key) => (

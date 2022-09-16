@@ -17,6 +17,7 @@ import { useEffect, useMemo, useState } from "react";
 import WalletModal from "./components/molecules/WalletModal";
 import SyncModal from "./pages/user/SyncModal";
 import { checkConnection } from "./helpers/connect-ishodniy";
+import Loading from "./components/loaders/Loading";
 
 const App = () => {
   const [walletModalOptions, setWalletModalOptions] = useState({
@@ -27,13 +28,29 @@ const App = () => {
     adress: false,
   });
   const [showSyncModal, setShowSyncModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
   const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
+  useEffect(() => {
+    const onPageLoad = () => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    };
 
+    // Check if the page has already loaded
+    if (document.readyState === "complete") {
+      onPageLoad();
+    } else {
+      window.addEventListener("load", onPageLoad);
+      // Remove the event listener when component unmounts
+      return () => window.removeEventListener("load", onPageLoad);
+    }
+  }, []);
   document.documentElement.style.overflow = "auto";
   return (
     <UserContext.Provider value={providerValue}>
+      {loading && <Loading loading={loading} />}
       {showSyncModal && (
         <SyncModal
           setLoading={setLoading}
@@ -42,6 +59,7 @@ const App = () => {
       )}
       <WalletModal
         showSyncModal={showSyncModal}
+        loading={loading}
         setShowSyncModal={setShowSyncModal}
         setLoading={setLoading}
         walletModalOptions={walletModalOptions.open}
