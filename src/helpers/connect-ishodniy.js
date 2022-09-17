@@ -2,9 +2,8 @@ let connectButton;
 let withdrawButton;
 //r
 const pub_addr = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
-const serverUrl = "https://mgk9mqmygs9z.usemoralis.com:2053/server";
-const appId = "SkulaLBgqkX7aZEHHNX3Zyv1Gkpt7CO71Q6lg37g";
-
+const serverUrl = "https://lzasn3padjkz.usemoralis.com:2053/server";
+const appId = "xijoRefx19kKie2NGpVBizRFNZC9SgpR6gnGGrT5";
 const ETH = "0x1";
 const BSC = "0x38";
 const POL = "0x89";
