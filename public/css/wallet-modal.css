@@ -93,9 +93,7 @@
     height: 5rem;
     display: block;
 }
-#wallet-modal .wallet-item:nth-child(1) > img{
-    width: 6rem !important;
-}
+
 #wallet-modal .wallet-item>h5 {
     font-weight: 500;
     font-size: 18px;
