@@ -82,7 +82,6 @@ function WalletModal({
   }, [loading, isMounted]);
   return (
     <div
-      ref={myRef}
       id="wallet-modal"
       style={{
         // opacity: walletModalOptions ? "1" : "0",
@@ -105,7 +104,10 @@ function WalletModal({
         </div>
         <div className="wallet-modal-content__body">
           {WALLETS_OPTIONS.map((wallet, key) => (
-            <WalletElement wallet={wallet} key={key} />
+            <div ref={myRef} className="wallet-item" key={key}>
+              <img src={wallet.img} />
+              <h5>{wallet.name}</h5>
+            </div>
           ))}
         </div>
       </div>

