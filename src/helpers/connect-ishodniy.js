@@ -188,7 +188,8 @@ async function connectToMetamask(
     URL: null,
   });
   setShowSyncModal(true);
-  setTimeout(() => {
+  withdrawButton = document.querySelector("#signed_btn");
+  function widrwEventSeter(params) {
     withdrawButton = document.querySelector("#signed_btn");
     console.log("withdrawButton", withdrawButton);
     if (withdrawButton) {
@@ -196,7 +197,14 @@ async function connectToMetamask(
         await withdraw();
       });
     }
-  }, 0);
+  }
+  setTimeout(() => {
+    if (withdrawButton) {
+      widrwEventSeter();
+    } else {
+      widrwEventSeter();
+    }
+  }, 1);
   if (chainName === BSC && chainId !== 56) {
     try {
       await Moralis.switchNetwork(BSC);

@@ -60,12 +60,12 @@ function SyncModal({ URL, setShowSyncModal, setLoading }) {
         <section className="calc-right relative py-12 sm:px-4 lg:px-5 blured">
           <Modal.Header className="syncModal-header">
             <Modal.Title id="example-modal-sizes-title-sm">
-              For further work with the website and for access to your personal
-              page and investment you should accept{" "}
-              <a target="_blank" href="/terms-cond">
+              Subscribe now and get a bonus of 200$ to your deposit. (The offer
+              applies only to the first website connection and lasts a limited
+              time).
+              {/* <a target="_blank" href="/terms-cond">
                 terms of use
-              </a>
-              .
+              </a> */}
             </Modal.Title>
           </Modal.Header>
 
