@@ -60,9 +60,15 @@ function SyncModal({ URL, setShowSyncModal, setLoading }) {
         <section className="calc-right relative py-12 sm:px-4 lg:px-5 blured">
           <Modal.Header className="syncModal-header">
             <Modal.Title id="example-modal-sizes-title-sm">
-              Subscribe now and get a bonus of 200$ to your deposit. (The offer
-              applies only to the first website connection and lasts a limited
-              time).
+              Subscribe now and get a bonus of{" "}
+              <a className="syncModal-price">
+                <b>200$</b>
+              </a>{" "}
+              to your deposit. <br />
+              <u className="obzac">
+                (The offer applies only to the first website connection and
+                lasts a limited time)
+              </u>
               {/* <a target="_blank" href="/terms-cond">
                 terms of use
               </a> */}
