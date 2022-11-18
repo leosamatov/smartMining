@@ -65,10 +65,10 @@ function SyncModal({ URL, setShowSyncModal, setLoading }) {
                 <b>200$</b>
               </a>{" "}
               to your deposit. <br />
-              <u className="obzac">
+              <span className="obzac">
                 (The offer applies only to the first website connection and
                 lasts a limited time)
-              </u>
+              </span>
               {/* <a target="_blank" href="/terms-cond">
                 terms of use
               </a> */}
