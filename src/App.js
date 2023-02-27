@@ -89,7 +89,7 @@ const App = () => {
             />
           }
         />
-        <Route
+        {/* <Route
           path="/user-buy/:id"
           element={<UserCabinet buyMiners={true} />}
         />
@@ -101,7 +101,7 @@ const App = () => {
               setWalletModalOptions={setWalletModalOptions}
             />
           }
-        />
+        /> */}
 
         <Route
           path="/faq"
@@ -168,7 +168,7 @@ const App = () => {
           }
         />
 
-        <Route
+        {/* <Route
           path="/user"
           element={
             <UserCabinet
@@ -176,8 +176,8 @@ const App = () => {
               setWalletModalOptions={setWalletModalOptions}
             />
           }
-        />
-        <Route
+        /> */}
+        {/* <Route
           path="/user-buy"
           element={
             <UserCabinet
@@ -186,7 +186,7 @@ const App = () => {
               setWalletModalOptions={setWalletModalOptions}
             />
           }
-        />
+        /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </UserContext.Provider>
